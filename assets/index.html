@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+<title>CryptoQuest — Parallax Edition</title>
+<style>
+  html, body {
+    margin: 0; padding: 0; background: #000;
+    display: flex; justify-content: center; align-items: center;
+    width: 100dvw; height: 100dvh; overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overscroll-behavior: none;
+  }
+  #game { touch-action: none; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; position: relative; }
+  canvas { touch-action: none; display: block; }
+  #game::after {
+    content:''; position:absolute; inset:0; pointer-events:none; z-index:10;
+    background: radial-gradient(ellipse at 50% 45%, transparent 45%, rgba(0,0,0,0.6) 100%);
+  }
+  #game::before {
+    content:''; position:absolute; inset:0; pointer-events:none; z-index:11; opacity:.45; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/></svg>");
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="game"></div>
+<script src="https://cdn.jsdelivr.net/npm/phaser@4/dist/phaser.min.js"></script>
+<script>
+// ══════════════════════════════════════════════════════════
+//  CRYPTOQUEST — PARALLAX CAROUSEL EDITION
+//  Multi-step task resolution • depth carousel • parallax
+// ══════════════════════════════════════════════════════════
+const W = 390, H = 844;
+
+const COL = {
+  VOID:0x02080d, DEEP:0x07131c, CARD:0x0d202c, LIFT:0x143747, FROST:0x1f4865,
+  CYAN:0x00d4ff, CYAN_DK:0x006e8a, CYAN_GL:0x7ff3ff,
+  GOLD:0xf5c518, GOLD_LT:0xffe98a, AMBER:0xff8a3d,
+  GREEN:0x00e676, GREEN_DK:0x0a4a2c, RED:0xff3d57, RED_DK:0x4a0f1c,
+  PURPLE:0x9c5fff, PINK:0xff5fa8, TXT:0xe8f4f8, MUTED:0x5a8fa8, WHITE:0xffffff, BLACK:0x000000
+};
+const HX = {
+  cyan:'#00d4ff', cyanGl:'#7ff3ff', gold:'#f5c518', goldLt:'#ffe98a', green:'#00e676',
+  red:'#ff3d57', txt:'#e8f4f8', dim:'#a8c8d8', muted:'#5a8fa8', deep:'#07131c',
+  purple:'#9c5fff', amber:'#ff8a3d', white:'#ffffff'
+};
+
+const STATE = {
+  xp:0, coins:50, streak:0, hearts:5, level:1, lessonsCompleted:0,
+  wrongAnswers:0, lessonProgress:0, currentLesson:null,
+  achFirst:false, achStreak:false, achChart:false
+};
+
+// ── LESSONS ───────────────────────────────────────────────
+const LESSONS = [
+  { title:'Intro to BTC',    icon:'btc',    hue:COL.GOLD,   q:[0,1,2,3,4] },
+  { title:'Bull & Bear',     icon:'bull',   hue:COL.GREEN,  q:[5,6,7,8,9] },
+  { title:'Chart Basics',    icon:'chart',  hue:COL.CYAN,   q:[10,11,12,13,14] },
+  { title:'Candlesticks',    icon:'candle', hue:COL.AMBER,  q:[15,16,17,18,19] },
+  { title:'Support & Resist',icon:'walls',  hue:COL.PURPLE, q:[20,21,22,23,24] },
+  { title:'RSI & MACD',      icon:'rsi',    hue:COL.PINK,   q:[25,26,27,28,29] },
+  { title:'Risk Management', icon:'shield', hue:COL.CYAN,   q:[30,31,32,33,34] },
+  { title:'Final Test',      icon:'trophy', hue:COL.GOLD,   q:[35,36,37,38,39] },
+];
+
+// ── QUESTION BANK (tip = step1 brief, expl = step3 result) ─
+const Q = [
+{t:'mc',q:'What does BTC stand for?',o:['BitTrade Coin','Bitcoin','ByteToken','BlockTrade'],a:1,tip:'BTC is the ticker symbol used on every exchange for the original cryptocurrency.',ex:'BTC = Bitcoin, launched in 2009 as the first decentralized digital currency.'},
+{t:'mc',q:'Who created Bitcoin?',o:['Vitalik Buterin','Satoshi Nakamoto','Charlie Lee','Nick Szabo'],a:1,tip:'The creator published a 9-page whitepaper in 2008 and then vanished.',ex:'Satoshi Nakamoto is the pseudonymous author of the Bitcoin whitepaper.'},
+{t:'mc',q:'Max supply of Bitcoin?',o:['18 million','21 million','100 million','Unlimited'],a:1,tip:'Scarcity is coded into the protocol — no one can print more.',ex:'21 million BTC is the hard cap. This makes Bitcoin deflationary by design.'},
+{t:'mc',q:'What does HODL mean?',o:['Hold On for Dear Life','Hold Overnight Daily Limit','Hold Or Drop Later','High Order Daily Log'],a:0,tip:'It started as a typo in a 2013 forum post and became a philosophy.',ex:'HODL = Hold On for Dear Life — resisting the urge to panic sell.'},
+{t:'mc',q:'What is a blockchain?',o:['A bank account','A decentralized ledger','A type of coin','A wallet app'],a:1,tip:'Think of a shared notebook that thousands of computers verify together.',ex:'A blockchain is a distributed, tamper-resistant ledger of transactions.'},
+
+{t:'mc',q:'A bull market means:',o:['Falling prices','Rising prices','Flat prices','Zero volume'],a:1,tip:'A bull thrusts its horns upward — that is the memory hook.',ex:'Bull market = sustained rising prices and widespread optimism.'},
+{t:'mc',q:'A bear market usually means a drop of:',o:['10%','20%+','5%','50%+'],a:1,tip:'There is a widely-used percentage threshold that defines it.',ex:'A 20%+ decline from recent highs is the standard bear market definition.'},
+{t:'mc',q:'"Going long" means you:',o:['Sell first','Buy expecting a rise','Buy expecting a fall','Stay in cash'],a:1,tip:'Long and short are the two directions any trader can bet.',ex:'Long = you profit when price rises. It is the default buy-and-hold direction.'},
+{t:'mc',q:'Shorting profits when price:',o:['Rises','Falls','Is flat','Doubles'],a:1,tip:'You borrow the asset, sell high, then buy back lower.',ex:'Short sellers profit from falling prices — but losses are theoretically unlimited.'},
+{t:'ch',q:'Read the pattern:',c:'bull',ch:'bull',tip:'Look at the direction of the closes across the sequence.',ex:'Each candle closes higher than the last — a clean bullish uptrend.'},
+
+{t:'mc',q:'The candle BODY represents:',o:['High & Low','Open & Close','Volume','Time'],a:1,tip:'The thick rectangle and the thin line tell two different stories.',ex:'The body spans open to close. The wick shows the high and low extremes.'},
+{t:'mc',q:'The WICK (shadow) shows:',o:['Open price','Close price','High & Low','Volume'],a:2,tip:'Wicks reveal rejection — where price went but could not stay.',ex:'Wicks mark the highest and lowest prices traded in that period.'},
+{t:'ch',q:'Read the pattern:',c:'bear',ch:'bear',tip:'Track whether each close is above or below the previous one.',ex:'Successive lower closes with red bodies — a bearish downtrend.'},
+{t:'mc',q:'A green candle means:',o:['Price rose','Price fell','No change','Volume dropped'],a:0,tip:'Colour encodes one simple comparison: close vs open.',ex:'Green = close is above open = buyers won the period.'},
+{t:'mc',q:'A red candle means:',o:['Price rose','Price fell','No change','Volume rose'],a:1,tip:'Colour encodes one simple comparison: close vs open.',ex:'Red = close is below open = sellers won the period.'},
+
+{t:'mc',q:'A "doji" candle looks like:',o:['A long body','A cross / plus','A circle','A triangle'],a:1,tip:'It appears when buyers and sellers end in a stalemate.',ex:'Doji: open ≈ close, forming a cross. It signals indecision.'},
+{t:'mc',q:'A hammer pattern signals:',o:['A crash','Bullish reversal','Bearish reversal','Nothing'],a:1,tip:'Small body on top, long wick below — buyers defended the lows.',ex:'A hammer at support often marks a bullish reversal.'},
+{t:'ch',q:'Read the pattern:',c:'bull',ch:'bull_small',tip:'Fewer candles, same logic — follow the closes.',ex:'Steadily higher closes with green bodies — bullish momentum building.'},
+{t:'mc',q:'A long red candle indicates:',o:['Strong buying','Strong selling','Indecision','Low volume'],a:1,tip:'Body length equals conviction of that period.',ex:'A long red body = heavy selling pressure dominated the session.'},
+{t:'mc',q:'Three black crows is:',o:['Bullish reversal','Bearish continuation','Neutral','A volume signal'],a:1,tip:'Three of the same colour in a row is a momentum statement.',ex:'Three consecutive long red candles confirm bearish continuation.'},
+
+{t:'mc',q:'Support is a level where:',o:['Selling increases','Buying halts declines','Price always bounces','Trend always flips'],a:1,tip:'Picture a floor that buyers keep defending.',ex:'Support = a price floor where demand historically absorbs selling.'},
+{t:'mc',q:'Resistance is a level where:',o:['Buying increases','Selling halts rallies','Volume spikes','Trend flips up'],a:1,tip:'Picture a ceiling that sellers keep defending.',ex:'Resistance = a price ceiling where supply historically absorbs buying.'},
+{t:'mc',q:'Broken support often becomes:',o:['New resistance','New support','Neutral','Irrelevant'],a:0,tip:'Levels flip roles once decisively broken.',ex:'Old support becomes new resistance — the classic flip.'},
+{t:'ch',q:'Read the pattern:',c:'bear',ch:'bear_break',tip:'Watch what happens after the level gives way.',ex:'Price broke down and kept falling — bearish breakdown confirmed.'},
+{t:'mc',q:'A breakout occurs when price:',o:['Stays in range','Clears a key level decisively','Forms a doji','Reverses instantly'],a:1,tip:'Conviction matters more than the touch itself.',ex:'A breakout is a decisive move beyond support or resistance, ideally on volume.'},
+
+{t:'mc',q:'RSI above 70 indicates:',o:['Oversold','Overbought','Neutral','Safe uptrend'],a:1,tip:'RSI is an oscillator bounded between 0 and 100.',ex:'RSI > 70 = overbought. Momentum is stretched; a pullback is possible.'},
+{t:'mc',q:'RSI below 30 indicates:',o:['Overbought','Oversold','Neutral','Strong trend'],a:1,tip:'The mirror image of the overbought threshold.',ex:'RSI < 30 = oversold. Selling may be exhausted; a bounce is possible.'},
+{t:'mc',q:'MACD stands for:',o:['Moving Average Convergence Divergence','Multi Asset Crypto Data','Market Average Chart Display','Momentum And Cycle Detector'],a:0,tip:'It is built from two moving averages and their difference.',ex:'MACD = Moving Average Convergence Divergence — a trend/momentum hybrid.'},
+{t:'ch',q:'Read the pattern:',c:'bull',ch:'bull_macd',tip:'Rising closes usually precede a bullish MACD cross.',ex:'Rising structure — MACD would be crossing above its signal line here.'},
+{t:'mp',q:'Match each indicator',tip:'Link every term on the left to its correct definition on the right.',ex:'Knowing indicator definitions cold is the base layer of technical analysis.',
+ p:[['RSI','Momentum oscillator 0–100'],['MACD','Two moving averages + signal'],['Support','Floor that absorbs selling']]},
+
+{t:'mc',q:'Risk per trade should be about:',o:['50%','25%','1–2%','10%'],a:2,tip:'Survival first. Professionals risk a tiny slice per idea.',ex:'Risking 1–2% per trade lets you survive long losing streaks.'},
+{t:'mc',q:'A stop-loss order:',o:['Guarantees profit','Caps your loss','Doubles gains','Is never needed'],a:1,tip:'It is a pre-committed exit decided before emotion arrives.',ex:'A stop-loss automatically exits the trade to cap downside.'},
+{t:'mc',q:'Diversification reduces:',o:['Taxes','Unsystematic risk','All risk','Gas fees'],a:1,tip:'Some risk is specific to one asset; some hits the whole market.',ex:'Diversification cuts asset-specific (unsystematic) risk, not market risk.'},
+{t:'mc',q:'Position size depends on:',o:['Account size & risk tolerance','Time of day','Coin name','Twitter hype'],a:0,tip:'Size is math, not feeling: account × risk% ÷ stop distance.',ex:'Position size = (account × risk%) ÷ distance to your stop.'},
+{t:'ch',q:'Read the pattern:',c:'bear',ch:'bear_risk',tip:'If you were long here, your stop would already be hit.',ex:'A sustained downtrend — exactly where risk rules protect your capital.'},
+
+{t:'mc',q:'Which is NOT a cryptocurrency?',o:['BTC','ETH','SPX','SOL'],a:2,tip:'Three of these trade on crypto exchanges. One does not.',ex:'SPX is the S&P 500 stock index, not a cryptocurrency.'},
+{t:'mc',q:'A "whale" is:',o:['A scam','A very large holder','A trading bot','A stablecoin'],a:1,tip:'Their orders alone can move the entire order book.',ex:'Whales hold enough supply to move markets with a single trade.'},
+{t:'mc',q:'A stablecoin is:',o:['Always rising','Pegged to fiat or assets','A mining reward','A privacy coin'],a:1,tip:'It is designed to NOT be volatile.',ex:'Stablecoins like USDC track a reference asset to hold steady value.'},
+{t:'mc',q:'"DYOR" means:',o:['Do Your Own Research','Double Your Order Rate','Daily Yield On Returns','Deposit Your Own Reserve'],a:0,tip:'The single most repeated piece of advice in crypto.',ex:'DYOR = Do Your Own Research. Never trade on someone else’s conviction.'},
+{t:'mc',q:'Best long-term mindset?',o:['Panic sell','FOMO buy','Patience + a written plan','Copy every tweet'],a:2,tip:'Process beats prediction over a full market cycle.',ex:'A written plan plus patience beats emotional reaction every time.'},
+];
+
+const BOARD = [
+  {n:'SatoshiFan',x:4200,c:COL.GOLD},{n:'MoonHodler',x:3950,c:COL.CYAN},
+  {n:'ChartWizard',x:3700,c:COL.PURPLE},{n:'DiamondHands',x:3400,c:COL.GREEN},
+  {n:'CryptoNinja',x:3100,c:COL.AMBER},{n:'BitMaxi',x:2800,c:COL.RED},
+  {n:'EthBuilder',x:2400,c:COL.MUTED},{n:'SolSurfer',x:2000,c:COL.CYAN},
+  {n:'AltcoinPro',x:1700,c:COL.GOLD},{n:'NewbieTrader',x:1200,c:COL.PURPLE},
+];
+
+// ══════════════════════════════════════════════════════════
+//  HELPERS
+// ══════════════════════════════════════════════════════════
+function T(scene,x,y,str,size,color,o={}){
+  const t=scene.add.text(x,y,str,{
+    fontFamily:o.mono?'"JetBrains Mono", monospace':'"Space Grotesk", sans-serif',
+    fontStyle:o.w||'700', fontSize:size+'px', color, align:o.align||'center',
+    lineSpacing:o.ls||0
+  }).setOrigin(o.align==='left'?0:o.align==='right'?1:0.5,o.oy!==undefined?o.oy:0.5).setResolution(2);
+  if(o.wrap) t.setWordWrapWidth(o.wrap);
+  if(o.glow) t.setShadow(0,0,o.glow,o.gs||12,true,true);
+  if(o.sp && t.setLetterSpacing) t.setLetterSpacing(o.sp);
+  return t;
+}
+
+// Tap-safe button (ignores taps that were drags)
+function BTN(scene,x,y,w,h,label,cb,o={}){
+  const c=scene.add.container(x,y);
+  const r=o.r??20, f1=o.f1??COL.CYAN, f2=o.f2??COL.CYAN_DK, bd=o.bd??COL.CYAN;
+  const glow=scene.add.graphics();
+  glow.fillStyle(bd,0.28); glow.fillRoundedRect(-w/2,-h/2+5,w,h,r);
+  glow.setBlendMode(Phaser.BlendModes.ADD); c.add(glow);
+  const bg=scene.add.graphics();
+  if(o.ghost){ bg.fillStyle(COL.CARD,0.85); bg.fillRoundedRect(-w/2,-h/2,w,h,r); }
+  else{
+    bg.fillStyle(f1,1); bg.fillRoundedRect(-w/2,-h/2,w,h,r);
+    bg.fillStyle(f2,0.55); bg.fillRoundedRect(-w/2,0,w,h/2,{tl:0,tr:0,bl:r,br:r});
+  }
+  bg.lineStyle(2,bd,o.ghost?0.7:0.95); bg.strokeRoundedRect(-w/2,-h/2,w,h,r);
+  bg.lineStyle(1,COL.WHITE,0.22); bg.beginPath();
+  bg.moveTo(-w/2+r,-h/2+1.5); bg.lineTo(w/2-r,-h/2+1.5); bg.strokePath();
+  c.add(bg);
+  const t=T(scene,0,0,label,o.fs??17,o.tc??HX.deep,{w:'700',sp:o.sp??1});
+  c.add(t); c.label=t; c.bgG=bg;
+  const hit=scene.add.rectangle(0,0,w,h,COL.WHITE,0).setInteractive({useHandCursor:true});
+  let dx0=0,dy0=0;
+  hit.on('pointerdown',p=>{dx0=p.x;dy0=p.y;
+    scene.tweens.add({targets:c,scaleX:.95,scaleY:.95,duration:70,yoyo:true,ease:'Quad.easeOut'});});
+  hit.on('pointerup',p=>{
+    if(Math.abs(p.x-dx0)>12||Math.abs(p.y-dy0)>12) return;
+    if(scene.isDragging) return;
+    const rp=scene.add.circle(0,0,8,bd,0.45); c.add(rp);
+    scene.tweens.add({targets:rp,radius:w*0.75,alpha:0,duration:480,ease:'Cubic.easeOut',onComplete:()=>rp.destroy()});
+    cb&&cb();
+  });
+  c.add(hit); c.hitZone=hit;
+  return c;
+}
+
+function burst(scene,x,y,o={}){
+  const n=o.n??22, cols=o.cols??[COL.CYAN,COL.GOLD,COL.GREEN,COL.PURPLE];
+  for(let i=0;i<n;i++){
+    const p=scene.add.graphics();
+    p.fillStyle(Phaser.Utils.Array.GetRandom(cols),1);
+    p.fillCircle(0,0,Phaser.Math.FloatBetween((o.s??4)*.4,(o.s??4)));
+    p.x=x; p.y=y; p.setBlendMode(Phaser.BlendModes.ADD); p.setDepth(900);
+    const a=(i/n)*Math.PI*2+Phaser.Math.FloatBetween(-.25,.25);
+    const sp=Phaser.Math.FloatBetween((o.v??210)*.45,(o.v??210));
+    scene.tweens.add({targets:p,x:x+Math.cos(a)*sp,y:y+Math.sin(a)*sp,alpha:0,
+      scaleX:.3,scaleY:.3,duration:Phaser.Math.Between(500,(o.life??850)),
+      ease:'Cubic.easeOut',onComplete:()=>p.destroy()});
+  }
+}
+
+function floatUp(scene,x,y,str,color,o={}){
+  const t=T(scene,x,y,str,o.s??30,color,{w:'700',glow:color,gs:16}).setDepth(950);
+  scene.tweens.add({targets:t,y:y-95,alpha:0,scaleX:1.25,scaleY:1.25,
+    duration:o.d??1100,ease:'Cubic.easeOut',onComplete:()=>t.destroy()});
+}
+
+// ══════════════════════════════════════════════════════════
+//  PARALLAX BACKGROUND  (multi-depth layers)
+// ══════════════════════════════════════════════════════════
+class Parallax {
+  constructor(scene,opts={}){
+    this.scene=scene; this.layers=[];
+    const hue = opts.hue ?? COL.CYAN;
+
+    // base wash
+    const base=scene.add.graphics().setDepth(-100);
+    base.fillStyle(COL.VOID,1); base.fillRect(-200,-200,W+400,H+400);
+
+    // L0 — deep nebula orbs (slowest)
+    const l0=scene.add.container(0,0).setDepth(-90);
+    for(let i=0;i<5;i++){
+      const g=scene.add.graphics();
+      const c=[hue,COL.PURPLE,COL.CYAN,COL.PINK][i%4];
+      g.fillStyle(c,0.055);
+      const r=Phaser.Math.Between(120,230);
+      g.fillCircle(0,0,r);
+      g.x=Phaser.Math.Between(-40,W+40); g.y=Phaser.Math.Between(80,H-120);
+      g.setBlendMode(Phaser.BlendModes.ADD);
+      scene.tweens.add({targets:g,scaleX:1.25,scaleY:1.25,alpha:0.5,
+        duration:Phaser.Math.Between(4000,7000),yoyo:true,repeat:-1,ease:'Sine.easeInOut'});
+      l0.add(g);
+    }
+    this.layers.push({obj:l0,f:6,bx:0});
+
+    // L1 — far star dust
+    const l1=scene.add.container(0,0).setDepth(-80);
+    for(let i=0;i<70;i++){
+      const g=scene.add.graphics();
+      g.fillStyle(Phaser.Utils.Array.GetRandom([COL.CYAN,COL.WHITE,COL.PURPLE]),Phaser.Math.FloatBetween(.15,.5));
+      g.fillCircle(0,0,Phaser.Math.FloatBetween(.7,1.7));
+      g.x=Phaser.Math.Between(-60,W+60); g.y=Phaser.Math.Between(0,H);
+      g.setBlendMode(Phaser.BlendModes.ADD);
+      scene.tweens.add({targets:g,alpha:0.05,duration:Phaser.Math.Between(1200,3600),
+        yoyo:true,repeat:-1,delay:Phaser.Math.Between(0,2000)});
+      l1.add(g);
+    }
+    this.layers.push({obj:l1,f:16,bx:0});
+
+    // L2 — perspective grid
+    const l2=scene.add.container(0,0).setDepth(-70);
+    const grid=scene.add.graphics();
+    grid.lineStyle(1,COL.FROST,0.30);
+    for(let x=-120;x<=W+120;x+=34) grid.lineBetween(x,0,x,H);
+    for(let y=0;y<=H;y+=34) grid.lineBetween(-120,y,W+120,y);
+    grid.setAlpha(0.35);
+    l2.add(grid);
+    // horizon glow
+    const hz=scene.add.graphics();
+    hz.fillStyle(hue,0.10); hz.fillEllipse(W/2,H*0.42,W*1.5,260);
+    hz.setBlendMode(Phaser.BlendModes.ADD); l2.add(hz);
+    this.layers.push({obj:l2,f:34,bx:0});
+
+    // L3 — near motes (fastest, in front of cards handled by depth)
+    const l3=scene.add.container(0,0).setDepth(400);
+    for(let i=0;i<26;i++){
+      const g=scene.add.graphics();
+      g.fillStyle(Phaser.Utils.Array.GetRandom([COL.CYAN_GL,COL.GOLD,COL.WHITE]),Phaser.Math.FloatBetween(.10,.30));
+      g.fillCircle(0,0,Phaser.Math.FloatBetween(1.4,3.2));
+      g.x=Phaser.Math.Between(-60,W+60); g.y=Phaser.Math.Between(60,H-60);
+      g.setBlendMode(Phaser.BlendModes.ADD);
+      scene.tweens.add({targets:g,y:g.y-Phaser.Math.Between(40,110),alpha:0,
+        duration:Phaser.Math.Between(2600,5200),repeat:-1,delay:Phaser.Math.Between(0,3000)});
+      l3.add(g);
+    }
+    this.layers.push({obj:l3,f:78,bx:0});
+
+    // scan sweep
+    const sweep=scene.add.graphics().setDepth(420);
+    sweep.fillStyle(hue,0.055); sweep.fillRect(0,-90,W,90);
+    sweep.setBlendMode(Phaser.BlendModes.ADD);
+    scene.tweens.add({targets:sweep,y:H+120,duration:5200,repeat:-1,ease:'Sine.easeInOut',delay:1200});
+    this.sweep=sweep;
+  }
+  setScroll(s){ this.layers.forEach(l=>{ l.obj.x = l.bx - s*l.f; }); }
+  tiltY(v){ this.layers.forEach(l=>{ l.obj.y = -v*l.f*0.18; }); }
+}
+
+// ══════════════════════════════════════════════════════════
+//  DEPTH CAROUSEL — drag, inertia, snap, 3D-ish transform
+// ══════════════════════════════════════════════════════════
+class Carousel {
+  constructor(scene,o={}){
+    this.s=scene;
+    this.cx=o.cx??W/2; this.cy=o.cy??H/2;
+    this.gap=o.gap??300;
+    this.dScale=o.dScale??0.17;
+    this.dFade=o.dFade??0.42;
+    this.dY=o.dY??30;
+    this.rot=o.rot??0.055;
+    this.panels=[];
+    this.scroll=0; this.target=0;
+    this.min=0; this.max=0;
+    this.bounds=o.bounds??{y0:0,y1:H};
+    this.parallax=o.parallax||null;
+    this.onSettle=o.onSettle||null;
+    this.enabled=o.drag!==false;
+    this.dragging=false; this.moved=0; this.vel=0;
+    this.frozen=false;
+    this._settled=0;
+    this._bind();
+  }
+  _bind(){
+    const s=this.s;
+    s.input.on('pointerdown',p=>{
+      if(!this.enabled) return;
+      if(p.y<this.bounds.y0||p.y>this.bounds.y1) return;
+      this.dragging=true; this.sx=p.x; this.s0=this.scroll;
+      this.moved=0; this.lx=p.x; this.vel=0;
+    });
+    s.input.on('pointermove',p=>{
+      if(!this.dragging) return;
+      const dx=p.x-this.sx;
+      this.moved=Math.max(this.moved,Math.abs(dx));
+      if(this.moved>9) s.isDragging=true;
+      let ns=this.s0-dx/this.gap;
+      // rubber band at edges
+      if(ns<this.min) ns=this.min-(this.min-ns)*0.35;
+      if(ns>this.max) ns=this.max+(ns-this.max)*0.35;
+      this.scroll=ns;
+      this.vel=(this.lx-p.x)/this.gap; this.lx=p.x;
+    });
+    s.input.on('pointerup',()=>{
+      if(!this.dragging) return;
+      this.dragging=false;
+      let t=Math.round(this.scroll+this.vel*7);
+      this.target=Phaser.Math.Clamp(t,this.min,this.max);
+      s.time.delayedCall(40,()=>{s.isDragging=false;});
+    });
+  }
+  add(container,inner){
+    this.panels.push({c:container,inner:inner||[]});
+    this.max=this.panels.length-1;
+    return this.panels.length-1;
+  }
+  clear(){ this.panels.forEach(p=>p.c.destroy()); this.panels=[]; this.max=0; this.scroll=0; this.target=0; }
+  setMax(m){ this.max=Phaser.Math.Clamp(m,0,this.panels.length-1); }
+  goTo(i,instant){
+    this.target=Phaser.Math.Clamp(i,this.min,this.max);
+    if(instant) this.scroll=this.target;
+  }
+  get index(){ return Math.round(this.scroll); }
+  update(){
+    if(this.frozen) return;
+    if(!this.dragging){
+      const d=this.target-this.scroll;
+      this.scroll+= d*0.16;
+      if(Math.abs(d)<0.001) this.scroll=this.target;
+    }
+    const sc=this.scroll;
+    this.panels.forEach((p,i)=>{
+      const d=i-sc, ad=Math.min(Math.abs(d),2.4);
+      const sgn=Math.sign(d);
+      const scale=Math.max(0.55,1-ad*this.dScale);
+      const alpha=Math.max(0,1-ad*this.dFade);
+      p.c.x=this.cx+d*this.gap*(1-0.07*Math.min(ad,1.2));
+      p.c.y=this.cy+ad*this.dY;
+      p.c.setScale(scale);
+      p.c.setAlpha(alpha);
+      p.c.rotation=sgn*Math.min(ad,1)*this.rot;
+      p.c.setDepth(200-Math.round(ad*20));
+      p.c.visible=ad<2.35;
+      // inner layered parallax
+      p.inner.forEach(l=>{ l.o.x=(l.bx||0)-d*l.f; if(l.fy) l.o.y=(l.by||0)-d*l.fy; });
+    });
+    if(this.parallax) this.parallax.setScroll(sc);
+    // settle callback
+    const idx=Math.round(sc);
+    if(!this.dragging && Math.abs(sc-idx)<0.01 && this._settled!==idx){
+      this._settled=idx; this.onSettle&&this.onSettle(idx);
+    }
+  }
+}
+
+// ── Step dots (morphing pill) ─────────────────────────────
+class StepDots{
+  constructor(scene,x,y,n,o={}){
+    this.s=scene; this.x=x; this.y=y; this.n=n;
+    this.g=scene.add.graphics().setDepth(500);
+    this.col=o.col??COL.CYAN; this.gapPx=o.gap??16; this.cur=0; this.unlocked=0;
+    this.draw(0);
+  }
+  draw(f){
+    const g=this.g; g.clear();
+    const dw=8, aw=26;
+    let total=0;
+    for(let i=0;i<this.n;i++) total += (i===Math.round(f)?aw:dw) + this.gapPx;
+    total-=this.gapPx;
+    let cx=this.x-total/2;
+    for(let i=0;i<this.n;i++){
+      const act=Math.abs(i-f)<0.5;
+      const w=act?aw:dw;
+      const on=i<=this.unlocked;
+      if(act){ g.fillStyle(this.col,0.20); g.fillRoundedRect(cx-4,this.y-8,w+8,16,8); }
+      g.fillStyle(act?this.col:(on?COL.FROST:0x11202b), act?1:(on?0.85:0.6));
+      g.fillRoundedRect(cx,this.y-4,w,8,4);
+      cx+=w+this.gapPx;
+    }
+  }
+  setUnlocked(u){ this.unlocked=u; }
+  update(f){ this.draw(f); }
+}
+
+// ── Icons ─────────────────────────────────────────────────
+function lessonIcon(g,icon,c){
+  g.fillStyle(c,1);
+  switch(icon){
+    case 'btc': g.fillCircle(0,0,20); g.fillStyle(COL.VOID,1);
+      g.fillRect(-1.5,-14,3,28); g.fillRect(-8,-10,17,3.5); g.fillRect(-8,6,17,3.5); break;
+    case 'bull': g.fillCircle(0,2,14); g.fillTriangle(8,-10,21,-8,12,1); g.fillTriangle(-8,-10,-21,-8,-12,1);
+      g.fillStyle(COL.VOID,1); g.fillCircle(-5,0,2.5); g.fillCircle(5,0,2.5); break;
+    case 'chart': [[-15,8,5,12],[-6,-2,5,22],[3,-10,5,30],[12,2,5,18]].forEach(r=>g.fillRect(r[0],r[1],r[2],r[3])); break;
+    case 'candle': g.fillRect(-9,-4,6,16); g.fillRect(-7.5,-12,3,32);
+      g.fillRect(4,-12,6,14); g.fillRect(5.5,-18,3,28); break;
+    case 'walls': g.fillRect(-19,-11,38,5); g.fillRect(-19,7,38,5);
+      g.fillStyle(c,0.45); g.fillRect(-14,-3,28,4); break;
+    case 'rsi': [5,10,18,13,7,13,18,10,5].forEach((h,i)=>g.fillRect(-19+i*4.6,4-h/2,3.4,h)); break;
+    case 'shield': g.fillCircle(0,-5,14); g.fillTriangle(-14,-3,14,-3,0,15);
+      g.fillStyle(COL.VOID,1); g.fillCircle(0,-5,7); break;
+    case 'trophy': g.fillCircle(0,-4,12); g.fillStyle(COL.VOID,0.35); g.fillCircle(-4,-8,4);
+      g.fillStyle(c,1); g.fillRect(-6,6,12,6); g.fillRect(-10,12,20,5); break;
+  }
+}
+function heartIcon(scene,x,y,filled,s=7){
+  const c=scene.add.container(x,y);
+  if(filled){const gl=scene.add.graphics();gl.fillStyle(COL.RED,.35);gl.fillCircle(0,0,s+5);
+    gl.setBlendMode(Phaser.BlendModes.ADD);c.add(gl);}
+  const g=scene.add.graphics(); g.fillStyle(filled?COL.RED:0x3a1a24,1);
+  g.fillCircle(-s*.75,-s*.25,s*.8); g.fillCircle(s*.75,-s*.25,s*.8);
+  g.fillTriangle(-s*1.55,s*.25,s*1.55,s*.25,0,s*1.75); c.add(g);
+  return c;
+}
+
+// ══════════════════════════════════════════════════════════
+//  BOOT
+// ══════════════════════════════════════════════════════════
+class BootScene extends Phaser.Scene{
+  constructor(){super('Boot');}
+  create(){
+    this.cameras.main.setBackgroundColor(COL.VOID);
+    this.px=new Parallax(this,{hue:COL.CYAN});
+    let t=0;
+    this.time.addEvent({delay:16,repeat:-1,callback:()=>{t+=0.01; this.px.setScroll(Math.sin(t)*3);}});
+
+    const word='CRYPTOQUEST', y0=H/2-70;
+    const letters=[];
+    const step=27, sx=W/2-(word.length-1)*step/2;
+    for(let i=0;i<word.length;i++){
+      const ch=this.add.text(sx+i*step,y0-40,word[i],{
+        fontFamily:'"Space Grotesk", sans-serif',fontStyle:'700',fontSize:'34px',color:HX.cyan
+      }).setOrigin(.5).setResolution(2).setAlpha(0).setScale(2.2);
+      ch.setShadow(0,0,HX.cyanGl,20,true,true);
+      letters.push(ch);
+      this.tweens.add({targets:ch,alpha:1,y:y0,scaleX:1,scaleY:1,
+        duration:620,delay:240+i*62,ease:'Back.easeOut',
+        onStart:()=>burst(this,ch.x,y0,{n:7,cols:[COL.CYAN,COL.CYAN_GL],v:70,life:520,s:2}),
+        onComplete:()=>this.tweens.add({targets:ch,y:y0-4,duration:1400,yoyo:true,repeat:-1,
+          ease:'Sine.easeInOut',delay:i*70})});
+    }
+
+    const sub=T(this,W/2,y0+46,'PARALLAX  TRADING  ACADEMY',11,HX.dim,{mono:true,w:'500',sp:5}).setAlpha(0);
+    this.tweens.add({targets:sub,alpha:.75,duration:800,delay:1300});
+
+    // orbital ring
+    const ring=this.add.container(W/2,y0+130);
+    const rg=this.add.graphics();
+    rg.lineStyle(1.5,COL.CYAN,0.45); rg.strokeEllipse(0,0,220,54);
+    rg.lineStyle(1,COL.PURPLE,0.3); rg.strokeEllipse(0,0,160,38);
+    ring.add(rg);
+    const orb=this.add.graphics(); orb.fillStyle(COL.GOLD,1); orb.fillCircle(0,0,5);
+    orb.setBlendMode(Phaser.BlendModes.ADD); ring.add(orb);
+    let ang=0;
+    this.time.addEvent({delay:16,repeat:-1,callback:()=>{ang+=0.035; orb.x=Math.cos(ang)*110; orb.y=Math.sin(ang)*27;}});
+    ring.setAlpha(0);
+    this.tweens.add({targets:ring,alpha:1,duration:900,delay:1200});
+
+    // loader
+    const bw=250,bx=W/2-bw/2,by=H/2+150;
+    const track=this.add.graphics(); track.fillStyle(0x08161e,1); track.fillRoundedRect(bx,by,bw,5,3);
+    track.lineStyle(1,COL.FROST,.5); track.strokeRoundedRect(bx,by,bw,5,3); track.setAlpha(0);
+    this.tweens.add({targets:track,alpha:1,duration:400,delay:1500});
+    const fill=this.add.graphics(); const o={w:0};
+    const pctTxt=T(this,W/2,by+26,'0%',10,HX.muted,{mono:true,sp:3}).setAlpha(0);
+    this.tweens.add({targets:pctTxt,alpha:1,duration:400,delay:1500});
+    this.tweens.add({targets:o,w:bw,duration:1600,delay:1700,ease:'Cubic.easeInOut',
+      onUpdate:()=>{fill.clear();fill.fillStyle(COL.CYAN,1);fill.fillRoundedRect(bx,by,o.w,5,3);
+        fill.fillStyle(COL.CYAN_GL,.9);fill.fillCircle(bx+o.w,by+2.5,4);
+        fill.setBlendMode(Phaser.BlendModes.ADD);
+        pctTxt.setText(Math.round(o.w/bw*100)+'%');},
+      onComplete:()=>{ this.cameras.main.flash(260,0,190,255);
+        this.time.delayedCall(220,()=>this.scene.start('Home')); }});
+    this.cameras.main.flash(600,0,25,50);
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+//  HOME — parallax lesson carousel
+// ══════════════════════════════════════════════════════════
+class HomeScene extends Phaser.Scene{
+  constructor(){super('Home');}
+  create(){
+    this.isDragging=false;
+    this.cameras.main.setBackgroundColor(COL.VOID);
+    this.px=new Parallax(this,{hue:COL.CYAN});
+    this.buildHUD();
+
+    this.car=new Carousel(this,{cx:W/2,cy:H/2-4,gap:292,dScale:.155,dFade:.40,dY:34,rot:.06,
+      bounds:{y0:110,y1:H-150},parallax:this.px,
+      onSettle:(i)=>this.onCard(i)});
+
+    LESSONS.forEach((L,i)=>this.buildCard(L,i));
+    this.car.goTo(Math.min(STATE.lessonsCompleted,LESSONS.length-1),true);
+    this.car.scroll-=0.9;   // glide-in entrance
+
+    this.dots=new StepDots(this,W/2,H-118,LESSONS.length,{col:COL.CYAN,gap:9});
+    this.dots.setUnlocked(STATE.lessonsCompleted);
+
+    this.hint=T(this,W/2,H-146,'‹  SWIPE TO EXPLORE  ›',10,HX.muted,{mono:true,sp:4}).setDepth(500);
+    this.tweens.add({targets:this.hint,alpha:.35,duration:1400,yoyo:true,repeat:-1});
+
+    this.buildNav(0);
+    if(STATE.streak>0 && STATE.streak%7===0) this.time.delayedCall(800,()=>this.milestone());
+    this.cameras.main.fadeIn(500,0,0,0);
+  }
+
+  buildHUD(){
+    const h=92;
+    const g=this.add.graphics().setDepth(500);
+    g.fillStyle(COL.DEEP,.82); g.fillRect(0,0,W,h);
+    g.lineStyle(1,COL.FROST,.6); g.lineBetween(0,h,W,h);
+    g.lineStyle(2,COL.CYAN,.22); g.lineBetween(0,h+1,W,h+1);
+
+    // streak
+    const fl=this.add.container(30,40).setDepth(501);
+    const fg=this.add.graphics();
+    fg.fillStyle(COL.AMBER,.35); fg.fillCircle(0,0,16); fg.setBlendMode(Phaser.BlendModes.ADD);
+    const f2=this.add.graphics();
+    f2.fillStyle(COL.RED,1); f2.fillCircle(0,2,11);
+    f2.fillStyle(COL.GOLD,1); f2.fillCircle(0,-2,8);
+    f2.fillStyle(COL.GOLD_LT,1); f2.fillCircle(0,-4,4);
+    fl.add(fg); fl.add(f2);
+    this.tweens.add({targets:fl,scaleX:1.12,scaleY:1.12,duration:420,yoyo:true,repeat:-1,ease:'Sine.easeInOut'});
+    T(this,50,40,String(STATE.streak),19,HX.gold,{align:'left',glow:HX.gold,gs:10}).setDepth(501);
+
+    // XP bar
+    const bx=88,bw=112,bh=16,by=32;
+    const need=STATE.level*100, rat=Phaser.Math.Clamp(STATE.xp/need,0,1);
+    const tr=this.add.graphics().setDepth(501);
+    tr.fillStyle(0x061319,1); tr.fillRoundedRect(bx,by,bw,bh,8);
+    tr.lineStyle(1,COL.FROST,.65); tr.strokeRoundedRect(bx,by,bw,bh,8);
+    const fi=this.add.graphics().setDepth(502); const o={w:0};
+    this.tweens.add({targets:o,w:bw*rat,duration:1100,delay:250,ease:'Cubic.easeOut',
+      onUpdate:()=>{fi.clear();fi.fillStyle(COL.GOLD,1);fi.fillRoundedRect(bx,by,o.w,bh,8);
+        fi.fillStyle(COL.GOLD_LT,.5);fi.fillRoundedRect(bx,by,o.w,bh/2,{tl:8,tr:8,bl:0,br:0});}});
+    T(this,bx+bw/2,by+bh/2,`${STATE.xp}/${need}`,10,HX.deep,{w:'700'}).setDepth(503);
+    T(this,bx,by+bh+10,'XP',8,HX.muted,{mono:true,align:'left',sp:2}).setDepth(501);
+
+    // hearts
+    for(let i=0;i<5;i++){
+      const hh=heartIcon(this,216+i*17,40,i<STATE.hearts,5.5).setDepth(501);
+      if(i>=STATE.hearts) hh.setAlpha(.35);
+    }
+    // coins
+    const cn=this.add.container(318,40).setDepth(501);
+    const cg=this.add.graphics();
+    cg.fillStyle(COL.GOLD,.3); cg.fillCircle(0,0,16); cg.setBlendMode(Phaser.BlendModes.ADD);
+    const c2=this.add.graphics();
+    c2.fillStyle(COL.GOLD,1); c2.fillCircle(0,0,11);
+    c2.fillStyle(COL.GOLD_LT,1); c2.fillCircle(0,0,8);
+    c2.fillStyle(COL.GOLD,1); c2.fillCircle(0,0,6);
+    cn.add(cg); cn.add(c2);
+    T(this,334,40,String(STATE.coins),16,HX.gold,{align:'left'}).setDepth(501);
+  }
+
+  buildCard(L,i){
+    const done=i<STATE.lessonsCompleted;
+    const avail=i===STATE.lessonsCompleted;
+    const lock=i>STATE.lessonsCompleted;
+    const hue=lock?COL.FROST:(done?COL.GOLD:L.hue);
+    const cw=258, chh=422;
+    const c=this.add.container(0,0);
+    const inner=[];
+
+    // glow halo (deep layer, moves most)
+    const halo=this.add.graphics();
+    halo.fillStyle(hue,lock?.05:.14); halo.fillRoundedRect(-cw/2-14,-chh/2-14,cw+28,chh+28,38);
+    halo.setBlendMode(Phaser.BlendModes.ADD); c.add(halo);
+    inner.push({o:halo,f:30});
+
+    // card body
+    const bg=this.add.graphics();
+    bg.fillStyle(COL.CARD,.96); bg.fillRoundedRect(-cw/2,-chh/2,cw,chh,30);
+    bg.lineStyle(1.5,hue,lock?.35:.8); bg.strokeRoundedRect(-cw/2,-chh/2,cw,chh,30);
+    bg.lineStyle(1,COL.WHITE,.14);
+    bg.beginPath(); bg.moveTo(-cw/2+30,-chh/2+1.5); bg.lineTo(cw/2-30,-chh/2+1.5); bg.strokePath();
+    // top gradient band
+    bg.fillStyle(hue,.09); bg.fillRoundedRect(-cw/2,-chh/2,cw,150,{tl:30,tr:30,bl:0,br:0});
+    c.add(bg);
+
+    // inner grid texture (mid layer)
+    const tex=this.add.graphics();
+    tex.lineStyle(1,hue,.07);
+    for(let y=-chh/2+20;y<chh/2;y+=22) tex.lineBetween(-cw/2+12,y,cw/2-12,y);
+    c.add(tex); inner.push({o:tex,f:10});
+
+    // index chip
+    const chip=this.add.graphics();
+    chip.fillStyle(hue,.16); chip.fillRoundedRect(-cw/2+18,-chh/2+18,52,22,11);
+    chip.lineStyle(1,hue,.55); chip.strokeRoundedRect(-cw/2+18,-chh/2+18,52,22,11);
+    c.add(chip);
+    c.add(T(this,-cw/2+44,-chh/2+29,`0${i+1}`,11,lock?HX.muted:'#'+hue.toString(16).padStart(6,'0'),{mono:true,sp:2}));
+
+    // status chip
+    const st=done?'DONE':(avail?'READY':'LOCKED');
+    const stc=done?COL.GOLD:(avail?COL.GREEN:COL.MUTED);
+    const sc=this.add.graphics();
+    const sw=st.length*7+22;
+    sc.fillStyle(stc,.16); sc.fillRoundedRect(cw/2-18-sw,-chh/2+18,sw,22,11);
+    sc.lineStyle(1,stc,.6); sc.strokeRoundedRect(cw/2-18-sw,-chh/2+18,sw,22,11);
+    c.add(sc);
+    c.add(T(this,cw/2-18-sw/2,-chh/2+29,st,9,'#'+stc.toString(16).padStart(6,'0'),{mono:true,sp:2}));
+
+    // ICON — front parallax layer
+    const iconWrap=this.add.container(0,-92);
+    const ig=this.add.graphics();
+    ig.fillStyle(hue,.13); ig.fillCircle(0,0,56); ig.setBlendMode(Phaser.BlendModes.ADD);
+    iconWrap.add(ig);
+    const ring=this.add.graphics();
+    ring.lineStyle(2,hue,lock?.3:.85); ring.strokeCircle(0,0,44);
+    ring.lineStyle(1,hue,.3); ring.strokeCircle(0,0,52);
+    iconWrap.add(ring);
+    const ic=this.add.graphics();
+    if(lock){
+      ic.fillStyle(COL.MUTED,1);
+      ic.fillRoundedRect(-11,-2,22,16,3);
+      ic.fillStyle(COL.CARD,1); ic.fillRoundedRect(-7,-13,14,13,6);
+      ic.lineStyle(2.5,COL.MUTED,1); ic.strokeRoundedRect(-7,-13,14,13,6);
+    } else if(done){
+      ic.fillStyle(COL.GOLD,1); ic.fillCircle(0,0,34);
+      ic.fillStyle(COL.GOLD_LT,.45); ic.fillCircle(-8,-10,18);
+      ic.lineStyle(6,COL.VOID,1); ic.beginPath();
+      ic.moveTo(-13,0); ic.lineTo(-4,11); ic.lineTo(15,-11); ic.strokePath();
+    } else lessonIcon(ic,L.icon,hue);
+    iconWrap.add(ic);
+    c.add(iconWrap);
+    inner.push({o:iconWrap,f:-26,by:-92,fy:0});
+    if(avail){
+      this.tweens.add({targets:ring,scaleX:1.1,scaleY:1.1,duration:1200,yoyo:true,repeat:-1,ease:'Sine.easeInOut'});
+      this.tweens.add({targets:ig,alpha:.35,duration:1600,yoyo:true,repeat:-1,ease:'Sine.easeInOut'});
+    }
+
+    // title block — slight parallax
+    const tw=this.add.container(0,26);
+    tw.add(T(this,0,0,L.title.toUpperCase(),19,lock?HX.muted:HX.txt,{sp:1,wrap:cw-40}));
+    tw.add(T(this,0,26,`${L.q.length} STEPS · 5 TASKS`,9,HX.muted,{mono:true,sp:3}));
+    c.add(tw); inner.push({o:tw,f:-14,by:26,fy:0});
+
+    // progress ring
+    const pr=this.add.graphics();
+    const pct=done?1:(avail?0:0);
+    pr.lineStyle(4,COL.LIFT,1); pr.strokeCircle(0,96,26);
+    if(pct>0){ pr.lineStyle(4,hue,1); pr.beginPath();
+      pr.arc(0,96,26,-Math.PI/2,-Math.PI/2+Math.PI*2*pct); pr.strokePath(); }
+    c.add(pr);
+    c.add(T(this,0,96,done?'100%':(avail?'GO':'—'),11,lock?HX.muted:HX.txt,{mono:true}));
+
+    // CTA
+    if(!lock){
+      const b=BTN(this,0,162,182,54,done?'REPLAY':'START LESSON',()=>{
+        if(this.car.index!==i){ this.car.goTo(i); return; }
+        this.open(i);
+      },{f1:done?COL.GOLD:hue,f2:done?0xb88f0e:COL.CYAN_DK,bd:done?COL.GOLD:hue,fs:14,sp:2});
+      c.add(b); inner.push({o:b,f:-34,by:162,fy:0});
+      c.cta=b;
+    } else {
+      const lt=T(this,0,162,'COMPLETE PREVIOUS LESSON',10,HX.muted,{mono:true,sp:2});
+      c.add(lt); inner.push({o:lt,f:-20,by:162,fy:0});
+    }
+
+    this.car.add(c,inner);
+  }
+
+  onCard(i){
+    if(this.dots) this.dots.update(i);
+    const L=LESSONS[i];
+    if(this.px && L) this.px.sweep.fillStyle(L.hue,.05);
+  }
+
+  open(i){
+    STATE.currentLesson=i; STATE.wrongAnswers=0; STATE.lessonProgress=0;
+    this.cameras.main.fadeOut(340,0,0,0);
+    this.time.delayedCall(340,()=>this.scene.start('Lesson',{id:i}));
+  }
+
+  buildNav(active){
+    const ny=H-84,nh=84;
+    const g=this.add.graphics().setDepth(500);
+    g.fillStyle(COL.DEEP,.92); g.fillRect(0,ny,W,nh);
+    g.lineStyle(1,COL.FROST,.55); g.lineBetween(0,ny,W,ny);
+    const tabs=['HOME','RANKS','WALLET','YOU'];
+    this.navG=[];
+    for(let i=0;i<4;i++){
+      const tx=(W/4)*(i+.5);
+      const ic=this.add.graphics().setDepth(501);
+      navIcon(ic,i,tx,ny+28,i===active);
+      T(this,tx,ny+56,tabs[i],9,i===active?HX.cyan:HX.muted,{mono:true,sp:2}).setDepth(501);
+      const hit=this.add.rectangle(tx,ny+nh/2,W/4,nh,COL.WHITE,0).setDepth(502)
+        .setInteractive({useHandCursor:true});
+      let d0=0;
+      hit.on('pointerdown',p=>d0=p.x);
+      hit.on('pointerup',p=>{
+        if(Math.abs(p.x-d0)>12||this.isDragging) return;
+        this.tweens.add({targets:ic,scaleX:.8,scaleY:.8,duration:80,yoyo:true});
+        if(i===0) return;
+        if(i===1){this.cameras.main.fadeOut(280,0,0,0);this.time.delayedCall(280,()=>this.scene.start('Board'));}
+        if(i===2) this.wallet();
+        if(i===3){this.cameras.main.fadeOut(280,0,0,0);this.time.delayedCall(280,()=>this.scene.start('Profile'));}
+      });
+      this.navG.push(ic);
+    }
+    const ug=this.add.graphics().setDepth(503);
+    ug.fillStyle(COL.CYAN,1);
+    ug.fillRoundedRect((W/4)*(active+.5)-24,H-5,48,3,2);
+  }
+
+  wallet(){
+    const m=this.add.container(0,0).setDepth(900);
+    const bd=this.add.rectangle(W/2,H/2,W,H,COL.BLACK,.78).setInteractive(); m.add(bd);
+    const cw=W-72,ch=300;
+    const g=this.add.graphics();
+    g.fillStyle(COL.CYAN,.12); g.fillRoundedRect(W/2-cw/2-8,H/2-ch/2-8,cw+16,ch+16,32);
+    g.setBlendMode(Phaser.BlendModes.ADD); m.add(g);
+    const g2=this.add.graphics();
+    g2.fillStyle(COL.CARD,.97); g2.fillRoundedRect(W/2-cw/2,H/2-ch/2,cw,ch,26);
+    g2.lineStyle(1.5,COL.CYAN,.8); g2.strokeRoundedRect(W/2-cw/2,H/2-ch/2,cw,ch,26); m.add(g2);
+    m.add(T(this,W/2,H/2-112,'WALLET',18,HX.cyan,{sp:4,glow:HX.cyan,gs:10}));
+    const rows=[['TOTAL XP',STATE.xp,HX.gold],['COINS',STATE.coins,HX.gold],
+                ['LESSONS',`${STATE.lessonsCompleted} / 8`,HX.cyan],['LEVEL',STATE.level,HX.green]];
+    rows.forEach((r,i)=>{
+      const y=H/2-58+i*40;
+      const rg=this.add.graphics();
+      rg.fillStyle(COL.LIFT,.5); rg.fillRoundedRect(W/2-cw/2+18,y-15,cw-36,30,10); m.add(rg);
+      m.add(T(this,W/2-cw/2+32,y,r[0],10,HX.muted,{mono:true,align:'left',sp:2}));
+      m.add(T(this,W/2+cw/2-32,y,String(r[1]),15,r[2],{align:'right'}));
+    });
+    m.add(BTN(this,W/2,H/2+115,160,48,'CLOSE',()=>{
+      this.tweens.add({targets:m,alpha:0,scaleX:.85,scaleY:.85,duration:240,ease:'Cubic.easeIn',
+        onComplete:()=>m.destroy()});},{f1:COL.LIFT,f2:COL.CARD,bd:COL.FROST,tc:HX.txt,fs:13,ghost:true}));
+    m.setAlpha(0).setScale(.85);
+    this.tweens.add({targets:m,alpha:1,scaleX:1,scaleY:1,duration:340,ease:'Back.easeOut'});
+  }
+
+  milestone(){
+    const m=this.add.container(0,0).setDepth(900);
+    m.add(this.add.rectangle(W/2,H/2,W,H,COL.BLACK,.8).setInteractive());
+    for(let i=0;i<46;i++){
+      const c=Phaser.Utils.Array.GetRandom([COL.CYAN,COL.GOLD,COL.GREEN,COL.PURPLE,COL.PINK]);
+      const s=Phaser.Math.Between(4,9);
+      const r=this.add.rectangle(Phaser.Math.Between(40,W-40),Phaser.Math.Between(60,220),s,s*0.5,c);
+      r.setBlendMode(Phaser.BlendModes.ADD); m.add(r);
+      this.tweens.add({targets:r,y:r.y+Phaser.Math.Between(320,520),x:r.x+Phaser.Math.Between(-80,80),
+        rotation:Phaser.Math.FloatBetween(-7,7),alpha:0,duration:Phaser.Math.Between(2200,3600),ease:'Cubic.easeIn'});
+    }
+    const cw=W-72,ch=300;
+    const g=this.add.graphics();
+    g.fillStyle(COL.GOLD,.14); g.fillRoundedRect(W/2-cw/2-8,H/2-ch/2-8,cw+16,ch+16,32);
+    g.setBlendMode(Phaser.BlendModes.ADD); m.add(g);
+    const g2=this.add.graphics();
+    g2.fillStyle(COL.CARD,.97); g2.fillRoundedRect(W/2-cw/2,H/2-ch/2,cw,ch,26);
+    g2.lineStyle(2,COL.GOLD,.9); g2.strokeRoundedRect(W/2-cw/2,H/2-ch/2,cw,ch,26); m.add(g2);
+    m.add(T(this,W/2,H/2-104,'★ WEEK STREAK ★',20,HX.gold,{sp:2,glow:HX.gold,gs:14}));
+    m.add(T(this,W/2,H/2-64,`${STATE.streak} DAYS IN A ROW`,11,HX.dim,{mono:true,sp:3}));
+    m.add(T(this,W/2,H/2-18,'+100',42,HX.cyan,{glow:HX.cyan,gs:16}));
+    m.add(T(this,W/2,H/2+14,'BONUS XP',9,HX.muted,{mono:true,sp:4}));
+    m.add(BTN(this,W/2,H/2+70,220,56,'CLAIM REWARD',()=>{
+      STATE.xp+=100; burst(this,W/2,H/2+70,{n:34,cols:[COL.GOLD,COL.GOLD_LT],v:280});
+      this.tweens.add({targets:m,alpha:0,scaleX:.85,scaleY:.85,duration:280,
+        onComplete:()=>{m.destroy();this.scene.restart();}});},
+      {f1:COL.GOLD,f2:0xbf9a10,bd:COL.GOLD,fs:15,sp:2}));
+    m.setAlpha(0).setScale(.7);
+    this.tweens.add({targets:m,alpha:1,scaleX:1,scaleY:1,duration:480,ease:'Back.easeOut'});
+  }
+
+  update(){ this.car.update(); if(this.dots) this.dots.update(this.car.scroll); }
+}
+
+function navIcon(g,i,x,y,on){
+  g.clear(); const c=on?COL.CYAN:COL.MUTED; g.fillStyle(c,1);
+  if(on){ g.fillStyle(c,.2); g.fillCircle(x,y,17); g.setBlendMode(Phaser.BlendModes.ADD); g.fillStyle(c,1); }
+  switch(i){
+    case 0: g.fillTriangle(x-11,y+3,x+11,y+3,x,y-9); g.fillRect(x-7,y+3,14,8); break;
+    case 1: g.fillRect(x-10,y+2,5,8); g.fillRect(x-2.5,y-6,5,16); g.fillRect(x+5,y-2,5,12); break;
+    case 2: g.fillRoundedRect(x-11,y-8,22,15,3); g.fillStyle(on?COL.CYAN_DK:0x24404f,1); g.fillCircle(x+5,y,3); break;
+    case 3: g.fillCircle(x,y-6,5); g.fillRoundedRect(x-8,y+1,16,11,6); break;
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+//  LESSON — MULTI-STEP PARALLAX CAROUSEL
+//  Step 0: BRIEF  ·  Step 1: TASK  ·  Step 2: RESULT
+// ══════════════════════════════════════════════════════════
+class LessonScene extends Phaser.Scene{
+  constructor(){super('Lesson');}
+  init(d){ this.id=d.id??0; this.L=LESSONS[this.id]; this.qi=0; this.correctCount=0; }
+  create(){
+    this.isDragging=false;
+    this.cameras.main.setBackgroundColor(COL.VOID);
+    this.px=new Parallax(this,{hue:this.L.hue});
+    this.buildTop();
+
+    this.stage=this.add.container(0,0);
+    this.car=new Carousel(this,{cx:W/2,cy:H/2+6,gap:340,dScale:.14,dFade:.5,dY:26,rot:.045,
+      bounds:{y0:120,y1:H-60},parallax:this.px});
+    this.stepDots=new StepDots(this,W/2,H-46,3,{col:this.L.hue,gap:12});
+    this.stepLabel=T(this,W/2,H-74,'STEP 1 · BRIEFING',9,HX.muted,{mono:true,sp:4}).setDepth(500);
+
+    this.loadQuestion(true);
+    this.cameras.main.fadeIn(420,0,0,0);
+  }
+
+  buildTop(){
+    const h=84;
+    const g=this.add.graphics().setDepth(500);
+    g.fillStyle(COL.DEEP,.85); g.fillRect(0,0,W,h);
+    g.lineStyle(1,COL.FROST,.55); g.lineBetween(0,h,W,h);
+    g.lineStyle(2,this.L.hue,.3); g.lineBetween(0,h+1,W,h+1);
+
+    // close
+    const cg=this.add.graphics().setDepth(501);
+    cg.fillStyle(COL.LIFT,1); cg.fillCircle(32,42,20);
+    cg.lineStyle(1,COL.FROST,.8); cg.strokeCircle(32,42,20);
+    cg.lineStyle(3,COL.TXT,1); cg.beginPath();
+    cg.moveTo(25,35); cg.lineTo(39,49); cg.moveTo(39,35); cg.lineTo(25,49); cg.strokePath();
+    const ch=this.add.circle(32,42,26,COL.WHITE,0).setDepth(502).setInteractive({useHandCursor:true});
+    let d0=0; ch.on('pointerdown',p=>d0=p.x);
+    ch.on('pointerup',p=>{ if(Math.abs(p.x-d0)>12||this.isDragging) return;
+      this.cameras.main.fadeOut(300,0,0,0);
+      this.time.delayedCall(300,()=>this.scene.start('Home')); });
+
+    // task progress segments
+    this.segs=[];
+    const sw=34,gap=6, tot=5*sw+4*gap, sx=W/2-tot/2+4;
+    for(let i=0;i<5;i++){
+      const sg=this.add.graphics().setDepth(501);
+      this.segs.push({g:sg,x:sx+i*(sw+gap),w:sw});
+      this.drawSeg(i,false);
+    }
+    T(this,W/2,62,this.L.title.toUpperCase(),9,HX.muted,{mono:true,sp:3}).setDepth(501);
+
+    // hearts
+    this.heartG=[];
+    for(let i=0;i<3;i++){
+      const hx=W-26-i*22;
+      this.heartG.push(heartIcon(this,hx,42,true,5.5).setDepth(501));
+    }
+  }
+  drawSeg(i,on){
+    const s=this.segs[i]; s.g.clear();
+    s.g.fillStyle(on?this.L.hue:0x102530,1);
+    s.g.fillRoundedRect(s.x,34,s.w,7,4);
+    if(on){ s.g.fillStyle(this.L.hue,.4); s.g.fillRoundedRect(s.x-2,32,s.w+4,11,6);
+      s.g.setBlendMode(Phaser.BlendModes.ADD); }
+    else { s.g.lineStyle(1,COL.FROST,.4); s.g.strokeRoundedRect(s.x,34,s.w,7,4); }
+  }
+
+  // ── build 3 step panels for current question ─────────────
+  loadQuestion(first){
+    this.car.clear();
+    this.answered=false;
+    this.q=Q[this.L.q[this.qi]];
+    this.buildBrief();
+    this.buildTask();
+    this.buildResultShell();
+    this.car.setMax(1);            // result locked until answered
+    this.stepDots.setUnlocked(1);
+    // cinematic entrance: panels glide in from the right via scroll easing
+    this.car.frozen=false;
+    this.car.scroll=-0.85;
+    this.car.target=0;
+  }
+
+  panel(hTop){
+    const cw=306, chh=hTop??470;
+    const c=this.add.container(0,0);
+    const inner=[];
+    const halo=this.add.graphics();
+    halo.fillStyle(this.L.hue,.10); halo.fillRoundedRect(-cw/2-10,-chh/2-10,cw+20,chh+20,34);
+    halo.setBlendMode(Phaser.BlendModes.ADD); c.add(halo); inner.push({o:halo,f:24});
+    const bg=this.add.graphics();
+    bg.fillStyle(COL.CARD,.97); bg.fillRoundedRect(-cw/2,-chh/2,cw,chh,26);
+    bg.lineStyle(1.5,this.L.hue,.6); bg.strokeRoundedRect(-cw/2,-chh/2,cw,chh,26);
+    bg.lineStyle(1,COL.WHITE,.13);
+    bg.beginPath(); bg.moveTo(-cw/2+26,-chh/2+1.5); bg.lineTo(cw/2-26,-chh/2+1.5); bg.strokePath();
+    bg.fillStyle(this.L.hue,.07); bg.fillRoundedRect(-cw/2,-chh/2,cw,64,{tl:26,tr:26,bl:0,br:0});
+    c.add(bg);
+    c.cw=cw; c.chh=chh; c.inner=inner;
+    return c;
+  }
+  tag(c,txt,col){
+    const w=txt.length*6.6+22;
+    const g=this.add.graphics();
+    g.fillStyle(col,.18); g.fillRoundedRect(-w/2,-c.chh/2+20,w,22,11);
+    g.lineStyle(1,col,.6); g.strokeRoundedRect(-w/2,-c.chh/2+20,w,22,11);
+    c.add(g);
+    c.add(T(this,0,-c.chh/2+31,txt,9,'#'+col.toString(16).padStart(6,'0'),{mono:true,sp:3}));
+  }
+
+  // STEP 1 — BRIEFING
+  buildBrief(){
+    const c=this.panel(470);
+    this.tag(c,'STEP 1 · BRIEFING',this.L.hue);
+
+    const ic=this.add.graphics();
+    ic.fillStyle(this.L.hue,.12); ic.fillCircle(0,-128,48); ic.setBlendMode(Phaser.BlendModes.ADD);
+    c.add(ic);
+    const iw=this.add.container(0,-128);
+    const ig=this.add.graphics();
+    ig.lineStyle(2,this.L.hue,.8); ig.strokeCircle(0,0,38);
+    lessonIcon(ig,this.L.icon,this.L.hue);
+    iw.add(ig); c.add(iw);
+    c.inner.push({o:iw,f:-22,by:-128,fy:0});
+    this.tweens.add({targets:ig,scaleX:1.06,scaleY:1.06,duration:1300,yoyo:true,repeat:-1,ease:'Sine.easeInOut'});
+
+    const tw=this.add.container(0,-42);
+    tw.add(T(this,0,0,`TASK ${this.qi+1} OF 5`,9,HX.muted,{mono:true,sp:4}));
+    tw.add(T(this,0,34,this.q.tip,15,HX.txt,{w:'500',wrap:246,ls:8}));
+    c.add(tw); c.inner.push({o:tw,f:-12,by:-42,fy:0});
+
+    // divider
+    const dv=this.add.graphics();
+    dv.lineStyle(1,COL.FROST,.5); dv.lineBetween(-100,88,100,88); c.add(dv);
+    c.add(T(this,0,112,'READ · UNDERSTAND · THEN ANSWER',8,HX.muted,{mono:true,sp:3}));
+
+    const b=BTN(this,0,178,206,58,'I UNDERSTAND  ›',()=>{
+      this.car.goTo(1);
+    },{f1:this.L.hue,f2:COL.CYAN_DK,bd:this.L.hue,fs:14,sp:2});
+    c.add(b); c.inner.push({o:b,f:-30,by:178,fy:0});
+
+    this.car.add(c,c.inner);
+  }
+
+  // STEP 2 — TASK
+  buildTask(){
+    const tall = this.q.t==='mc' ? 508 : (this.q.t==='ch' ? 500 : 470);
+    const c=this.panel(tall);
+    this.tag(c,'STEP 2 · YOUR MOVE',COL.GOLD);
+    this.taskPanel=c;
+
+    if(this.q.t==='mc') this.taskMC(c);
+    else if(this.q.t==='ch') this.taskChart(c);
+    else this.taskMatch(c);
+
+    this.car.add(c,c.inner);
+  }
+
+  taskMC(c){
+    const qw=this.add.container(0,-c.chh/2+96);
+    qw.add(T(this,0,0,this.q.q,18,HX.txt,{wrap:250,ls:6}));
+    c.add(qw); c.inner.push({o:qw,f:-14,by:-c.chh/2+96,fy:0});
+
+    const ow=290, oh=62, y0=-c.chh/2+176;
+    this.opts=[];
+    this.q.o.forEach((txt,i)=>{
+      const y=y0+i*(oh+12);
+      const b=this.add.container(0,y);
+      const g=this.add.graphics();
+      g.fillStyle(COL.LIFT,.75); g.fillRoundedRect(-ow/2,-oh/2,ow,oh,15);
+      g.lineStyle(1.5,COL.FROST,.7); g.strokeRoundedRect(-ow/2,-oh/2,ow,oh,15);
+      g.fillStyle(this.L.hue,.5); g.fillRoundedRect(-ow/2,-oh/2,4,oh,{tl:15,tr:0,bl:15,br:0});
+      b.add(g);
+      const ch=this.add.graphics();
+      ch.fillStyle(COL.CARD,1); ch.fillCircle(-ow/2+30,0,14);
+      ch.lineStyle(1,this.L.hue,.6); ch.strokeCircle(-ow/2+30,0,14);
+      b.add(ch);
+      const lt=T(this,-ow/2+30,0,String.fromCharCode(65+i),11,'#'+this.L.hue.toString(16).padStart(6,'0'),{mono:true});
+      b.add(lt);
+      const ot=T(this,-ow/2+54,0,txt,14,HX.txt,{align:'left',w:'500',wrap:ow-80});
+      b.add(ot);
+      b.g=g; b.lt=lt; b.ot=ot; b.chip=ch; b.ow=ow; b.oh=oh;
+      c.add(b); c.inner.push({o:b,f:-(18+i*4),by:y,fy:0});
+      const hit=this.add.rectangle(0,y,ow,oh,COL.WHITE,0).setInteractive({useHandCursor:true});
+      let d0=0,dy0=0;
+      hit.on('pointerdown',p=>{d0=p.x;dy0=p.y;});
+      hit.on('pointerup',p=>{ if(Math.abs(p.x-d0)>12||Math.abs(p.y-dy0)>12||this.isDragging) return;
+        this.answerMC(i); });
+      c.add(hit);
+      this.opts.push(b);
+    });
+  }
+
+  answerMC(i){
+    if(this.answered) return; this.answered=true;
+    const ok=i===this.q.a;
+    this.opts.forEach((b,j)=>{
+      const win=j===this.q.a, lose=(j===i&&!ok);
+      b.g.clear();
+      const fc=win?COL.GREEN_DK:(lose?COL.RED_DK:COL.LIFT);
+      const bc=win?COL.GREEN:(lose?COL.RED:COL.FROST);
+      b.g.fillStyle(fc,win||lose?1:.35);
+      b.g.fillRoundedRect(-b.ow/2,-b.oh/2,b.ow,b.oh,15);
+      b.g.lineStyle(1.5,bc,win||lose?1:.35);
+      b.g.strokeRoundedRect(-b.ow/2,-b.oh/2,b.ow,b.oh,15);
+      b.g.fillStyle(bc,win||lose?.9:.2);
+      b.g.fillRoundedRect(-b.ow/2,-b.oh/2,4,b.oh,{tl:15,tr:0,bl:15,br:0});
+      b.chip.clear(); b.chip.fillStyle(win?COL.GREEN:(lose?COL.RED:COL.CARD),1);
+      b.chip.fillCircle(-b.ow/2+30,0,14);
+      b.lt.setColor(win||lose?HX.deep:HX.muted);
+      b.ot.setColor(win?HX.green:(lose?HX.red:HX.muted));
+      if(win) this.tweens.add({targets:b,scaleX:1.04,scaleY:1.04,duration:180,yoyo:true,ease:'Sine.easeOut'});
+    });
+    this.resolve(ok,this.opts[this.q.a].y);
+  }
+
+  taskChart(c){
+    c.add(T(this,0,-c.chh/2+92,this.q.q,18,HX.txt,{wrap:250}));
+    // chart frame
+    const cwid=258, chgt=186, cy=-c.chh/2+212;
+    const frame=this.add.container(0,cy);
+    const fg=this.add.graphics();
+    fg.fillStyle(COL.VOID,.85); fg.fillRoundedRect(-cwid/2,-chgt/2,cwid,chgt,16);
+    fg.lineStyle(1,this.L.hue,.4); fg.strokeRoundedRect(-cwid/2,-chgt/2,cwid,chgt,16);
+    frame.add(fg);
+    const gr=this.add.graphics();
+    gr.lineStyle(1,COL.FROST,.22);
+    for(let i=1;i<4;i++) gr.lineBetween(-cwid/2+10,-chgt/2+(chgt/4)*i,cwid/2-10,-chgt/2+(chgt/4)*i);
+    frame.add(gr);
+    this.drawCandles(frame,cwid,chgt);
+    c.add(frame); c.inner.push({o:frame,f:-20,by:cy,fy:0});
+
+    // buttons
+    const by=-c.chh/2+366, bw=132, bh=74;
+    const mk=(cx,col,lbl,dir)=>{
+      const b=this.add.container(cx,by);
+      const g=this.add.graphics();
+      g.fillStyle(col,.10); g.fillRoundedRect(-bw/2,-bh/2,bw,bh,18);
+      g.lineStyle(2,col,.9); g.strokeRoundedRect(-bw/2,-bh/2,bw,bh,18);
+      b.add(g);
+      const gl=this.add.graphics(); gl.fillStyle(col,.12); gl.fillCircle(0,0,48);
+      gl.setBlendMode(Phaser.BlendModes.ADD); b.add(gl);
+      const ic=this.add.graphics(); ic.fillStyle(col,1);
+      if(dir>0){ ic.fillTriangle(-13,6,13,6,0,-16); ic.fillRect(-3.5,2,7,11);
+        ic.fillStyle(col,.5); ic.fillTriangle(-8,14,8,14,0,23); }
+      else { ic.fillTriangle(-13,-6,13,-6,0,16); ic.fillRect(-3.5,-13,7,11);
+        ic.fillStyle(col,.5); ic.fillTriangle(-8,-14,8,-14,0,-23); }
+      ic.y=-8; b.add(ic);
+      b.add(T(this,0,24,lbl,16,'#'+col.toString(16).padStart(6,'0'),{sp:2,glow:'#'+col.toString(16).padStart(6,'0'),gs:8}));
+      const hit=this.add.rectangle(0,0,bw,bh,COL.WHITE,0).setInteractive({useHandCursor:true});
+      let d0=0; hit.on('pointerdown',p=>d0=p.x);
+      hit.on('pointerup',p=>{ if(Math.abs(p.x-d0)>12||this.isDragging) return;
+        this.answerChart(dir>0?'bull':'bear',b,col); });
+      b.add(hit); b.gfx=g; b.glow=gl;
+      this.tweens.add({targets:gl,alpha:.5,duration:1500,yoyo:true,repeat:-1,ease:'Sine.easeInOut'});
+      return b;
+    };
+    this.bullB=mk(-72,COL.GREEN,'BULL',1);
+    this.bearB=mk(72,COL.RED,'BEAR',-1);
+    c.add(this.bullB); c.add(this.bearB);
+    c.inner.push({o:this.bullB,f:-34,by:by,fy:0});
+    c.inner.push({o:this.bearB,f:-34,by:by,fy:0});
+    this.bullB.x=-72; this.bearB.x=72;
+    c.inner[c.inner.length-2].bx=-72;
+    c.inner[c.inner.length-1].bx=72;
+  }
+
+  drawCandles(parent,cw,ch){
+    const D={
+      bull:[[.72,.52,.42,.78],[.56,.46,.36,.62],[.50,.30,.24,.56],[.36,.26,.15,.42],[.30,.15,.09,.35],[.20,.09,.04,.26]],
+      bear:[[.24,.44,.18,.50],[.40,.56,.34,.62],[.50,.66,.44,.72],[.60,.76,.54,.82],[.70,.86,.64,.92]],
+      bull_small:[[.62,.54,.46,.68],[.55,.40,.34,.60],[.45,.29,.20,.50],[.34,.18,.10,.40]],
+      bear_break:[[.30,.46,.24,.52],[.45,.60,.39,.66],[.60,.75,.54,.80],[.70,.86,.64,.92]],
+      bull_macd:[[.70,.55,.48,.76],[.60,.49,.40,.66],[.54,.39,.30,.60],[.44,.29,.20,.50],[.34,.19,.10,.40]],
+      bear_risk:[[.20,.40,.14,.46],[.35,.55,.29,.61],[.50,.70,.44,.76],[.64,.80,.58,.86]],
+    };
+    const arr=D[this.q.ch]||D.bull;
+    const bull=/bull/.test(this.q.ch);
+    const pw=(cw-36)/arr.length, top=-ch/2+16, hh=ch-32;
+    // trend line behind
+    const tl=this.add.graphics();
+    tl.lineStyle(2,bull?COL.GREEN:COL.RED,.22);
+    tl.beginPath();
+    arr.forEach((k,i)=>{const x=-cw/2+18+pw*i+pw/2, y=top+((k[0]+k[1])/2)*hh;
+      i?tl.lineTo(x,y):tl.moveTo(x,y);});
+    tl.strokePath(); tl.setBlendMode(Phaser.BlendModes.ADD); parent.add(tl);
+
+    arr.forEach((k,i)=>{
+      const [o,cl,hi,lo]=k;
+      const x=-cw/2+18+pw*i+pw/2;
+      const up=cl<o, col=up?COL.GREEN:COL.RED;
+      const g=this.add.graphics();
+      g.lineStyle(3,col,.28); g.lineBetween(x,top+hi*hh,x,top+lo*hh);
+      g.setBlendMode(Phaser.BlendModes.ADD); parent.add(g);
+      const g2=this.add.graphics();
+      g2.lineStyle(1.4,col,1); g2.lineBetween(x,top+hi*hh,x,top+lo*hh);
+      const bt=top+Math.min(o,cl)*hh, bb=top+Math.max(o,cl)*hh;
+      g2.fillStyle(col,1); g2.fillRect(x-pw*.28,bt,pw*.56,Math.max(3,bb-bt));
+      parent.add(g2);
+      g2.scaleY=0;
+      this.tweens.add({targets:g2,scaleY:1,duration:340,delay:120+i*60,ease:'Back.easeOut'});
+    });
+  }
+
+  answerChart(choice,btn,col){
+    if(this.answered) return; this.answered=true;
+    const ok=choice===this.q.c;
+    const win=ok?btn:(choice==='bull'?this.bearB:this.bullB);
+    [this.bullB,this.bearB].forEach(b=>{ if(b!==btn) b.setAlpha(.35); });
+    btn.gfx.clear();
+    btn.gfx.fillStyle(ok?COL.GREEN:COL.RED,.3);
+    btn.gfx.fillRoundedRect(-66,-37,132,74,18);
+    btn.gfx.lineStyle(3,ok?COL.GREEN:COL.RED,1);
+    btn.gfx.strokeRoundedRect(-66,-37,132,74,18);
+    this.tweens.add({targets:btn,scaleX:1.06,scaleY:1.06,duration:180,yoyo:true});
+    this.resolve(ok,btn.y);
+  }
+
+  taskMatch(c){
+    c.add(T(this,0,-c.chh/2+90,this.q.q,18,HX.txt,{wrap:250}));
+    c.add(T(this,0,-c.chh/2+116,'TAP A TERM, THEN ITS DEFINITION',8,HX.muted,{mono:true,sp:2}));
+    const terms=this.q.p.map(p=>p[0]);
+    const defs=this.q.p.map(p=>p[1]);
+    for(let i=defs.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[defs[i],defs[j]]=[defs[j],defs[i]];}
+    this.mSel=null; this.mDone=0;
+    this.mT=[]; this.mD=[];
+    const cwid=132, chh=58, y0=-c.chh/2+168;
+
+    const mk=(label,i,side)=>{
+      const x=side==='t'?-74:74;
+      const y=y0+i*(chh+12);
+      const b=this.add.container(x,y);
+      const g=this.add.graphics();
+      const col=side==='t'?this.L.hue:COL.PURPLE;
+      g.fillStyle(side==='t'?COL.LIFT:COL.CARD,.9);
+      g.fillRoundedRect(-cwid/2,-chh/2,cwid,chh,13);
+      g.lineStyle(1.5,col,.6); g.strokeRoundedRect(-cwid/2,-chh/2,cwid,chh,13);
+      b.add(g);
+      const t=T(this,0,0,label,side==='t'?14:10,HX.txt,{w:side==='t'?'700':'500',wrap:cwid-16,ls:3});
+      b.add(t);
+      b.g=g; b.t=t; b.col=col; b.side=side; b.idx=i; b.label=label; b.cwid=cwid; b.chh=chh;
+      c.add(b); c.inner.push({o:b,f:side==='t'?-(20+i*3):-(26+i*3),by:y,fy:0,bx:x});
+      const hit=this.add.rectangle(x,y,cwid,chh,COL.WHITE,0).setInteractive({useHandCursor:true});
+      let d0=0,dy0=0;
+      hit.on('pointerdown',p=>{d0=p.x;dy0=p.y;});
+      hit.on('pointerup',p=>{ if(Math.abs(p.x-d0)>12||Math.abs(p.y-dy0)>12||this.isDragging) return;
+        this.pick(b); });
+      c.add(hit);
+      return b;
+    };
+    terms.forEach((t,i)=>this.mT.push(mk(t,i,'t')));
+    defs.forEach((d,i)=>this.mD.push(mk(d,i,'d')));
+  }
+
+  paint(b,mode){
+    b.g.clear();
+    if(mode==='on'){ b.g.fillStyle(b.col,1); b.g.fillRoundedRect(-b.cwid/2,-b.chh/2,b.cwid,b.chh,13);
+      b.t.setColor(HX.deep); }
+    else if(mode==='ok'){ b.g.fillStyle(COL.GREEN,1); b.g.fillRoundedRect(-b.cwid/2,-b.chh/2,b.cwid,b.chh,13);
+      b.t.setColor(HX.deep); }
+    else { b.g.fillStyle(b.side==='t'?COL.LIFT:COL.CARD,.9);
+      b.g.fillRoundedRect(-b.cwid/2,-b.chh/2,b.cwid,b.chh,13);
+      b.g.lineStyle(1.5,b.col,.6); b.g.strokeRoundedRect(-b.cwid/2,-b.chh/2,b.cwid,b.chh,13);
+      b.t.setColor(HX.txt); }
+  }
+
+  pick(b){
+    if(this.answered||b.matched) return;
+    if(this.mSel&&this.mSel!==b&&!this.mSel.matched) this.paint(this.mSel,'off');
+    this.paint(b,'on');
+    if(!this.mSel||this.mSel.side===b.side){ this.mSel=b; return; }
+    const term=b.side==='t'?b:this.mSel;
+    const def =b.side==='d'?b:this.mSel;
+    const good=this.q.p.some(p=>p[0]===term.label&&p[1]===def.label);
+    if(good){
+      term.matched=def.matched=true;
+      this.paint(term,'ok'); this.paint(def,'ok');
+      burst(this,W/2,H/2+6+term.y*0.7,{n:12,cols:[COL.GREEN,this.L.hue],v:130,s:3});
+      this.mSel=null; this.mDone++;
+      if(this.mDone>=this.q.p.length){ this.answered=true; this.resolve(true,0); }
+    } else {
+      this.paint(term,'off'); this.paint(def,'off');
+      this.mSel=null;
+      this.cameras.main.shake(180,.009);
+      floatUp(this,W/2,H/2-40,'✕','#ff3d57',{s:26});
+      STATE.hearts=Math.max(0,STATE.hearts-1);
+      STATE.wrongAnswers++;
+      this.syncHearts();
+    }
+  }
+
+  syncHearts(){
+    this.heartG.forEach((h,i)=>h.setAlpha(i<Math.min(3,STATE.hearts)?1:.25));
+  }
+
+  // ── shared resolve → unlock step 3 and auto-advance ──────
+  resolve(ok,yAt){
+    if(ok){
+      this.correctCount++;
+      burst(this,W/2,H/2+(yAt||0)*0.6,{n:26,cols:[COL.GREEN,this.L.hue,COL.GOLD],v:220});
+      this.flash(COL.GREEN);
+      floatUp(this,W/2,H/2+60,'+15 XP',HX.green,{s:30});
+    } else {
+      STATE.wrongAnswers++;
+      STATE.hearts=Math.max(0,STATE.hearts-1);
+      this.syncHearts();
+      this.cameras.main.shake(230,.013);
+      this.flash(COL.RED);
+      floatUp(this,W/2,H/2+60,'−1 ♥',HX.red,{s:28});
+    }
+    this.lastOK=ok;
+    this.drawSeg(this.qi,ok);
+    this.fillResult(ok);
+    this.car.setMax(2);
+    this.stepDots.setUnlocked(2);
+    this.time.delayedCall(820,()=>this.car.goTo(2));
+  }
+
+  flash(col){
+    const f=this.add.graphics().setDepth(880);
+    f.fillStyle(col,.22); f.fillRect(0,0,W,H);
+    this.tweens.add({targets:f,alpha:0,duration:520,ease:'Cubic.easeOut',onComplete:()=>f.destroy()});
+  }
+
+  // STEP 3 — RESULT (shell built empty, filled after answering)
+  buildResultShell(){
+    const c=this.panel(430);
+    this.resultPanel=c;
+    this.resultBody=this.add.container(0,0);
+    c.add(this.resultBody);
+    c.inner.push({o:this.resultBody,f:-16,by:0,fy:0});
+    // placeholder
+    this.phTxt=T(this,0,0,'ANSWER TO UNLOCK',10,HX.muted,{mono:true,sp:3});
+    this.resultBody.add(this.phTxt);
+    const lk=this.add.graphics();
+    lk.fillStyle(COL.MUTED,.5); lk.fillRoundedRect(-11,-42,22,16,3);
+    lk.fillStyle(COL.CARD,1); lk.fillRoundedRect(-7,-54,14,13,6);
+    lk.lineStyle(2.5,COL.MUTED,.6); lk.strokeRoundedRect(-7,-54,14,13,6);
+    this.resultBody.add(lk);
+    this.tag(c,'STEP 3 · RESULT',COL.MUTED);
+    this.car.add(c,c.inner);
+  }
+
+  fillResult(ok){
+    const c=this.resultPanel;
+    this.resultBody.removeAll(true);
+    const col=ok?COL.GREEN:COL.RED, hex=ok?HX.green:HX.red;
+
+    // status ring
+    const rw=this.add.container(0,-118);
+    const gl=this.add.graphics(); gl.fillStyle(col,.18); gl.fillCircle(0,0,54);
+    gl.setBlendMode(Phaser.BlendModes.ADD); rw.add(gl);
+    const rg=this.add.graphics();
+    rg.lineStyle(3,col,1); rg.strokeCircle(0,0,40);
+    if(ok){ rg.lineStyle(6,col,1); rg.beginPath();
+      rg.moveTo(-15,1); rg.lineTo(-5,12); rg.lineTo(17,-12); rg.strokePath(); }
+    else { rg.lineStyle(6,col,1); rg.beginPath();
+      rg.moveTo(-12,-12); rg.lineTo(12,12); rg.moveTo(12,-12); rg.lineTo(-12,12); rg.strokePath(); }
+    rw.add(rg); this.resultBody.add(rw);
+    rw.setScale(0);
+    this.tweens.add({targets:rw,scaleX:1,scaleY:1,duration:480,ease:'Back.easeOut'});
+    this.tweens.add({targets:gl,alpha:.45,duration:1200,yoyo:true,repeat:-1,ease:'Sine.easeInOut'});
+
+    this.resultBody.add(T(this,0,-54,ok?'CORRECT':'NOT QUITE',22,hex,{sp:2,glow:hex,gs:12}));
+
+    // explanation box
+    const bw=250;
+    const eb=this.add.graphics();
+    eb.fillStyle(COL.VOID,.7); eb.fillRoundedRect(-bw/2,-22,bw,104,14);
+    eb.lineStyle(1,col,.35); eb.strokeRoundedRect(-bw/2,-22,bw,104,14);
+    this.resultBody.add(eb);
+    this.resultBody.add(T(this,-bw/2+14,-6,'WHY',8,HX.muted,{mono:true,align:'left',sp:3}));
+    this.resultBody.add(T(this,0,38,this.q.ex,13,HX.txt,{w:'500',wrap:bw-28,ls:6}));
+
+    // reward chips
+    if(ok){
+      const cg=this.add.graphics();
+      cg.fillStyle(COL.GOLD,.14); cg.fillRoundedRect(-62,98,124,28,14);
+      cg.lineStyle(1,COL.GOLD,.5); cg.strokeRoundedRect(-62,98,124,28,14);
+      this.resultBody.add(cg);
+      this.resultBody.add(T(this,0,112,'+15 XP EARNED',10,HX.gold,{mono:true,sp:2}));
+    } else {
+      const cg=this.add.graphics();
+      cg.fillStyle(COL.RED,.12); cg.fillRoundedRect(-62,98,124,28,14);
+      cg.lineStyle(1,COL.RED,.4); cg.strokeRoundedRect(-62,98,124,28,14);
+      this.resultBody.add(cg);
+      this.resultBody.add(T(this,0,112,`${STATE.hearts} HEARTS LEFT`,10,HX.red,{mono:true,sp:2}));
+    }
+
+    const last=this.qi>=4;
+    const b=BTN(this,0,166,210,56,last?'FINISH LESSON  ›':'NEXT TASK  ›',()=>{
+      if(last||STATE.hearts<=0) this.finish();
+      else this.nextQuestion();
+    },{f1:col,f2:ok?0x0a8a4a:0xa02030,bd:col,fs:14,sp:2});
+    this.resultBody.add(b);
+  }
+
+  nextQuestion(){
+    // cinematic swap: freeze transforms, fly the whole deck out, rebuild, glide in
+    this.car.frozen=true;
+    const panels=this.car.panels.map(p=>p.c);
+    burst(this,W/2,H/2,{n:20,cols:[this.L.hue,COL.CYAN],v:240,s:3});
+    this.tweens.add({targets:panels,x:'-=460',alpha:0,scaleX:0.8,scaleY:0.8,
+      duration:360,ease:'Cubic.easeIn',
+      onComplete:()=>{ this.qi++; this.loadQuestion(); }});
+    this.tweens.add({targets:this.stepLabel,alpha:0,duration:200,yoyo:true});
+  }
+
+  finish(){
+    this.cameras.main.fadeOut(420,0,0,0);
+    this.time.delayedCall(420,()=>this.scene.start('Done',{id:this.id}));
+  }
+
+  update(){
+    this.car.update();
+    this.stepDots.update(this.car.scroll);
+    const names=['STEP 1 · BRIEFING','STEP 2 · YOUR MOVE','STEP 3 · RESULT'];
+    const i=Phaser.Math.Clamp(Math.round(this.car.scroll),0,2);
+    if(this.stepLabel.text!==names[i]) this.stepLabel.setText(names[i]);
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+//  LESSON COMPLETE
+// ══════════════════════════════════════════════════════════
+class DoneScene extends Phaser.Scene{
+  constructor(){super('Done');}
+  init(d){
+    this.id=d.id??0;
+    this.stars=STATE.wrongAnswers===0?3:(STATE.wrongAnswers<=2?2:1);
+    this.xp=15+this.stars*5; this.coins=10+this.stars*5;
+    STATE.xp+=this.xp; STATE.coins+=this.coins; STATE.streak+=1;
+    STATE.lessonsCompleted=Math.max(STATE.lessonsCompleted,this.id+1);
+    if(!STATE.achFirst) STATE.achFirst=true;
+    if(STATE.lessonsCompleted>=3) STATE.achChart=true;
+    if(STATE.streak>=7) STATE.achStreak=true;
+  }
+  create(){
+    this.cameras.main.setBackgroundColor(COL.VOID);
+    this.px=new Parallax(this,{hue:COL.GOLD});
+    let t=0; this.time.addEvent({delay:16,repeat:-1,callback:()=>{t+=.008;this.px.setScroll(Math.sin(t)*4);}});
+    this.confetti();
+
+    const title=T(this,W/2,128,'LESSON COMPLETE',24,HX.cyan,{sp:3,glow:HX.cyan,gs:16}).setAlpha(0);
+    this.tweens.add({targets:title,alpha:1,y:120,duration:520,ease:'Cubic.easeOut'});
+    const sub=T(this,W/2,152,LESSONS[this.id].title.toUpperCase(),9,HX.dim,{mono:true,sp:4}).setAlpha(0);
+    this.tweens.add({targets:sub,alpha:.8,duration:500,delay:200});
+
+    // stars
+    for(let i=0;i<3;i++){
+      const x=W/2+(i-1)*84;
+      const s=this.add.container(x,262).setScale(0).setAlpha(0);
+      const g=this.add.graphics();
+      const on=i<this.stars;
+      if(on){const gl=this.add.graphics();gl.fillStyle(COL.GOLD,.25);gl.fillCircle(0,0,44);
+        gl.setBlendMode(Phaser.BlendModes.ADD);s.add(gl);}
+      g.fillStyle(on?COL.GOLD:0x142834,1);
+      g.beginPath();
+      for(let k=0;k<10;k++){const r=k%2?15:36;const a=(k/10)*Math.PI*2-Math.PI/2;
+        const px=Math.cos(a)*r,py=Math.sin(a)*r; k?g.lineTo(px,py):g.moveTo(px,py);}
+      g.closePath(); g.fillPath();
+      if(on){g.lineStyle(2,COL.GOLD_LT,1);g.strokePath();}
+      s.add(g);
+      this.time.delayedCall(560+i*380,()=>{
+        this.tweens.add({targets:s,scaleX:1.25,scaleY:1.25,alpha:1,duration:340,ease:'Back.easeOut',
+          yoyo:true,hold:180,onComplete:()=>this.tweens.add({targets:s,scaleX:1,scaleY:1,duration:200})});
+        if(on) burst(this,x,262,{n:18,cols:[COL.GOLD,COL.GOLD_LT,COL.CYAN],v:200,s:5});
+      });
+    }
+
+    // stat card
+    const cw=286,chh=170,cy=420;
+    const g=this.add.graphics();
+    g.fillStyle(COL.GOLD,.10); g.fillRoundedRect(W/2-cw/2-8,cy-chh/2-8,cw+16,chh+16,30);
+    g.setBlendMode(Phaser.BlendModes.ADD);
+    const g2=this.add.graphics();
+    g2.fillStyle(COL.CARD,.96); g2.fillRoundedRect(W/2-cw/2,cy-chh/2,cw,chh,24);
+    g2.lineStyle(1.5,COL.GOLD,.6); g2.strokeRoundedRect(W/2-cw/2,cy-chh/2,cw,chh,24);
+
+    this.xpT=T(this,W/2,cy-44,'+0',40,HX.gold,{glow:HX.gold,gs:14});
+    T(this,W/2,cy-12,'EXPERIENCE POINTS',8,HX.muted,{mono:true,sp:4});
+    this.tweens.addCounter({from:0,to:this.xp,duration:1400,delay:500,ease:'Cubic.easeOut',
+      onUpdate:t=>this.xpT.setText('+'+Math.floor(t.getValue())),
+      onComplete:()=>burst(this,W/2,cy-44,{n:16,cols:[COL.GOLD],v:180})});
+
+    const div=this.add.graphics();
+    div.lineStyle(1,COL.FROST,.45); div.lineBetween(W/2-100,cy+8,W/2+100,cy+8);
+    const acc=Math.max(0,Math.round((5-STATE.wrongAnswers)/5*100));
+    const stats=[['COINS','+'+this.coins,HX.gold],['STREAK',STATE.streak+'d',HX.amber],['ACCURACY',acc+'%',HX.green]];
+    stats.forEach((s,i)=>{
+      const x=W/2-88+i*88;
+      T(this,x,cy+32,s[1],15,s[2]);
+      T(this,x,cy+52,s[0],7,HX.muted,{mono:true,sp:2});
+    });
+
+    this.time.delayedCall(2200,()=>{
+      const b=BTN(this,W/2,H-116,280,62,'CONTINUE  ›',()=>{
+        this.cameras.main.fadeOut(320,0,0,0);
+        this.time.delayedCall(320,()=>this.scene.start('Home'));
+      },{f1:COL.CYAN,f2:COL.CYAN_DK,bd:COL.CYAN,fs:16,sp:3});
+      b.setAlpha(0); b.y=H-96;
+      this.tweens.add({targets:b,alpha:1,y:H-116,duration:420,ease:'Cubic.easeOut'});
+    });
+    this.cameras.main.flash(400,0,150,200);
+  }
+  confetti(){
+    for(let i=0;i<64;i++){
+      const c=Phaser.Utils.Array.GetRandom([COL.CYAN,COL.GOLD,COL.GREEN,COL.PURPLE,COL.PINK,COL.AMBER]);
+      const s=Phaser.Math.Between(5,10);
+      const g=this.add.graphics();
+      g.fillStyle(c,1);
+      const k=Phaser.Math.Between(0,2);
+      if(k===0) g.fillRect(-s/2,-s/4,s,s/2);
+      else if(k===1) g.fillCircle(0,0,s/2.4);
+      else g.fillTriangle(-s/2,s/2,s/2,s/2,0,-s/2);
+      g.x=Phaser.Math.Between(0,W); g.y=Phaser.Math.Between(-320,-20);
+      g.setBlendMode(Phaser.BlendModes.ADD).setDepth(800);
+      this.tweens.add({targets:g,y:H+60,x:g.x+Phaser.Math.Between(-90,90),
+        rotation:Phaser.Math.FloatBetween(-8,8),duration:Phaser.Math.Between(2800,5000),
+        ease:'Cubic.easeIn',onComplete:()=>g.destroy()});
+    }
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+//  LEADERBOARD
+// ══════════════════════════════════════════════════════════
+class BoardScene extends Phaser.Scene{
+  constructor(){super('Board');}
+  create(){
+    this.isDragging=false;
+    this.cameras.main.setBackgroundColor(COL.VOID);
+    this.px=new Parallax(this,{hue:COL.PURPLE});
+    topBar(this,'LEADERBOARD','WEEKLY XP RANKINGS');
+
+    const league=STATE.xp<200?'BRONZE':(STATE.xp<500?'SILVER':'GOLD');
+    const lc=STATE.xp<200?0xcd7f32:(STATE.xp<500?0xc0c0c0:COL.GOLD);
+    const lg=this.add.graphics().setDepth(400);
+    lg.fillStyle(lc,.14); lg.fillRoundedRect(W/2-84,104,168,30,15);
+    lg.lineStyle(1,lc,.8); lg.strokeRoundedRect(W/2-84,104,168,30,15);
+    T(this,W/2,119,`★ ${league} LEAGUE ★`,11,'#'+lc.toString(16).padStart(6,'0'),{mono:true,sp:2}).setDepth(401);
+
+    const list=BOARD.map(b=>({...b,me:false}));
+    list.push({n:'YOU · CryptoLearner',x:STATE.xp+STATE.lessonsCompleted*100,c:COL.CYAN,me:true});
+    list.sort((a,b)=>b.x-a.x);
+
+    const rowH=56, y0=156;
+    list.forEach((p,i)=>{
+      const y=y0+i*rowH;
+      const r=this.add.container(0,y).setDepth(300);
+      const g=this.add.graphics();
+      if(p.me){ g.fillStyle(COL.CYAN,.12); g.fillRoundedRect(14,-3,W-28,rowH-6,16);
+        g.setBlendMode(Phaser.BlendModes.ADD); r.add(g);
+        const g3=this.add.graphics();
+        g3.fillStyle(0x00212e,.95); g3.fillRoundedRect(18,0,W-36,rowH-12,14);
+        g3.lineStyle(2,COL.CYAN,1); g3.strokeRoundedRect(18,0,W-36,rowH-12,14); r.add(g3);
+      } else {
+        const g3=this.add.graphics();
+        g3.fillStyle(COL.CARD,.88); g3.fillRoundedRect(18,0,W-36,rowH-12,14);
+        g3.lineStyle(1,COL.FROST,.5); g3.strokeRoundedRect(18,0,W-36,rowH-12,14); r.add(g3);
+      }
+      const mid=(rowH-12)/2;
+      const rc=i===0?HX.gold:i===1?'#c0c0c0':i===2?'#cd7f32':(p.me?HX.cyan:HX.muted);
+      r.add(T(this,46,mid,`${i+1}`,16,rc,{mono:true}));
+      const av=this.add.graphics();
+      av.fillStyle(p.c,1); av.fillCircle(92,mid,17);
+      av.fillStyle(COL.WHITE,.18); av.fillCircle(87,mid-5,7);
+      r.add(av);
+      r.add(T(this,92,mid,p.n[0].toUpperCase(),15,HX.deep));
+      r.add(T(this,120,mid,p.n,14,p.me?HX.cyan:HX.txt,{align:'left'}));
+      r.add(T(this,W-32,mid,p.x.toLocaleString(),13,HX.gold,{align:'right',mono:true}));
+      r.setAlpha(0); r.x=36;
+      this.tweens.add({targets:r,alpha:1,x:0,duration:420,delay:i*46,ease:'Cubic.easeOut'});
+    });
+
+    bottomNav(this,1);
+    this.cameras.main.fadeIn(400,0,0,0);
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+//  PROFILE
+// ══════════════════════════════════════════════════════════
+class ProfileScene extends Phaser.Scene{
+  constructor(){super('Profile');}
+  create(){
+    this.isDragging=false;
+    this.cameras.main.setBackgroundColor(COL.VOID);
+    this.px=new Parallax(this,{hue:COL.CYAN});
+    topBar(this,'PROFILE','');
+
+    // avatar
+    const ay=170;
+    const gl=this.add.graphics().setDepth(300);
+    gl.fillStyle(COL.CYAN,.16); gl.fillCircle(W/2,ay,66); gl.setBlendMode(Phaser.BlendModes.ADD);
+    this.tweens.add({targets:gl,alpha:.5,scaleX:1.1,scaleY:1.1,duration:2200,yoyo:true,repeat:-1,ease:'Sine.easeInOut'});
+    const rg=this.add.graphics().setDepth(301);
+    rg.lineStyle(2,COL.GOLD,.9); rg.strokeCircle(W/2,ay,54);
+    rg.lineStyle(1,COL.CYAN,.45); rg.strokeCircle(W/2,ay,62);
+    const av=this.add.graphics().setDepth(302);
+    av.fillStyle(COL.CYAN,1); av.fillCircle(W/2,ay,46);
+    av.fillStyle(COL.GOLD_LT,.35); av.fillCircle(W/2-12,ay-13,20);
+    T(this,W/2,ay,'C',40,HX.deep).setDepth(303);
+    T(this,W/2,ay+78,'CryptoLearner',21,HX.txt,{sp:1}).setDepth(303);
+    T(this,W/2,ay+102,`LEVEL ${STATE.level} · TRADER`,9,HX.cyan,{mono:true,sp:4}).setDepth(303);
+
+    // stats
+    const st=[['LESSONS',STATE.lessonsCompleted,HX.cyan,COL.CYAN],
+              ['STREAK',STATE.streak+'d',HX.amber,COL.AMBER],
+              ['XP',STATE.xp,HX.gold,COL.GOLD],
+              ['COINS',STATE.coins,HX.green,COL.GREEN]];
+    const cw=(W-56)/2, chh=84;
+    st.forEach((s,i)=>{
+      const x=20+(i%2)*(cw+16)+cw/2, y=326+Math.floor(i/2)*(chh+14)+chh/2;
+      const c=this.add.container(x,y).setDepth(300);
+      const g=this.add.graphics();
+      g.fillStyle(s[3],.09); g.fillRoundedRect(-cw/2-5,-chh/2-5,cw+10,chh+10,22);
+      g.setBlendMode(Phaser.BlendModes.ADD); c.add(g);
+      const g2=this.add.graphics();
+      g2.fillStyle(COL.CARD,.94); g2.fillRoundedRect(-cw/2,-chh/2,cw,chh,18);
+      g2.lineStyle(1,s[3],.45); g2.strokeRoundedRect(-cw/2,-chh/2,cw,chh,18);
+      g2.lineStyle(1,COL.WHITE,.1); g2.beginPath();
+      g2.moveTo(-cw/2+18,-chh/2+1.5); g2.lineTo(cw/2-18,-chh/2+1.5); g2.strokePath();
+      c.add(g2);
+      c.add(T(this,0,-18,s[0],8,HX.muted,{mono:true,sp:3}));
+      c.add(T(this,0,14,String(s[1]),26,s[2],{glow:s[2],gs:8}));
+      c.setAlpha(0); c.y=y+26;
+      this.tweens.add({targets:c,alpha:1,y,duration:420,delay:180+i*90,ease:'Cubic.easeOut'});
+    });
+
+    // achievements
+    T(this,W/2,540,'ACHIEVEMENTS',9,HX.muted,{mono:true,sp:4}).setDepth(300);
+    const A=[['FIRST\nLESSON',STATE.achFirst],['7-DAY\nSTREAK',STATE.achStreak],['CHART\nMASTER',STATE.achChart]];
+    const aw=(W-76)/3, ah=104;
+    A.forEach((a,i)=>{
+      const x=28+i*(aw+10)+aw/2, y=566+ah/2;
+      const c=this.add.container(x,y).setDepth(300);
+      const on=a[1];
+      if(on){const g=this.add.graphics();g.fillStyle(COL.GOLD,.12);
+        g.fillRoundedRect(-aw/2-5,-ah/2-5,aw+10,ah+10,20);
+        g.setBlendMode(Phaser.BlendModes.ADD);c.add(g);}
+      const g2=this.add.graphics();
+      g2.fillStyle(COL.CARD,.94); g2.fillRoundedRect(-aw/2,-ah/2,aw,ah,16);
+      g2.lineStyle(1.5,on?COL.GOLD:COL.FROST,on?.85:.4);
+      g2.strokeRoundedRect(-aw/2,-ah/2,aw,ah,16); c.add(g2);
+      const b=this.add.graphics();
+      b.fillStyle(on?COL.GOLD:0x1b2c38,1); b.fillCircle(0,-16,22);
+      if(on){b.fillStyle(COL.GOLD_LT,.45);b.fillCircle(-6,-22,10);
+        b.lineStyle(2,COL.GOLD_LT,1);b.strokeCircle(0,-16,22);}
+      c.add(b);
+      c.add(T(this,0,-16,on?'★':'🔒',on?20:14,on?HX.deep:HX.muted));
+      c.add(T(this,0,26,a[0],9,on?HX.gold:HX.muted,{mono:true,sp:1,ls:4}));
+      c.setAlpha(0);
+      this.tweens.add({targets:c,alpha:1,duration:420,delay:520+i*100,ease:'Cubic.easeOut'});
+    });
+
+    bottomNav(this,3);
+    this.cameras.main.fadeIn(400,0,0,0);
+  }
+}
+
+// ── shared chrome for sub-scenes ──────────────────────────
+function topBar(scene,title,sub){
+  const h=88;
+  const g=scene.add.graphics().setDepth(400);
+  g.fillStyle(COL.DEEP,.86); g.fillRect(0,0,W,h);
+  g.lineStyle(1,COL.FROST,.55); g.lineBetween(0,h,W,h);
+  const bg=scene.add.graphics().setDepth(401);
+  bg.fillStyle(COL.LIFT,1); bg.fillCircle(32,44,20);
+  bg.lineStyle(1,COL.FROST,.8); bg.strokeCircle(32,44,20);
+  bg.lineStyle(3,COL.TXT,1); bg.beginPath();
+  bg.moveTo(39,36); bg.lineTo(27,44); bg.lineTo(39,52); bg.strokePath();
+  const hit=scene.add.circle(32,44,26,COL.WHITE,0).setDepth(402).setInteractive({useHandCursor:true});
+  let d0=0; hit.on('pointerdown',p=>d0=p.x);
+  hit.on('pointerup',p=>{ if(Math.abs(p.x-d0)>12) return;
+    scene.cameras.main.fadeOut(280,0,0,0);
+    scene.time.delayedCall(280,()=>scene.scene.start('Home')); });
+  T(scene,W/2,sub?36:44,title,19,HX.txt,{sp:3}).setDepth(401);
+  if(sub) T(scene,W/2,60,sub,8,HX.muted,{mono:true,sp:3}).setDepth(401);
+}
+function bottomNav(scene,active){
+  const ny=H-84,nh=84;
+  const g=scene.add.graphics().setDepth(400);
+  g.fillStyle(COL.DEEP,.92); g.fillRect(0,ny,W,nh);
+  g.lineStyle(1,COL.FROST,.55); g.lineBetween(0,ny,W,ny);
+  const tabs=['HOME','RANKS','WALLET','YOU'];
+  for(let i=0;i<4;i++){
+    const tx=(W/4)*(i+.5);
+    const ic=scene.add.graphics().setDepth(401);
+    navIcon(ic,i,tx,ny+28,i===active);
+    T(scene,tx,ny+56,tabs[i],9,i===active?HX.cyan:HX.muted,{mono:true,sp:2}).setDepth(401);
+    const hit=scene.add.rectangle(tx,ny+nh/2,W/4,nh,COL.WHITE,0).setDepth(402)
+      .setInteractive({useHandCursor:true});
+    let d0=0; hit.on('pointerdown',p=>d0=p.x);
+    hit.on('pointerup',p=>{
+      if(Math.abs(p.x-d0)>12) return;
+      scene.tweens.add({targets:ic,scaleX:.8,scaleY:.8,duration:80,yoyo:true});
+      const go=t=>{scene.cameras.main.fadeOut(280,0,0,0);scene.time.delayedCall(280,()=>scene.scene.start(t));};
+      if(i===0&&active!==0) go('Home');
+      if(i===1&&active!==1) go('Board');
+      if(i===2) go('Home');
+      if(i===3&&active!==3) go('Profile');
+    });
+  }
+  const ug=scene.add.graphics().setDepth(403);
+  ug.fillStyle(COL.CYAN,1); ug.fillRoundedRect((W/4)*(active+.5)-24,H-5,48,3,2);
+}
+
+// ══════════════════════════════════════════════════════════
+window.addEventListener('load',()=>{
+  const boot=()=>new Phaser.Game({
+    type:Phaser.AUTO, parent:'game', width:W, height:H, backgroundColor:'#02080d',
+    scale:{mode:Phaser.Scale.FIT,autoCenter:Phaser.Scale.CENTER_BOTH},
+    render:{antialias:true,pixelArt:false,roundPixels:false},
+    scene:[BootScene,HomeScene,LessonScene,DoneScene,BoardScene,ProfileScene]
+  });
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(boot); else boot();
+});
+</script>
+</body>
+</html>

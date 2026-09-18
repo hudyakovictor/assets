@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="ru" data-motion="full">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MOTION 99 — Мастер-класс и курс моушн-дизайна для игр и приложений</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232dd4bf'/%3E%3Cstop offset='.5' stop-color='%2338bdf8'/%3E%3Cstop offset='1' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='bold' font-size='26' fill='%2304121a' text-anchor='middle'%3E99%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ============ AURORA BACKGROUND ============ -->
+<div class="aurora" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+</div>
+<div class="noise" aria-hidden="true"></div>
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar glass" id="sidebar">
+  <div class="logo">
+    <div class="logo-orb"><span>99</span></div>
+    <div class="logo-text"><b>MOTION 99</b><small>motion design masterclass</small></div>
+  </div>
+  <nav class="nav" id="nav">
+    <a href="#home" class="nav-link" data-nav="home"><span class="nav-ico">◈</span>Мастер-класс</a>
+    <a href="#m1" class="nav-link" data-nav="m1"><span class="nav-ico">01</span>ДНК Game Feel</a>
+    <a href="#m2" class="nav-link" data-nav="m2"><span class="nav-ico">02</span>Juice: сочность удара</a>
+    <a href="#m3" class="nav-link" data-nav="m3"><span class="nav-ico">03</span>Transform UI</a>
+    <a href="#m4" class="nav-link" data-nav="m4"><span class="nav-ico">04</span>Переходы 2026</a>
+    <a href="#m5" class="nav-link" data-nav="m5"><span class="nav-ico">05</span>Секреты топ-10%</a>
+    <a href="#vault" class="nav-link nav-vault" data-nav="vault"><span class="nav-ico">✦</span>Хранилище</a>
+  </nav>
+  <div class="sidebar-foot">
+    <button class="motion-toggle" id="motionToggle" aria-pressed="false">
+      <span class="mt-track"><span class="mt-thumb"></span></span>
+      <span class="mt-label">Reduce Motion</span>
+    </button>
+    <div class="foot-note">Сделано как живой учебник.<br>Каждый эффект можно потрогать.</div>
+  </div>
+</aside>
+<button class="menu-btn glass" id="menuBtn" aria-label="Меню"><span></span><span></span><span></span></button>
+
+<!-- ============ MAIN ============ -->
+<main id="main">
+
+<!-- ================= HOME ================= -->
+<section class="page" data-route="home">
+  <div class="hero">
+    <div class="hero-kicker reveal">AAA+ GAME DEV MOTION DESIGN · УРОВЕНЬ 99</div>
+    <h1 class="hero-title" data-split>Движение,<br>которое продаёт</h1>
+    <p class="hero-lead reveal">Мастер-класс и интерактивный курс по motion-дизайну мобильных игр и приложений: game feel, juice, Transform UI и award-winning переходы уровня 2026 — <b>Liquid Glass</b>, метабо́ллы, пружины, жесты и хаптика. Каждая техника — живой демо прямо на странице.</p>
+    <div class="hero-cta reveal">
+      <a class="btn btn-primary" href="#m1">▶ Начать курс</a>
+      <a class="btn btn-ghost" href="#vault">✦ Хранилище редких элементов</a>
+    </div>
+    <div class="hero-stats reveal">
+      <div class="stat glass"><b data-count="6">0</b><span>модулей</span></div>
+      <div class="stat glass"><b data-count="20">0</b><span>живых демо</span></div>
+      <div class="stat glass"><b data-count="14">0</b><span>элементов хранилища</span></div>
+      <div class="stat glass"><b data-count="40">0</b><span>+ секретов про-уровня</span></div>
+    </div>
+  </div>
+
+  <div class="marquee reveal" aria-hidden="true">
+    <div class="marquee-track" id="marqueeTrack">
+      <span>SPRING PHYSICS ✦ FLIP ✦ GOOEY FILTER ✦ HIT-STOP ✦ LIQUID GLASS ✦ TRAUMA SHAKE ✦ SCROLL-DRIVEN ✦ HAPTIC SYNC ✦ ODOMETER ✦ MAGNETIC CURSOR ✦ SQUASH &amp; STRETCH ✦ METABALL WIPE ✦</span>
+    </div>
+  </div>
+
+  <h2 class="sec-title reveal">Программа курса</h2>
+  <div class="module-grid">
+    <a class="module-card glass reveal" href="#m1">
+      <span class="mc-num">01</span><h3>ДНК Game Feel</h3>
+      <p>Изинг, спейсинг, squash &amp; stretch, антиципация и пружинная физика — фундамент, на котором держится всё «дорогое» движение.</p>
+      <div class="mc-tags"><span>easing lab</span><span>spring</span><span>volume</span></div>
+    </a>
+    <a class="module-card glass reveal" href="#m2">
+      <span class="mc-num">02</span><h3>Juice: сочность удара</h3>
+      <p>Screen shake, hit-stop, slow-mo, частицы, трейлы, комбо-эскалация. Как за 80 мс заморозки сделать удар легендарным.</p>
+      <div class="mc-tags"><span>trauma</span><span>hit-stop</span><span>particles</span></div>
+    </a>
+    <a class="module-card glass reveal" href="#m3">
+      <span class="mc-num">03</span><h3>Transform UI</h3>
+      <p>Элементы не появляются — они трансформируются. FLIP, container transform, жидкий таб-бар на SVG-фильтрах, хореография стаггера.</p>
+      <div class="mc-tags"><span>FLIP</span><span>morph</span><span>gooey</span></div>
+    </a>
+    <a class="module-card glass reveal" href="#m4">
+      <span class="mc-num">04</span><h3>Переходы 2026</h3>
+      <p>То, что берёт награды: метабо́лл-вайпы, айрис, глитч-шторки, магнитные курсоры, жестовая физика и scroll-driven сторителлинг.</p>
+      <div class="mc-tags"><span>liquid wipe</span><span>magnetic</span><span>gesture</span></div>
+    </a>
+    <a class="module-card glass reveal" href="#m5">
+      <span class="mc-num">05</span><h3>Секреты топ-10%</h3>
+      <p>Фрейм-бюджет 120 Гц, композитор против layout, синхронизация хаптики с движением, фейковый motion blur и доступность.</p>
+      <div class="mc-tags"><span>8.3ms</span><span>haptics</span><span>ghosting</span></div>
+    </a>
+    <a class="module-card glass reveal vault-card-link" href="#vault">
+      <span class="mc-num">✦</span><h3>Хранилище</h3>
+      <p>14 готовых интерактивных элементов, о которых знает меньше 10% разработчиков — с живым демо и копируемым кодом.</p>
+      <div class="mc-tags"><span>copy-paste</span><span>rare</span><span>2026</span></div>
+    </a>
+  </div>
+
+  <h2 class="sec-title reveal">Что изменилось в 2026</h2>
+  <div class="trend-grid">
+    <div class="trend glass reveal"><h4>Liquid Glass стал языком платформы</h4><p>Apple в iOS 26 превратила стекло из «скина» в динамический материал: прозрачность реагирует на контент, свет и движение, спекулярные блики живут своей жизнью, а переходы — упругие, как жидкость под стеклом. Награды берут интерфейсы, где материал и движение — одна система.</p></div>
+    <div class="trend glass reveal"><h4>Пружины вытеснили кривые Безье</h4><p>Премиальность = прерываемость. Анимацию больше нельзя «запустить и ждать»: её можно схватить жестом на середине и перенацелить. Spring-физика с реальной скоростью жеста на входе — стандарт топовых приложений.</p></div>
+    <div class="trend glass reveal"><h4>Переход — это история пространства</h4><p>View Transitions API, шейдерные вайпы и метабо́ллы: экраны не сменяются, а перетекают. Контент морфит из точки A в точку B так, что пользователь всегда понимает, где он.Blur-фазы внутри перехода маскируют любые просадки FPS.</p></div>
+    <div class="trend glass reveal"><h4>Мультисенсорная синхронизация</h4><p>Хаптик бьёт за 1–2 кадра до визуального пика — и мозг считывает это как «туго» и «дорого». Звук, вибрация и движение сводятся в одну таймлайн-партитуру. Это главный секрет мобильного game feel, который почти никто не делает осознанно.</p></div>
+  </div>
+
+  <div class="howto glass reveal">
+    <h3>Как проходить мастер-класс</h3>
+    <div class="howto-steps">
+      <div class="step"><b>01</b><span>Потрогай демо — покрути слайдеры, покликай. Ощущение важнее текста.</span></div>
+      <div class="step"><b>02</b><span>Прочитай блоки «Секрет про» — там то, чего нет в документации.</span></div>
+      <div class="step"><b>03</b><span>Открой код демо и забери приём себе. В Хранилище — готовые компоненты.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MODULE 1 ================= -->
+<section class="page" data-route="m1">
+  <header class="module-head">
+    <div class="mh-kicker reveal">МОДУЛЬ 01 · ФУНДАМЕНТ</div>
+    <h1 class="reveal">ДНК Game Feel</h1>
+    <p class="mh-lead reveal">Game feel — это зазор между нажатием и удовольствием. Он складывается из трёх вещей: <b>тайминг</b> (когда), <b>форма</b> (как деформируется) и <b>физика</b> (почему это выглядит настоящим). Освой четыре урока ниже — и любой твой интерфейс начнёт ощущаться «дороже», чем он есть.</p>
+  </header>
+
+  <!-- 1.1 Easing -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">1.1</span>
+      <h2>Изинг и спейсинг: подпись движения</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>Linear-анимация мертва: в природе ничего не стартует мгновенно и не останавливается мгновенно. Кривая ускорения — это <b>подпись</b> характера движения. Быстрый старт и длинный мягкий хвост (<code>easeOutExpo</code>) ощущается «отзывчивым», потому что 70% дистанции проходится в первые 100 мс — палец уже отпущен, а глаз ещё догоняет.</p>
+        <p><b>Спейсинг</b> — расстояния между кадрами. Равные промежутки = робот. Сгущение к концу = торможение с характером. Включи призрачные точки в демо и смотри, где объект «живёт» дольше всего.</p>
+        <div class="tip"><b>Секрет про:</b> для интерактивных элементов (то, что таскают пальцем) кривые Безье вообще не используют — только пружины, потому что пружину можно прервать на середине без скачка. Безье оставь для «авторских» сцен: появления, переходы, one-shot эффекты.</div>
+        <div class="tip alt"><b>Числа, которые работают:</b> UI-отклик 120–200 мс · появление панелей 250–350 мс · крупные переходы 400–550 мс · overshoot у easeOutBack не больше 8–12% дистанции.</div>
+      </div>
+      <div class="demo" data-demo="d-easing">
+        <div class="demo-stage">
+          <div class="easing-wrap">
+            <svg class="ease-curve" viewBox="-8 -8 116 116" id="easeCurve">
+              <rect x="0" y="0" width="100" height="100" class="curve-bg"/>
+              <line x1="0" y1="100" x2="100" y2="100" class="curve-axis"/>
+              <line x1="0" y1="0" x2="0" y2="100" class="curve-axis"/>
+              <path id="easePath" class="curve-path"/>
+              <line id="easeHandle1" class="curve-handle"/><line id="easeHandle2" class="curve-handle"/>
+              <circle id="easeP1" class="curve-ctl" r="3.4"/><circle id="easeP2" class="curve-ctl" r="3.4"/>
+              <circle id="easeHead" class="curve-head" r="3"/>
+            </svg>
+            <div class="easing-lanes">
+              <div class="lane"><span class="lane-label">твоя кривая</span><div class="lane-track"><div class="lane-dot custom"></div></div></div>
+              <div class="lane"><span class="lane-label">linear (контроль)</span><div class="lane-track"><div class="lane-dot linear"></div></div></div>
+              <div class="lane ghosts"><span class="lane-label">спейсинг-кадры</span><div class="lane-track" id="ghostTrack"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <div class="preset-row" id="easePresets">
+            <button class="chip active" data-ease="0.16,1,0.3,1" data-name="easeOutExpo">easeOutExpo</button>
+            <button class="chip" data-ease="0.34,1.56,0.64,1" data-name="easeOutBack">easeOutBack</button>
+            <button class="chip" data-ease="0.83,0,0.17,1" data-name="easeInOutQuint">easeInOutQuint</button>
+            <button class="chip" data-ease="0.65,0,0.35,1" data-name="easeInOutCubic">easeInOutCubic</button>
+            <button class="chip" data-ease="0,0,1,1" data-name="linear">linear</button>
+          </div>
+          <label class="ctl">Длительность <input type="range" id="easeDur" min="300" max="2000" step="50" value="900"><b id="easeDurV">900мс</b></label>
+          <div class="ctl-row"><button class="btn btn-primary" id="easePlay">▶ Проиграть</button><span class="hint">Кривую можно редактировать — тащи контрольные точки</span></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 1.2 Squash -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">1.2</span>
+      <h2>Squash &amp; Stretch с сохранением объёма</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>Первый принцип Диснея живёт в мобильных играх лучше всех. Мяч сплющивается при ударе и растягивается в полёте — по вектору скорости. Главное правило: <b>объём постоянен</b>. Если <code>scaleY = 0.7</code>, то <code>scaleX = 1/0.7 ≈ 1.43</code>. Нарушишь — объект начнёт «пухнуть» и магия сломается.</p>
+        <p>Деформация должна жить своей короткой жизнью: импульс от удара затухает за 120–180 мс и даёт 1–2 осцилляции (wobble). Это и есть «вес».</p>
+        <div class="tip"><b>Секрет про:</b> добавь к сплющиванию деформацию среды — ripple по полу и вспышку пыли в точке контакта. Мозг верит не в деформацию объекта, а в реакцию мира на неё. Ещё: тяни stretch вдоль вектора скорости через <code>rotate(v) scale(sx,sy) rotate(-v)</code> — наискось летящий мяч с вертикальным stretch выглядит дёшево.</div>
+      </div>
+      <div class="demo" data-demo="d-squash">
+        <div class="demo-stage stage-canvas">
+          <canvas id="squashCanvas"></canvas>
+          <div class="stage-hint">кликни по сцене — мяч прыгнет туда</div>
+        </div>
+        <div class="demo-controls">
+          <label class="ctl">Гравитация <input type="range" id="sqGrav" min="600" max="3000" step="50" value="1600"><b id="sqGravV">1600</b></label>
+          <label class="ctl">Упругость <input type="range" id="sqBounce" min="0.3" max="0.92" step="0.01" value="0.78"><b id="sqBounceV">0.78</b></label>
+          <label class="ctl">Сила сплющивания <input type="range" id="sqSquash" min="0" max="1" step="0.01" value="0.55"><b id="sqSquashV">0.55</b></label>
+          <label class="ctl check"><input type="checkbox" id="sqVolume" checked> сохранять объём</label>
+          <label class="ctl check"><input type="checkbox" id="sqRipple" checked> ripple + пыль от среды</label>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 1.3 Anticipation -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">1.3</span>
+      <h2>Антиципация и follow-through</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>Перед любым сильным действием тело «замахивается». В UI и играх это 2–6 кадров подготовки, которые делают движение <b>читаемым</b>: игрок понимает, что сейчас произойдёт, ещё до того как это произошло. Follow-through — наоборот, «доводит» энергию после остановки: хвост, волосы, одежда, overshoot.</p>
+        <p>Нажми оба «Прыжка» и сравни: слева объект телепортируется по дуге, справа — сначала приседает, потом взрывается и приземляется с wobble.</p>
+        <div class="tip"><b>Секрет про:</b> антиципация — инструмент честности в геймдизайне. Босс с телеграфируемым замахом ощущается «fair», без него — «дешёвая смерть». В UI то же: деструктивная кнопка перед удалением может чуть «оттянуться назад» (scale 0.96 на 80мс) — пользователь подсознательно успевает передумать. Это буквально страховка от случайных тапов, зашитая в анимацию.</div>
+      </div>
+      <div class="demo">
+        <div class="demo-stage" data-demo="d-anticipate">
+          <div class="anticipate-grid">
+            <div class="ap-cell">
+              <div class="ap-stage"><div class="ap-ball dry" id="apDry"></div><div class="ap-floor"></div></div>
+              <button class="btn btn-ghost" id="apBtnDry">Прыжок без подготовки</button>
+              <span class="ap-note">мёртво: нет замаха, нет приземления</span>
+            </div>
+            <div class="ap-cell">
+              <div class="ap-stage"><div class="ap-ball rich" id="apRich"></div><div class="ap-floor"></div><div class="ap-dust" id="apDust"></div></div>
+              <button class="btn btn-primary" id="apBtnRich">Прыжок с антиципацией</button>
+              <span class="ap-note">wind-up 90мс → взлёт → overshoot → settle</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 1.4 Spring -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">1.4</span>
+      <h2>Пружинная физика: почему iOS ощущается как iOS</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>Пружина — это не кривая, а <b>симуляция</b>: <code>a = (-k·x - c·v) / m</code>. Каждый кадр пересчитывается сила, поэтому пружину можно схватить и перенацелить в любой момент без единого скачка. Именно это даёт «живость» премиальным интерфейсам: пользователь чувствует, что объект имеет массу.</p>
+        <p>Три режима: <b>недемпфированная</b> (ζ&lt;1) — качается и осциллирует, игриво; <b>критическая</b> (ζ≈1) — самый быстрый приход без колебаний, стандарт для UI; <b>передемпфированная</b> (ζ&gt;1) — вязко, как в мёде, хорошо для «тяжёлых» панелей.</p>
+        <div class="tip"><b>Секрет про:</b> передавай пружине скорость жеста. Когда палец отпускает карточку, начальная скорость пружины = скорость пальца в этот момент — тогда продолжение движения неразличимо с жестом. Это называется velocity handoff, и это разница между «приложение» и «ощущение в руке». Интегрируй пружину полунеявным методом Эйлера с фиксированным шагом (substeps), иначе на 120 Гц параметры «поплывут».</div>
+      </div>
+      <div class="demo" data-demo="d-spring">
+        <div class="demo-stage">
+          <div class="spring-stage" id="springStage">
+            <div class="spring-anchor" id="springAnchor"></div>
+            <div class="spring-puck glass" id="springPuck">тащи меня</div>
+            <canvas id="springGraph"></canvas>
+            <div class="spring-readout" id="springReadout">ζ = —</div>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <label class="ctl">Жёсткость k <input type="range" id="spK" min="40" max="900" step="10" value="260"><b id="spKV">260</b></label>
+          <label class="ctl">Демпфирование c <input type="range" id="spC" min="2" max="80" step="1" value="18"><b id="spCV">18</b></label>
+          <label class="ctl">Масса m <input type="range" id="spM" min="0.4" max="5" step="0.1" value="1"><b id="spMV">1.0</b></label>
+          <div class="preset-row">
+            <button class="chip" data-sp="170,26,1">iOS default</button>
+            <button class="chip" data-sp="400,40,1">snappy</button>
+            <button class="chip" data-sp="120,10,1.6">желе</button>
+            <button class="chip" data-sp="900,60,0.8">жёсткий механизм</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <div class="practice glass reveal">
+    <h3>🎯 Практика модуля 1</h3>
+    <ol>
+      <li>Возьми любую кнопку в своём проекте и замени transition на <code>cubic-bezier(0.16, 1, 0.3, 1) 350ms</code>. Сравни ощущение до/после.</li>
+      <li>Реализуй spring-возврат для любого перетаскиваемого элемента, передавая скорость жеста. Добейся ζ ≈ 0.7–1.0.</li>
+      <li>Добавь squash на press у карточки: scale(0.97) за 90мс с overshoot обратно за 350мс.</li>
+    </ol>
+  </div>
+</section>
+<!-- ================= MODULE 2 ================= -->
+<section class="page" data-route="m2">
+  <header class="module-head">
+    <div class="mh-kicker reveal">МОДУЛЬ 02 · FEEDBACK</div>
+    <h1 class="reveal">Juice: сочность удара</h1>
+    <p class="mh-lead reveal">«Juice» — это многоканальная обратная связь на каждое действие: <b>визуал + звук + хаптик + камера + время</b>. Игрок нажимает одну кнопку, а мир отвечает пятью каналами сразу. Разница между «норм» и «не могу оторваться» почти всегда здесь, а не в графике.</p>
+  </header>
+
+  <!-- 2.1 Shake -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">2.1</span>
+      <h2>Screen shake: травма вместо рандома</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>Наивный шейк (<code>random(-5, 5)</code> каждый кадр) выглядит как эпилепсия. Профессиональный подход — <b>trauma-система</b> (техника Стива Свейнкоуэра из «Art of Screenshake»): у камеры есть «травма» 0…1, любое событие её добавляет, она плавно затухает, а амплитуда шейка = <b>травма²</b>. Квадрат даёт мягкую вершину и длинный хвост — мощно в момент удара и деликатно на затухании.</p>
+        <p>Движение берётся не из рандома, а из <b>шума Перлина</b> по времени — траектория становится непрерывной и «органической». И обязательно: шейк должен иметь <b>направление</b> отдачи — выстрел толкает камеру назад по вектору выстрела, а не во все стороны.</p>
+        <div class="tip"><b>Секрет про:</b> добавь к смещению ещё ротацию (±2°) и zoom-панч (fov/scale импульс 1.0→1.03) — камера начнёт ощущаться как живой оператор с плеча. Травму держи в одной переменной на всю игру и клампируй сверху (0.8), иначе серия попаданий выбьет игроку мозг. В UI травма-шейк применяют к форме ввода при ошибке — микро-версия на 120мс.</div>
+      </div>
+      <div class="demo" data-demo="d-shake">
+        <div class="demo-stage">
+          <div class="shake-scene" id="shakeScene">
+            <div class="shake-world" id="shakeWorld">
+              <div class="sw-grid"></div>
+              <div class="sw-target glass" id="swTarget">🎯</div>
+              <div class="sw-gun" id="swGun"></div>
+            </div>
+            <div class="trauma-meter"><span id="traumaFill"></span></div>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <label class="ctl">Сила события <input type="range" id="shAmount" min="0.1" max="1" step="0.05" value="0.55"><b id="shAmountV">0.55</b></label>
+          <label class="ctl">Затухание <input type="range" id="shDecay" min="0.4" max="2.5" step="0.1" value="1.2"><b id="shDecayV">1.2/с</b></label>
+          <div class="preset-row" id="shType">
+            <button class="chip active" data-t="perlin">Перлин</button>
+            <button class="chip" data-t="random">Рандом (плохо)</button>
+            <button class="chip" data-t="dir">Отдача по вектору</button>
+          </div>
+          <label class="ctl check"><input type="checkbox" id="shRot" checked> + ротация</label>
+          <label class="ctl check"><input type="checkbox" id="shZoom" checked> + zoom-панч</label>
+          <div class="ctl-row"><button class="btn btn-primary" id="shFire">💥 Выстрелить</button><span class="hint">или кликай по сцене — травма суммируется</span></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 2.2 Hitstop -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">2.2</span>
+      <h2>Hit-stop и тайм-дилейшн: власть над временем</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>Самая высокая отдача на вложенный байт кода во всём game feel. В момент попадания время <b>замирает на 50–120 мс</b> (hit-stop), затем часто идёт slow-mo 0.2–0.4× на 150–300 мс, и только потом всё возвращается к норме. Мозг получает паузу, чтобы осознать «Я ПОПАЛ». Без этого попадания ощущаются ватными даже с идеальной графикой.</p>
+        <p>Включай и выключай Juice в демо и стреляй — разница очевидна с первого раза. Это буквально одна переменная <code>timeScale</code>, умноженная на dt всей симуляции.</p>
+        <div class="tip"><b>Секрет про:</b> во время hit-stop мир замирает, но <b>эффекты — нет</b>: искры, вспышка и shake продолжают жить в реальном времени — именно рассинхрон каналов делает момент эпичным. На финишных ударах (fatality, победный гол) используй «белую рамку»: 2–3 кадра полностью инвертированного/выбеленного экрана перед slow-mo. В мобильном UI тот же приём — микро-заморозка 40мс при успешной оплате перед конфетти.</div>
+      </div>
+      <div class="demo" data-demo="d-hitstop">
+        <div class="demo-stage stage-canvas">
+          <canvas id="hitstopCanvas"></canvas>
+          <div class="hs-overlay" id="hsFlash"></div>
+          <div class="stage-hint" id="hsLabel">timeScale: 1.0×</div>
+        </div>
+        <div class="demo-controls">
+          <label class="ctl check"><input type="checkbox" id="hsJuice" checked> JUICE (hit-stop 90мс + slow-mo 0.25× + shake)</label>
+          <label class="ctl">Hit-stop <input type="range" id="hsStop" min="0" max="200" step="10" value="90"><b id="hsStopV">90мс</b></label>
+          <div class="ctl-row"><button class="btn btn-primary" id="hsFire">🔫 Выстрел</button><button class="btn btn-ghost" id="hsReset">Сброс</button></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 2.3 Particles -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">2.3</span>
+      <h2>Частицы и трейлы: рисуй светом</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>Частицы — это не физика, это <b>арт-дирекшн</b>. Аддитивный блендинг (<code>globalCompositeOperation = 'lighter'</code>) превращает обычные кружки в светящуюся плазму. Трейл делается почти бесплатно: вместо очистки канваса рисуй полупрозрачный прямоугольник фона (<code>alpha 0.15–0.3</code>) — предыдущие кадры затухают сами, рождая шлейфы.</p>
+        <p>Обязательный набор параметров: скорость с разбросом по конусу, drag (сопротивление), гравитация, время жизни с fade, и «спарклы» — частицы, мерцающие синусом по яркости.</p>
+        <div class="tip"><b>Секрет про:</b> объектный пул — никакой аллокации в бою, иначе сборщик мусора уронит кадр в самый эпичный момент. Держи «juice-бюджет»: не больше ~300 живых частиц на мобильном и не больше 3 одновременных взрывов в одной зоне — иначе эффект обесценивается (juice-инфляция: когда взрывается всё, не взрывается ничто). Ещё приём: 10% частиц делай в 3 раза крупнее и медленнее — они читаются как «обломки» и дают масштаб.</div>
+      </div>
+      <div class="demo" data-demo="d-particles">
+        <div class="demo-stage stage-canvas">
+          <canvas id="partCanvas"></canvas>
+          <div class="stage-hint">кликай/тапай по сцене — залп частиц</div>
+        </div>
+        <div class="demo-controls">
+          <label class="ctl">Количество <input type="range" id="ptCount" min="10" max="160" step="5" value="60"><b id="ptCountV">60</b></label>
+          <label class="ctl">Гравитация <input type="range" id="ptGrav" min="-200" max="900" step="10" value="350"><b id="ptGravV">350</b></label>
+          <label class="ctl">Drag <input type="range" id="ptDrag" min="0" max="4" step="0.1" value="1.2"><b id="ptDragV">1.2</b></label>
+          <label class="ctl check"><input type="checkbox" id="ptAdd" checked> аддитивный glow</label>
+          <label class="ctl check"><input type="checkbox" id="ptTrail" checked> трейлы (fade-кадр)</label>
+          <label class="ctl check"><input type="checkbox" id="ptSpark" checked> спарклы</label>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 2.4 Combo -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">2.4</span>
+      <h2>Комбо и эскалация: кривая возбуждения</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>Комбо-система — это не счётчик, а <b>кривая эскалации эмоций</b>. Каждый следующий хит должен быть чуть громче предыдущего: цифра пробивается пружинным punch-scale, цвет уходит по hue в горячую зону, на milestones (5/10/25) — новые эффекты и надписи. Пауза больше 2 секунд — комбо сгорает, и это создаёт то самое состояние потока: «ещё, ещё, ЕЩЁ».</p>
+        <div class="tip"><b>Секрет про:</b> эскалируй не только визуал, но и звук (питч +30 центов за хит, как в Tetris Effect / Crypt of the NecroDancer) и хаптику (light → medium → heavy). Цифры комбо анимируй одометром/слот-машиной, а не просто replace() — вращение барабана цифр даёт +50% к ощущению прогресса. И никогда не показывай комбо-таймер полоской — он давит; пусть лучше сама цифра начинает дрожать и остывать за 0.5с до сгорания.</div>
+      </div>
+      <div class="demo">
+        <div class="demo-stage" data-demo="d-combo">
+          <div class="combo-stage" id="comboStage">
+            <div class="combo-label" id="comboLabel">COMBO</div>
+            <div class="combo-num" id="comboNum">0</div>
+            <div class="combo-ring" id="comboRing"></div>
+            <div class="combo-title" id="comboTitle"></div>
+            <button class="btn btn-primary combo-hit" id="comboHit">⚔ УДАР</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <div class="practice glass reveal">
+    <h3>🎯 Практика модуля 2</h3>
+    <ol>
+      <li>Реализуй trauma-шейк с Перлином и передавай в него все игровые события через один <code>addTrauma(x)</code>.</li>
+      <li>Добавь hit-stop 80мс на попадание. Потом попробуй 40 и 150 — найди свой «щелчок».</li>
+      <li>Собери пул из 300 частиц и сделай три пресета: искры, дым, осколки. Ни одной аллокации во время игры.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= MODULE 3 ================= -->
+<section class="page" data-route="m3">
+  <header class="module-head">
+    <div class="mh-kicker reveal">МОДУЛЬ 03 · ПРОСТРАНСТВЕННЫЙ UI</div>
+    <h1 class="reveal">Transform UI</h1>
+    <p class="mh-lead reveal">Главный принцип UI-движения 2026: элементы <b>не появляются и не исчезают — они трансформируются</b>. Каждая панель помнит, откуда пришла карточка; каждая кнопка знает, во что развернётся. Это создаёт пространственную непрерывность — пользователь никогда не теряет контекст, а интерфейс ощущается единым физическим объектом.</p>
+  </header>
+
+  <!-- 3.1 FLIP -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">3.1</span>
+      <h2>FLIP: shared-element морфинг без библиотек</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p><b>FLIP = First, Last, Invert, Play.</b> Замерь прямоугольник до (<code>First</code>), мгновенно примени конечное состояние и замерь (<code>Last</code>), затем инвертируй разницу трансформом (<code>Invert</code>) и проиграй инверсию к нулю (<code>Play</code>). Так любая сложная перестановка layout анимируется только через <code>transform</code> — то есть на композиторе, то есть в 60/120 FPS.</p>
+        <p>Кликни карточку — она морфит в детальную панель, контент въезжает стаггером, закрытие проигрывает путь назад. Никакой магии — 30 строк кода.</p>
+        <div class="tip"><b>Секрет про:</b> при масштабировании карточки текст и рамки «расплываются» — профи делают <b>контр-масштаб</b>: вложенному контенту задают обратный scale, чтобы он не деформировался, и кросс-фейдят детали (текст карточки out → текст панели in) в середине морфа. border-radius при scale тоже плывёт — анимируй его отдельно или используй трюк <code>radius × (1/scale)</code>. В вебе 2026 часть этой работы берёт на себя View Transitions API и <code>view-transition-name</code> — но ручную FLIP-технику знать обязательно: нативные мобильные движки живут ровно по тем же законам.</div>
+      </div>
+      <div class="demo">
+        <div class="demo-stage" data-demo="d-flip">
+          <div class="flip-grid" id="flipGrid">
+            <button class="flip-card glass" data-flip="0"><span class="fc-ico">🪐</span><b>Nebula OS</b><small>дизайн-система</small></button>
+            <button class="flip-card glass" data-flip="1"><span class="fc-ico">🌊</span><b>Liquid Nav</b><small>навигация</small></button>
+            <button class="flip-card glass" data-flip="2"><span class="fc-ico">⚡</span><b>Volt Engine</b><small>рендер</small></button>
+            <button class="flip-card glass" data-flip="3"><span class="fc-ico">🎛</b><b>Haptic Lab</b><small>тактильность</small></button>
+            <button class="flip-card glass" data-flip="4"><span class="fc-ico">🔮</span><b>Glass Kit</b><small>материалы</small></button>
+            <button class="flip-card glass" data-flip="5"><span class="fc-ico">🛸</span><b>Orbit UI</b><small>компоненты</small></button>
+          </div>
+          <div class="flip-overlay" id="flipOverlay">
+            <div class="flip-scrim" id="flipScrim"></div>
+            <div class="flip-detail glass" id="flipDetail">
+              <span class="fc-ico" id="fdIco">🪐</span>
+              <h3 id="fdTitle">Nebula OS</h3>
+              <p id="fdText">Детальный экран, в который морфила карточка. Обрати внимание: фон затемняется с blur, контент входит стаггером снизу, а закрытие проигрывает FLIP назад — элемент возвращается ровно в свою ячейку.</p>
+              <div class="fd-stats"><span><b>120</b>fps</span><span><b>0</b>layout-анимаций</span><span><b>30</b>строк кода</span></div>
+              <button class="btn btn-ghost" id="fdClose">✕ Закрыть (морф назад)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 3.2 Container transform -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">3.2</span>
+      <h2>Container transform: FAB разворачивается в панель</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>Material Design назвал это container transform, Apple — зумом окна. Суть: маленький контрол и большой экран — это <b>один и тот же объект</b> в разных состояниях. Правильная реализация: панель заранее свёрстана в полный размер, а в «свёрнутом» состоянии просто отмасштабирована трансформом к позиции FAB. Никакой анимации width/height — только transform и opacity.</p>
+        <div class="tip"><b>Секрет про:</b> последовательность кросс-фейда важнее самого морфа: иконка FAB исчезает в первой трети, контент панели проявляется в последней трети — середина принадлежит чистому движению контейнера. Кривая — асимметричная: открытие быстрее (0.2,0,0,1 · 400мс), закрытие чуть медленнее и с лёгким «вдохом» антиципации. И всегда оставляй scrim с blur: он отделяет слои и, бонус, маскирует просадки FPS во время морфа.</div>
+      </div>
+      <div class="demo">
+        <div class="demo-stage ct-stage" data-demo="d-container">
+          <div class="ct-bg">
+            <div class="ct-line"></div><div class="ct-line w70"></div><div class="ct-line w40"></div>
+          </div>
+          <div class="ct-panel glass" id="ctPanel">
+            <div class="ct-panel-content" id="ctContent">
+              <h3>Создать запись</h3>
+              <div class="ct-field"></div><div class="ct-field"></div>
+              <div class="ct-row"><span class="btn btn-primary btn-sm">Сохранить</span><span class="btn btn-ghost btn-sm" id="ctCancel">Отмена</span></div>
+            </div>
+            <button class="ct-fab" id="ctFab">＋</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 3.3 Gooey tab bar -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">3.3</span>
+      <h2>Жидкий таб-бар: gooey-фильтр из двух строк SVG</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>Эффект «слипающейся жидкости» (метаболлы) делается без единой строчки шейдеров: SVG-фильтр <code>feGaussianBlur</code> → <code>feColorMatrix</code> с задранной контрастностью альфы. Размытые силуэты двух объектов в зоне перекрытия «свариваются» в одну каплю. Применяется к обычному DOM через <code>filter: url(#goo)</code>.</p>
+        <p>Индикатор таб-бара едет на пружине; пока скорость высока — он растягивается по X (жидкость тянется), к концу пути — сжимается и «плюхается». Иконка активной вкладки всплывает с overshoot.</p>
+        <div class="tip"><b>Секрет про:</b> gooey-фильтр рендерится дорого на больших площадях — применяй его только к маленькому слою с индикатором, а не ко всему таб-бару. Растяжение считай из скорости пружины: <code>scaleX = 1 + min(|v|·0.002, 0.5)</code>, и обязательно компенсируй <code>scaleY = 1/scaleX</code> — снова закон сохранения объёма из урока 1.2. Всё в этом курсе связано.</div>
+        <svg class="svg-defs" width="0" height="0"><defs>
+          <filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/><feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="goo"/><feBlend in="SourceGraphic" in2="goo"/></filter>
+        </defs></svg>
+      </div>
+      <div class="demo">
+        <div class="demo-stage" data-demo="d-tabbar">
+          <div class="tabbar-demo">
+            <div class="tab-goo-layer" id="tabGoo"><div class="tab-blob" id="tabBlob"></div><div class="tab-blob-ghost" id="tabGhost"></div></div>
+            <div class="tab-icons" id="tabIcons">
+              <button class="tab-ico active" data-i="0">🏠<span>Дом</span></button>
+              <button class="tab-ico" data-i="1">🔍<span>Поиск</span></button>
+              <button class="tab-ico" data-i="2">➕<span>Создать</span></button>
+              <button class="tab-ico" data-i="3">💬<span>Чаты</span></button>
+              <button class="tab-ico" data-i="4">👤<span>Профиль</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 3.4 Stagger -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">3.4</span>
+      <h2>Хореография стаггера: волна, а не очередь</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>Появление списка «всем сразу» — шум, «по одному с паузой 200мс» — очередь в поликлинику. Правильно: <b>волна</b> с задержкой 20–60мс на элемент и общим окном не длиннее 600мс, иначе последние элементы пользователь уже не смотрит. Направление волны должно совпадать с маршрутом взгляда: сверху вниз, от источника (кнопки) наружу, или по диагонали сетки.</p>
+        <div class="tip"><b>Секрет про:</b> exit-стаггер всегда быстрее enter (×0.6) и часто идёт в обратном порядке — уход ощущается как «свёртывание». В больших списках стаггерят только первые 8–10 видимых элементов, остальные появляются без задержки — никто не заметит, а бюджет кадров цел. И привязывай задержку к индексу видимости, а не к индексу данных: после скролла «152-й элемент» не должен ждать 3 секунды.</div>
+      </div>
+      <div class="demo" data-demo="d-stagger">
+        <div class="demo-stage">
+          <div class="stagger-grid" id="staggerGrid"></div>
+        </div>
+        <div class="demo-controls">
+          <div class="preset-row" id="stPattern">
+            <button class="chip active" data-p="linear">По порядку</button>
+            <button class="chip" data-p="center">От центра</button>
+            <button class="chip" data-p="diag">Диагональ</button>
+            <button class="chip" data-p="random">Случайно</button>
+          </div>
+          <label class="ctl">Шаг волны <input type="range" id="stDelay" min="10" max="120" step="5" value="45"><b id="stDelayV">45мс</b></label>
+          <div class="ctl-row"><button class="btn btn-primary" id="stIn">▶ Вход</button><button class="btn btn-ghost" id="stOut">◀ Выход (×0.6 быстрее)</button></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <div class="practice glass reveal">
+    <h3>🎯 Практика модуля 3</h3>
+    <ol>
+      <li>Напиши универсальную <code>flip(from, to, opts)</code> на 30 строк и прогони через неё морф карточка→модалка.</li>
+      <li>Собери таб-бар с gooey-индикатором: пружина + stretch по скорости + counter-scale.</li>
+      <li>Сделай стаггер-вход списка с паттерном «от источника» — от позиции нажатой кнопки.</li>
+    </ol>
+  </div>
+</section>
+<!-- ================= MODULE 4 ================= -->
+<section class="page" data-route="m4">
+  <header class="module-head">
+    <div class="mh-kicker reveal">МОДУЛЬ 04 · AWARD-WINNING</div>
+    <h1 class="reveal">Интерактивные переходы 2026</h1>
+    <p class="mh-lead reveal">Что берёт награды в 2026: переходы, которые <b>рассказывают историю пространства</b>. Экраны не сменяются — перетекают метабо́ллами, раскрываются айрисом, рвутся глитч-ломтями. Плюс жестовая физика 1:1, магнитные элементы и scroll-driven сторителлинг. Всё из этого живёт прямо здесь — в рамке телефона ниже.</p>
+  </header>
+
+  <!-- 4.1 Transition lab -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">4.1</span>
+      <h2>Лаборатория переходов: 5 award-winning техник</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p><b>Iris</b> — круговое раскрытие через clip-path из точки тапа: переход буквально вырастает из жеста. <b>Liquid wipe</b> — метабо́ллы (слипающиеся капли) накрывают экран, под ними мир меняется, капли уходят: фирменный приём «жидкого стекла» 2026. <b>Blinds</b> — ломти-жалюзи со стаггером, классика монтажного ритма. <b>Glitch</b> — RGB-разрывы и джиттер для кибер-эстетики. <b>Curtain blur</b> — штора с backdrop-blur: самый «яблочный» вариант.</p>
+        <p>Общий закон всех переходов: <b>swap в момент максимального покрытия</b>. Контент меняется, когда его не видно (экран закрыт каплями/шторой/blur), а фазы «закрытие» и «открытие» асимметричны: вход быстрее выхода.</p>
+        <div class="tip"><b>Секрет про:</b> любой переход выигрывает от микро-blur в средней фазе (2–6px): он маскирует мгновенную подмену контента и даёт кинематографичное «смазывание». В вебе 2026 половину работы делает View Transitions API (<code>document.startViewTransition</code> + кастомные <code>::view-transition-*</code>), в нативе — shared-element из Activity/Navigation transitions, но метабо́ллы и глитч до сих пор рисуются вручную на canvas/шейдерах — и именно они приносят награды, потому что их нет «из коробки».</div>
+      </div>
+      <div class="demo" data-demo="d-phone">
+        <div class="demo-stage">
+          <div class="phone-frame" id="phoneFrame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen" id="phoneScreen">
+              <div class="pscreen on" id="screenA">
+                <div class="ps-head">◍ NEBULA</div>
+                <div class="ps-hero glass"><span>🪐</span><b>Discover</b><small>экран A — лента</small></div>
+                <div class="ps-row"><i class="glass"></i><i class="glass"></i><i class="glass"></i></div>
+                <div class="ps-row tall"><i class="glass"></i><i class="glass"></i></div>
+                <div class="ps-nav"><u class="on"></u><u></u><u></u><u></u></div>
+              </div>
+              <div class="pscreen" id="screenB">
+                <div class="ps-head">▶ NOW PLAYING</div>
+                <div class="ps-disc" id="psDisc"><span>💿</span></div>
+                <div class="ps-track"><b>Liquid Dreams</b><small>Motion Orchestra</small></div>
+                <div class="ps-wave"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div>
+                <div class="ps-controls"><i>⏮</i><i class="big">⏸</i><i>⏭</i></div>
+              </div>
+              <div class="phone-fx" id="phoneFx">
+                <canvas id="liquidCanvas"></canvas>
+                <div class="fx-blinds" id="fxBlinds"></div>
+                <div class="fx-curtain" id="fxCurtain"></div>
+                <div class="fx-glitch" id="fxGlitch"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <div class="preset-row" id="trType">
+            <button class="chip active" data-tr="iris">Iris</button>
+            <button class="chip" data-tr="liquid">Liquid wipe</button>
+            <button class="chip" data-tr="blinds">Blinds</button>
+            <button class="chip" data-tr="glitch">Glitch</button>
+            <button class="chip" data-tr="curtain">Curtain blur</button>
+          </div>
+          <div class="ctl-row"><button class="btn btn-primary" id="trPlay">▶ Переключить экран</button><span class="hint" id="trHint">iris · clip-path из точки тапа</span></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 4.2 Magnetic -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">4.2</span>
+      <h2>Магнитные элементы и энергия курсора</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>Магнитная кнопка «притягивается» к курсору в радиусе действия и пружинисто возвращается. Дьявол в слоях: корпус кнопки едет с коэффициентом 0.3, текст внутри — с 0.5, блик — вообще живёт своей жизнью. Разные скорости слоёв = параллакс = ощущение объёма и «заряженности» элемента энергией курсора.</p>
+        <div class="tip"><b>Секрет про:</b> магнетизм должен иметь <b>гистерезис</b>: радиус притяжения ~120px, а радиус «отлипания» ~150px, иначе кнопка дёргается на границе. Возврат — только пружиной с ζ≈0.5 (лёгкое желе), никаких transition. На тач-устройствах магнетизм заменяют на press-scale и ripple из точки касания — та же физика, другой канал. И блик: <code>radial-gradient</code> с координатами курсора в CSS-переменных — дешёвый способ «осветить» стекло.</div>
+      </div>
+      <div class="demo">
+        <div class="demo-stage magnet-zone" data-demo="d-magnetic">
+          <button class="magnet-btn" id="magnetBtn"><span class="mb-fill"></span><span class="mb-text">Установить</span><span class="mb-glare"></span></button>
+          <div class="spot-card glass" id="spotCard"><span class="sc-glare"></span><b>Spotlight-карта</b><small>стекло подсвечивается курсором</small></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 4.3 Gesture -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">4.3</span>
+      <h2>Жестовая физика: бросок, резина, инерция</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>Правило №1 жестового UI: <b>жест и есть анимация</b> — элемент двигается 1:1 за пальцем, без задержек и transition. Дальше физика: за границами — резина (сопротивление 0.3–0.5), при отпускании — velocity handoff в пружину или бросок по инерции. Решение «закрыть/вернуть» принимается по обоим критериям: смещение &gt; 40% ИЛИ скорость &gt; 0.5 px/мс.</p>
+        <p>Наклон карточки считывается из горизонтальной скорости — быстрое движение «заваливает» её в сторону броска, это микро-деталь, которую все видят и никто не может назвать.</p>
+        <div class="tip"><b>Секрет про:</b> никогда не блокируй жест на время анимации возврата — пользователь должен мочь схватить летящую обратно карточку mid-air (прерываемость из урока 1.4). Скорость считай по последним 2–3 точкам с временными метками, а не по последнему дельта-движению — палец часто «замирает» перед отпусканием, и наивный расчёт даст ноль вместо реального броска. В нативе это UIScrollView velocity, в вебе — pointer events + скользящее окно.</div>
+      </div>
+      <div class="demo" data-demo="d-swipe">
+        <div class="demo-stage">
+          <div class="swipe-stack" id="swipeStack">
+            <div class="swipe-card glass" data-c="2"><b>🎴 Карта 3</b><small>последняя в стопке</small></div>
+            <div class="swipe-card glass" data-c="1"><b>🎴 Карта 2</b><small>под первой</small></div>
+            <div class="swipe-card glass" data-c="0"><b>🎴 Карта 1</b><small>тащи в сторону или щёлкни броском</small></div>
+          </div>
+          <div class="swipe-readout" id="swipeReadout">v: 0.00 px/мс · x: 0</div>
+        </div>
+        <div class="demo-controls">
+          <div class="ctl-row"><button class="btn btn-ghost" id="swReset">↺ Вернуть стопку</button><span class="hint">порог закрытия: 40% ширины или 0.5 px/мс</span></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 4.4 Scroll-driven -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">4.4</span>
+      <h2>Scroll-driven: стопка и прогресс без библиотек</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>Скролл — это жест, а значит и анимация: прогресс скролла напрямую управляет трансформом (sticky-карточки наезжают стопкой и ужимаются, когда их накрывает следующая). Так работают почти все awwwards-лонгриды 2025–2026: скролл — это таймлайн, контент — кадры.</p>
+        <p>В CSS уже есть нативные <code>animation-timeline: view()</code> и <code>scroll()</code> — прогресс-анимации без единой строчки JS. Для совместимости и сглаживания профи добавляют lerp: <code>cur += (target - cur) * 0.1</code> каждый кадр — движение становится «масляным».</p>
+        <div class="tip"><b>Секрет про:</b> lerp-сглаживание скролла (как у Lenis) — половина «дорогого» ощущения сайтов-победителей. Нормализуй прогресс по высоте элемента, а не окна, и всегда оставляй пользователю способ пройти контент без анимаций (ссылки, клавиатура). На мобильных снижай интенсивность: параллакс ×0.5 и никаких backdrop-filter на скроллящихся слоях — это убийца батареи и FPS.</div>
+      </div>
+      <div class="demo">
+        <div class="demo-stage" data-demo="d-scrollstack">
+          <div class="ss-scroll" id="ssScroll">
+            <div class="ss-card glass" style="--i:0"><span>01</span><h4>Liquid Glass</h4><p>Материал, реагирующий на контент и свет. iOS 26 сделал стекло системным языком — и задал планку всем.</p></div>
+            <div class="ss-card glass" style="--i:1"><span>02</span><h4>View Transitions</h4><p>Нативные морф-переходы между состояниями DOM. Shared element стал доступен без библиотек.</p></div>
+            <div class="ss-card glass" style="--i:2"><span>03</span><h4>Scroll-driven CSS</h4><p>animation-timeline: view() — анимации, привязанные к скроллу, на композиторе, без JS вообще.</p></div>
+            <div class="ss-card glass" style="--i:3"><span>04</span><h4>Rive-стейтмашины</h4><p>Интерактивная анимация как данные: designer собирает логику, runtime весит &lt;1MB и летает на 120Гц.</p></div>
+            <div class="ss-card glass" style="--i:4"><span>05</span><h4>Шейдерные вайпы</h4><p>WebGPU/WebGL-диссолвы, рефракция и шум — переходы, которые невозможно повторить стандартными средствами.</p></div>
+          </div>
+          <div class="stage-hint">скролли внутри рамки ↓</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <div class="practice glass reveal">
+    <h3>🎯 Практика модуля 4</h3>
+    <ol>
+      <li>Собери liquid wipe на canvas: 18–24 метабо́лла, покрытие за 450мс, swap, уход за 350мс.</li>
+      <li>Сделай карточки с velocity-throw: окно скоростей по 3 последним pointer-событиям, решение по (дистанция, скорость).</li>
+      <li>Добавь lerp-сглаживание к любому scroll-эффекту и почувствуй разницу между «дешёво» и «люкс».</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= MODULE 5 ================= -->
+<section class="page" data-route="m5">
+  <header class="module-head">
+    <div class="mh-kicker reveal">МОДУЛЬ 05 · ИНЖЕНЕРИЯ ВОСПРИЯТИЯ</div>
+    <h1 class="reveal">Секреты, о которых знает &lt;10%</h1>
+    <p class="mh-lead reveal">Красивая анимация, которая дропает кадры, хуже её отсутствия. Последний модуль — про невидимый слой: фрейм-бюджеты, композитор, синхронизацию хаптики, фейковый motion blur и доступность. Здесь motion-дизайнер становится инженером восприятия.</p>
+  </header>
+
+  <!-- 5.1 Frame budget -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">5.1</span>
+      <h2>Фрейм-бюджет: у тебя 8.3 миллисекунды</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>120 Гц (ProMotion, LTPO-экраны — стандарт флагманов) = <b>8.3 мс на кадр</b>, из которых твои скрипты, стиль, layout, paint и композитинг должны уложиться с запасом. 60 Гц = 16.6 мс. Двигай слайдеры и смотри, когда кадр «ломается».</p>
+        <p>Правило бюджета: интерактивная анимация не должна стоить дороже 2–3 мс JS на кадр. Всё остальное — отдай композитору (transform, opacity, filter).</p>
+        <div class="tip"><b>Секрет про:</b> <code>will-change</code> — это кредит, а не магия: каждый промотированный слой жрёт видеопамять, и 50 слоёв на экране убьют бюджет памяти быстрее, чем анимации убьют FPS. Ставь will-change за мгновение до анимации и снимай после. И никогда не анимируй <code>backdrop-filter</code> напрямую — вместо этого кросс-фейдь два заранее отрендеренных блюр-слоя через opacity: результат тот же, стоимость в разы ниже. Этот трюк используют стеклянные UI 2026 года.</div>
+      </div>
+      <div class="demo" data-demo="d-budget">
+        <div class="demo-stage">
+          <div class="budget-vis">
+            <div class="budget-hz" id="budgetHz">
+              <button class="chip" data-hz="60">60 Гц · 16.6мс</button>
+              <button class="chip" data-hz="90">90 Гц · 11.1мс</button>
+              <button class="chip active" data-hz="120">120 Гц · 8.3мс</button>
+            </div>
+            <div class="budget-bar" id="budgetBar">
+              <div class="bb-seg bb-js" id="bbJs" title="JS"></div>
+              <div class="bb-seg bb-style" id="bbStyle" title="Style + Layout"></div>
+              <div class="bb-seg bb-paint" id="bbPaint" title="Paint"></div>
+              <div class="bb-seg bb-comp" id="bbComp" title="Composite"></div>
+              <div class="bb-limit" id="bbLimit"><span>лимит кадра</span></div>
+            </div>
+            <div class="budget-legend"><i class="lg-js">JS</i><i class="lg-style">Style+Layout</i><i class="lg-paint">Paint</i><i class="lg-comp">Composite</i><i class="lg-free">запас</i></div>
+            <div class="budget-verdict ok" id="budgetVerdict">Запас 5.3мс — кадр в бюджете ✓</div>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <label class="ctl">Скрипты анимации <input type="range" id="bgJs" min="0" max="8" step="0.1" value="1.6"><b id="bgJsV">1.6мс</b></label>
+          <label class="ctl">Style + Layout <input type="range" id="bgStyle" min="0" max="8" step="0.1" value="0.8"><b id="bgStyleV">0.8мс</b></label>
+          <label class="ctl">Paint <input type="range" id="bgPaint" min="0" max="8" step="0.1" value="1.2"><b id="bgPaintV">1.2мс</b></label>
+          <label class="ctl">Composite <input type="range" id="bgComp" min="0.2" max="4" step="0.1" value="0.8"><b id="bgCompV">0.8мс</b></label>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 5.2 Compositor -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">5.2</span>
+      <h2>Комозитор против main thread: гонка двух кубиков</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>Два кубика делают одно и то же движение. Верхний анимирует <code>left</code> — каждый кадр main thread считает стиль, layout и paint. Нижний анимирует <code>transform</code> — кадр считается один раз, дальше всё делает GPU-композитор. Нажми «Нагрузить main thread» и посмотри, кто выживет.</p>
+        <div class="tip"><b>Секрет про:</b> композиторные свойства: <code>transform, opacity, filter</code> (и частично <code>backdrop-filter</code>). Всё, что меняет геометрию (<code>left/top/width/height/margin</code>), — идёт через layout всего документа. Отсюда и главная мантра мобильных движков: <b>анимируй только то, что живёт на своём слое</b>. В Unity/Unreal тот же закон: UI-анимации гоняют через RectTransform и canvas-группы без перестройки батчей. Замеряй frame time, а не «на глаз»: даже 3 пропущенных кадра при броске карточки ощущаются как «дешёвка».</div>
+      </div>
+      <div class="demo" data-demo="d-compositor">
+        <div class="demo-stage">
+          <div class="comp-lanes">
+            <div class="comp-lane"><span class="lane-label bad">animation: left — main thread</span><div class="comp-track" id="compTrackA"><div class="comp-box layout-box"></div></div></div>
+            <div class="comp-lane"><span class="lane-label good">animation: transform — композитор</span><div class="comp-track"><div class="comp-box comp-box-el"></div></div></div>
+          </div>
+          <div class="fps-panel">
+            <canvas id="fpsGraph"></canvas>
+            <div class="fps-readout"><b id="fpsNow">60</b><span>fps</span><i id="frameMs">16.7 мс/кадр</i></div>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <div class="ctl-row"><button class="btn btn-ghost" id="compLoad">⚠ Нагрузить main thread</button><span class="hint">busy-wait + 30 layout-анимаций</span></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 5.3 Haptics -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">5.3</span>
+      <h2>Партитура: движение + хаптик в одном таймлайне</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>Профи пишут motion и haptics как <b>одну партитуру</b>: touch-down — light tick, переход порога жеста — medium, snap/impact — heavy, settle — soft. На Android это <code>navigator.vibrate</code> / HapticFeedbackConstants, в iOS — CoreHaptics с кривыми интенсивности и резкости, в Unity — Handheld.Vibrate + паттерны через плагин.</p>
+        <p>Нажми Play: шайба пружинит в слот, а маркеры внизу показывают, в какие моменты бьёт моторчик (на поддерживающих устройствах — реально вибрирует).</p>
+        <div class="tip"><b>Секрет про:</b> хаптик должен опережать визуальный пик на 10–30 мс — тактильный сигнал доходит до мозга быстрее визуального, и «синхронным» ощущается именно упреждающий удар. Второе: триггерь хаптик по <b>порогам скорости и позиции</b>, а не по времени анимации — если пользователь схватил элемент mid-air, партитура должна уметь перескочить на нужную ноту. И всегда уважай системные настройки тактильной отдачи: это такой же контент-преференс, как громкость.</div>
+      </div>
+      <div class="demo" data-demo="d-haptics">
+        <div class="demo-stage">
+          <div class="haptic-stage">
+            <div class="hp-track"><div class="hp-slot" id="hpSlot"></div><div class="hp-puck" id="hpPuck">✦</div></div>
+            <div class="hp-timeline" id="hpTimeline">
+              <div class="hp-event" data-e="0"><u></u><b>touch</b><span>light</span></div>
+              <div class="hp-event" data-e="1"><u></u><b>threshold</b><span>medium</span></div>
+              <div class="hp-event" data-e="2"><u></u><b>impact</b><span>heavy</span></div>
+              <div class="hp-event" data-e="3"><u></u><b>settle</b><span>soft</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <div class="ctl-row"><button class="btn btn-primary" id="hpPlay">▶ Проиграть партитуру</button><label class="ctl check"><input type="checkbox" id="hpVib" checked> реальная вибрация (если есть)</label></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 5.4 Ghosting -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">5.4</span>
+      <h2>Фейковый motion blur: призраки вместо шейдеров</h2>
+      <span class="badge-live">live demo</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>Настоящий motion blur на мобильном GPU — роскошь. Индустрия десятилетиями жульничает: <b>ghosting</b> — объект рисуется ещё N раз в предыдущих позициях с падающей прозрачностью (30/20/10%). На скорости глаз сливает призраков в сплошной смазок. Второй вариант — трейл через fade-кадр: канвас не очищается, а закрашивается полупрозрачным фоном.</p>
+        <div class="tip"><b>Секрет про:</b> 3 призрака с шагом в 2 кадра выглядят лучше, чем 8 подряд — важен разрыв позиций, а не их количество. Призраки должны уменьшаться и «остывать» по цвету, иначе это выглядит как баг. В DOM тот же приём: 2–3 клона элемента с animation-delay −20/−40мс и opacity 0.15/0.08. А для быстрых снарядов вообще не рисуют blur — рисуют <b>растянутый по вектору скорости спрайт</b>: длина = скорость × 1.5 кадра. Дешевле некуда, читается идеально.</div>
+      </div>
+      <div class="demo" data-demo="d-ghost">
+        <div class="demo-stage stage-canvas">
+          <canvas id="ghostCanvas"></canvas>
+        </div>
+        <div class="demo-controls">
+          <label class="ctl check"><input type="checkbox" id="ghOn" checked> призраки (ghosting)</label>
+          <label class="ctl">Количество <input type="range" id="ghCount" min="1" max="10" step="1" value="4"><b id="ghCountV">4</b></label>
+          <label class="ctl">Скорость <input type="range" id="ghSpeed" min="0.3" max="3" step="0.1" value="1.2"><b id="ghSpeedV">1.2×</b></label>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 5.5 Reduced motion -->
+  <article class="lesson glass reveal">
+    <div class="lesson-head">
+      <span class="lesson-num">5.5</span>
+      <h2>Reduce Motion: не убивать, а переводить</h2>
+      <span class="badge-rare">знают &lt;10%</span>
+    </div>
+    <div class="lesson-body">
+      <div class="theory">
+        <p>До 30% пользователей включают «Уменьшение движения» — вестибулярные расстройства, мигрени, просто усталость от параллакса. Ошибка новичка — убрать анимации совсем: интерфейс теряет обратную связь и начинает ощущаться сломанным. Правильно — <b>заменить канал</b>: движение превращается в быстрый кросс-фейд (120мс), slide — в fade, параллакс — в статику. Смысл перехода сохраняется, вестибулярная нагрузка исчезает.</p>
+        <p>Переключи <b>«Reduce Motion» внизу сайдбара</b> — весь этот сайт мгновенно перестроится: волны, шейк и параллаксы погаснут, останутся честные фейды. Это не декорация курса, а живой пример системного подхода.</p>
+        <div class="tip"><b>Секрет про:</b> пиши <code>@media (prefers-reduced-motion: reduce)</code> как глобальный «предохранитель» (<code>*{animation-duration:.01ms!important;transition-duration:.01ms!important}</code>) и отдельно — осмысленные замены для ключевых переходов. В играх добавляй свою настройку «эффекты экрана» (шейк/вспышки) отдельно от системной — у игроков на iOS системный тумблер часто выключен, а укачивает их от вашего шейка. И помни: вспышки чаще 3 Гц — это уже не вкус, а фотосенситивный риск; существуют стандарты (WCAG 2.3), и студию могут реально по ним проверить.</div>
+      </div>
+    </div>
+  </article>
+
+  <div class="practice glass reveal">
+    <h3>🎯 Практика модуля 5</h3>
+    <ol>
+      <li>Профилируй свою анимацию: DevTools → Performance. Найди кадры дороже 8.3мс и перенеси виновников на transform/opacity.</li>
+      <li>Напиши haptic-партитуру для одного жеста (drag→snap) с упреждением визуального пика на 20мс.</li>
+      <li>Прогони продукт с включённым Reduce Motion и исправь всё, что потеряло обратную связь.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= VAULT ================= -->
+<section class="page" data-route="vault">
+  <header class="module-head">
+    <div class="mh-kicker reveal">ХРАНИЛИЩЕ · RARE COMPONENTS</div>
+    <h1 class="reveal">14 элементов, о которых знает &lt;10%</h1>
+    <p class="mh-lead reveal">Коллекция интерактивных UI-элементов с характером: каждый можно потрогать, а код — забрать. Это не «кнопки из туториалов», а приёмы из продакшена студий, делающих фичеренные приложения и игры. Работают на чистом HTML/CSS/JS — переносимы в любой движок как паттерны.</p>
+  </header>
+
+  <div class="vault-grid">
+
+    <article class="vault-item glass reveal">
+      <div class="vi-head"><span class="vi-rare">&lt;10%</span><h4>Магнитная кнопка с жидким заполнением</h4></div>
+      <div class="vi-demo" data-demo="v-magnet"><div class="vi-pad"><button class="v-magnet" id="vMagnet"><span class="vm-fill"></span><span class="vm-label">Купить</span></button></div></div>
+      <p class="vi-desc">Заполнение «наливается» из точки входа курсора, корпус притягивается к pointer. Для CTA и витрин.</p>
+      <button class="btn-code" type="button">⟨/⟩ Код</button>
+      <script type="text/template" class="snippet">
+.magnet{position:relative;overflow:hidden;border-radius:18px;
+  transition:transform .5s cubic-bezier(.22,1.4,.36,1)}
+.magnet .fill{position:absolute;inset:auto;width:220%;aspect-ratio:1;
+  left:var(--x);top:var(--y);border-radius:50%;background:linear-gradient(135deg,#2dd4bf,#8b5cf6);
+  transform:translate(-50%,-50%) scale(0);transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.magnet:hover .fill{transform:translate(-50%,-50%) scale(1)}
+
+// магнетизм: слой корпуса 0.3, слой текста 0.5
+zone.addEventListener('pointermove',e=>{
+  const d = dist(e, rect); if(d>R_OUT) return release();
+  const f = 1-d/R_IN;                       // 0..1 с гистерезисом
+  btn.style.transform = `translate(${dx*0.3*f}px,${dy*0.3*f}px)`;
+  label.style.transform = `translate(${dx*0.5*f}px,${dy*0.5*f}px)`;
+});                                        // возврат — пружиной, не transition
+      </script>
+    </article>
+
+    <article class="vault-item glass reveal">
+      <div class="vi-head"><span class="vi-rare">&lt;10%</span><h4>Gooey-переключатель</h4></div>
+      <div class="vi-demo" data-demo="v-gooey"><div class="vi-pad"><label class="v-goo"><input type="checkbox" id="vGooInput"><span class="vg-track"><span class="vg-tail"></span><span class="vg-knob"></span></span></label></div></div>
+      <p class="vi-desc">Капля тянется и «отлипает» — SVG-фильтр blur+contrast сваривает два круга в жидкость. Настройки, режимы, тумблеры.</p>
+      <button class="btn-code" type="button">⟨/⟩ Код</button>
+      <script type="text/template" class="snippet">
+&lt;svg width="0" height="0"&gt;&lt;filter id="goo"&gt;
+  &lt;feGaussianBlur in="SourceGraphic" stdDeviation="5" result="b"/&gt;
+  &lt;feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8"/&gt;
+&lt;/filter&gt;&lt;/svg&gt;
+
+.vg-track{filter:url(#goo)}           /* весь трек — в жидкость */
+.vg-knob{transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
+.vg-tail{transition:transform .45s cubic-bezier(.6,-0.4,.3,1.4),
+        width .3s}                    /* хвост догоняет каплю */
+input:checked ~ .vg-track .vg-knob{transform:translateX(34px)}
+      </script>
+    </article>
+
+    <article class="vault-item glass reveal">
+      <div class="vi-head"><span class="vi-rare">база+</span><h4>Дышащий скелетон с shimmer</h4></div>
+      <div class="vi-demo" data-demo="v-skeleton"><div class="vi-pad skel-pad"><div class="v-skel"><span class="sk-ava"></span><span class="sk-l1"></span><span class="sk-l2"></span><span class="sk-l3"></span></div></div></div>
+      <p class="vi-desc">Два слоя жизни: дыхание (opacity 1.4с) + пробегающий блик. Загрузка, которая выглядит живой, а не сломанной.</p>
+      <button class="btn-code" type="button">⟨/⟩ Код</button>
+      <script type="text/template" class="snippet">
+.sk{background:rgba(255,255,255,.08);border-radius:8px;position:relative;
+  overflow:hidden;animation:breathe 1.6s ease-in-out infinite}
+.sk::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.22) 50%,transparent 70%);
+  transform:translateX(-100%);animation:shimmer 1.8s cubic-bezier(.16,1,.3,1) infinite}
+@keyframes breathe{50%{opacity:.55}}
+@keyframes shimmer{to{transform:translateX(100%)}}
+/* секрет: shimmer запускай с задержкой 400мс — мгновенная беготня
+   говорит «тормозит», а пауза — «загружается» */
+      </script>
+    </article>
+
+    <article class="vault-item glass reveal">
+      <div class="vi-head"><span class="vi-rare">&lt;10%</span><h4>Ripple с отскоком</h4></div>
+      <div class="vi-demo" data-demo="v-ripple"><div class="vi-pad"><button class="v-ripple" id="vRipple">Нажми меня</button></div></div>
+      <p class="vi-desc">Круг расходится из точки тапа не линейно, а с overshoot-отскоком на финале и двойным кольцом. Любые тач-цели.</p>
+      <button class="btn-code" type="button">⟨/⟩ Код</button>
+      <script type="text/template" class="snippet">
+btn.addEventListener('pointerdown',e=>{
+  const r = document.createElement('span'); r.className='ripple';
+  const x = e.clientX-rect.left, y = e.clientY-rect.top;
+  r.style.cssText = `left:${x}px;top:${y}px`;
+  btn.appendChild(r); setTimeout(()=>r.remove(),700);
+});
+.ripple{position:absolute;width:12px;aspect-ratio:1;border-radius:50%;
+  translate:-50% -50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,255,255,.5),transparent 70%);
+  animation:rip .65s cubic-bezier(.16,1.4,.3,1) forwards}
+@keyframes rip{to{scale:14;opacity:0}}
+/* секрет: scale, а не width/height — только композитор;
+   overshoot в кривой (1.4) даёт тот самый «щелчок» */
+      </script>
+    </article>
+
+    <article class="vault-item glass reveal">
+      <div class="vi-head"><span class="vi-rare">&lt;10%</span><h4>Одометр: слот-машина цифр</h4></div>
+      <div class="vi-demo" data-demo="v-odometer"><div class="vi-pad odo-pad"><div class="v-odo" id="vOdo"></div><button class="btn btn-ghost btn-sm" id="vOdoBtn">+60 монет</button></div></div>
+      <p class="vi-desc">Цифры крутятся барабанами, младшие разряды быстрее старших. Баланс, счёт, прогресс — везде, где число должно «расти».</p>
+      <button class="btn-code" type="button">⟨/⟩ Код</button>
+      <script type="text/template" class="snippet">
+&lt;div class="odo-digit"&gt;
+  &lt;div class="odo-col"&gt;0 1 2 ... 9 (стопкой)&lt;/div&gt;
+&lt;/div&gt;
+.odo-digit{height:1em;overflow:hidden}
+.odo-col{transition:transform .9s cubic-bezier(.16,1,.3,1)}
+function set(value){
+  [...String(value)].forEach((d,i)=>{
+    const col = cols[i];
+    col.style.transform = `translateY(-${d*10}%)`;
+    // секрет: задержка по разряду — младшие раньше
+    col.style.transitionDelay = `${(cols.length-i)*40}ms`;
+  });
+}
+/* при росте разрядности новый столбец въезжает scaleY 0→1,
+   старый уезжает — число буквально растёт вширь */
+      </script>
+    </article>
+
+    <article class="vault-item glass reveal">
+      <div class="vi-head"><span class="vi-rare">&lt;10%</span><h4>Жидкое кольцо прогресса</h4></div>
+      <div class="vi-demo" data-demo="v-ring"><div class="vi-pad ring-pad"><svg class="v-ring" viewBox="0 0 120 120" id="vRing"><defs><linearGradient id="rg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><circle class="rg-bg" cx="60" cy="60" r="50"/><circle class="rg-fg" cx="60" cy="60" r="50" id="rgFg"/><circle class="rg-tip" cx="60" cy="10" r="4.5" id="rgTip"/></svg><b class="ring-num" id="ringNum">0%</b><button class="btn btn-ghost btn-sm" id="ringBtn">▶</button></div></div>
+      <p class="vi-desc">Штрих растёт с overshoot, кончик светится и летит по орбите, число считает одометром. Загрузки, уровни, HP.</p>
+      <button class="btn-code" type="button">⟨/⟩ Код</button>
+      <script type="text/template" class="snippet">
+.rg-fg{fill:none;stroke:url(#rg1);stroke-width:8;stroke-linecap:round;
+  stroke-dasharray:314; stroke-dashoffset:314;      /* 2πr */
+  transform:rotate(-90deg);transform-origin:60px 60px;
+  transition:stroke-dashoffset 1.2s cubic-bezier(.16,1,.3,1);
+  filter:drop-shadow(0 0 6px rgba(45,212,191,.6))}
+.rg-tip{transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+function set(p){                                  // p: 0..1
+  fg.style.strokeDashoffset = 314*(1-p);
+  tip.style.transform = `rotate(${p*360}deg)`;    // орбита кончика
+  tip.style.transformOrigin = '60px 60px';
+}
+/* секрет: свечение — drop-shadow на штрихе, а не второй круг;
+   overshoot кривой даёт «плюх» жидкости в конце */
+      </script>
+    </article>
+
+    <article class="vault-item glass reveal">
+      <div class="vi-head"><span class="vi-rare">&lt;10%</span><h4>Резиновый pull-to-refresh</h4></div>
+      <div class="vi-demo" data-demo="v-pull"><div class="vi-pad pull-pad"><div class="v-pull" id="vPull"><div class="vp-spin" id="vpSpin">◌</div><div class="vp-content" id="vpContent"><i></i><i></i><i></i><i></i></div></div></div></div>
+      <p class="vi-desc">Тянешь вниз — контент сопротивляется (×0.45), спиннер надувается, после порога — «щелчок» и обновление. Ленты, списки.</p>
+      <button class="btn-code" type="button">⟨/⟩ Код</button>
+      <script type="text/template" class="snippet">
+// сопротивление: чем дальше тянешь, тем тяжелее
+const resisted = dy * 0.45 * (1 - Math.min(dy,400)/800);
+content.style.transform = `translateY(${resisted}px)`;
+spin.style.scale = 0.4 + resisted/THRESHOLD*0.6;
+spin.style.rotate = `${resisted*1.5}deg`;
+
+onRelease:
+  if (resisted > THRESHOLD){
+    snap(spin, THRESH_HEIGHT);          // пружина до рабочей точки
+    spin.animate({rotate:['0','360deg']},{iterations:Infinity});
+    refresh().then(()=> collapse());    // контент уезжает вверх пружиной
+  } else springBack();                  // rubber-возврат с wobble
+/* секрет: контент тянется в 2 раза слабее спиннера —
+   слои расходятся по скорости, рождая глубину */
+      </script>
+    </article>
+
+    <article class="vault-item glass reveal">
+      <div class="vi-head"><span class="vi-rare">&lt;10%</span><h4>Tilt-карточка с бликом и параллаксом</h4></div>
+      <div class="vi-demo" data-demo="v-tilt"><div class="vi-pad"><div class="v-tilt glass" id="vTilt"><span class="vt-glare"></span><span class="vt-ico">🏆</span><b>Award Card</b><small>наведи курсор</small></div></div></div>
+      <p class="vi-desc">3D-наклон к курсору, блик скользит по стеклу, слои контента разъезжаются по Z. Карточки товаров, ачивки, персонажи.</p>
+      <button class="btn-code" type="button">⟨/⟩ Код</button>
+      <script type="text/template" class="snippet">
+.card{transform-style:preserve-3d;
+  transition:transform .6s cubic-bezier(.16,1,.3,1)} /* только для выхода */
+card.onpointermove = e=>{
+  const rx = (0.5-py)*14, ry = (px-0.5)*14;         // ±7°
+  card.style.transition='none';                     // жест = 1:1
+  card.style.transform =
+    `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+  glare.style.background = `radial-gradient(circle at
+    ${px*100}% ${py*100}%, rgba(255,255,255,.35), transparent 55%)`;
+  ico.style.transform = `translateZ(34px) translate(${dx*6}px,${dy*6}px)`;
+};
+card.onpointerleave = ()=>{ card.style.transition=''; reset(); }
+/* секрет: transition включён ТОЛЬКО на выход — вход живёт 1:1 за рукой */
+      </script>
+    </article>
+
+    <article class="vault-item glass reveal">
+      <div class="vi-head"><span class="vi-rare">&lt;10%</span><h4>Пружинные тосты со стеком</h4></div>
+      <div class="vi-demo" data-demo="v-toast"><div class="vi-pad toast-pad"><button class="btn btn-primary btn-sm" id="vToastBtn">Показать тост</button><div class="v-toasts" id="vToasts"></div></div></div>
+      <p class="vi-desc">Въезд с overshoot, стек ужимает предыдущих (scale + blur), уход — по прогресс-линии. Уведомления, снеки, ошибки.</p>
+      <button class="btn-code" type="button">⟨/⟩ Код</button>
+      <script type="text/template" class="snippet">
+toast.animate([
+  {transform:'translateY(40px) scale(.8)',opacity:0,filter:'blur(6px)'},
+  {transform:'translateY(-4px) scale(1.03)',opacity:1,filter:'blur(0)',offset:.7},
+  {transform:'none',scale:1}
+],{duration:520,easing:'cubic-bezier(.2,.9,.3,1)'});
+
+function restack(){
+  toasts.forEach((t,i)=>{
+    t.style.transform=`translateY(${-i*8}px) scale(${1-i*.05})`;
+    t.style.filter=`blur(${i*1.5}px)`;      // глубина стека
+    t.style.zIndex=100-i;
+  });
+}
+/* уход: progress-line шириной 100%→0 за lifetime;
+   hover — пауза линии (animation-play-state) */
+      </script>
+    </article>
+
+    <article class="vault-item glass reveal">
+      <div class="vi-head"><span class="vi-rare">база+</span><h4>Бургер → крестик морфом</h4></div>
+      <div class="vi-demo" data-demo="v-burger"><div class="vi-pad"><button class="v-burger" id="vBurger" aria-label="меню"><span></span><span></span><span></span></button></div></div>
+      <p class="vi-desc">Линии схлопываются в крест через ротацию со сдвигом фаз: средняя гаснет scaleX, крайние доезжают и только потом вращаются.</p>
+      <button class="btn-code" type="button">⟨/⟩ Код</button>
+      <script type="text/template" class="snippet">
+.v-burger span{display:block;height:2px;width:26px;background:#fff;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .2s}
+.v-burger span+span{margin-top:6px}
+/* фаза 1: крайние едут к центру, фаза 2: вращение — через delay */
+.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.open span:nth-child(2){transform:scaleX(0);opacity:0;
+  transition-duration:.15s}
+.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+/* секрет: одна transform-цепочка вместо двух анимаций;
+   back-easing (1.56) даёт «щелчок» в финале */
+      </script>
+    </article>
+
+    <article class="vault-item glass reveal">
+      <div class="vi-head"><span class="vi-rare">&lt;10%</span><h4>Радиальное меню-веер</h4></div>
+      <div class="vi-demo" data-demo="v-radial"><div class="vi-pad radial-pad"><div class="v-radial" id="vRadial"><button class="vr-core">✦</button><button class="vr-item" style="--a:-90deg">🎨</button><button class="vr-item" style="--a:-18deg">⚡</button><button class="vr-item" style="--a:54deg">🎵</button><button class="vr-item" style="--a:126deg">📷</button><button class="vr-item" style="--a:198deg">💬</button></div></div></div>
+      <p class="vi-desc">Лучи вылетают по дуге со стаггером и overshoot, возврат — в обратном порядке и быстрее. Быстрые действия, эмот-колесо.</p>
+      <button class="btn-code" type="button">⟨/⟩ Код</button>
+      <script type="text/template" class="snippet">
+.vr-item{position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%) rotate(var(--a)) translateY(0) scale(.2);
+  opacity:0;transition:transform .5s cubic-bezier(.34,1.8,.5,1),opacity .3s;
+  transition-delay:calc(var(--i)*45ms)}
+.open .vr-item{opacity:1;
+  transform:translate(-50%,-50%) rotate(var(--a)) translateY(-74px)
+             scale(1) rotate(calc(-1*var(--a)))} /* анти-ротация иконки */
+.open .vr-item{transition-delay:calc(var(--i)*45ms)}
+.vr-item{transition-delay:calc((4 - var(--i))*30ms)} /* выход быстрее */
+/* секрет: overshoot 1.8 + анти-ротация, чтобы иконки
+   не кувыркались вместе с лучом */
+      </script>
+    </article>
+
+    <article class="vault-item glass reveal">
+      <div class="vi-head"><span class="vi-rare">&lt;10%</span><h4>Резиновый слайдер с wobble</h4></div>
+      <div class="vi-demo" data-demo="v-rubber"><div class="vi-pad"><div class="v-rubber" id="vRubber"><div class="vr-track"><div class="vr-fill" id="vrFill"></div><div class="vr-knob" id="vrKnob"></div></div></div></div></div>
+      <p class="vi-desc">За пределами — резина, при отпускании — пружина с осцилляцией. Громкость, яркость, любые «опасные» значения.</p>
+      <button class="btn-code" type="button">⟨/⟩ Код</button>
+      <script type="text/template" class="snippet">
+// rubber-band за краями
+function rubber(dx, w){ return dx>0 ? dx : w*(1-Math.exp(dx/w*0.55)); }
+onMove: v = clamp(rubber(raw, width)); knob.style.transform=`translateX(${v}px)`;
+onRelease:
+  // пружина к границе, если перегнули
+  spring({from:v, to:clamped, k:500, c:18, m:1}, x=>{
+    knob.style.transform=`translateX(${x}px)`;
+  });
+/* секрет: ручка растягивается по скорости —
+   scaleX = 1+min(|v|*.0015,.25), scaleY = 1/scaleX (объём!) */
+      </script>
+    </article>
+
+    <article class="vault-item glass reveal">
+      <div class="vi-head"><span class="vi-rare">&lt;10%</span><h4>Стеклянный реveal заголовка</h4></div>
+      <div class="vi-demo" data-demo="v-text"><div class="vi-pad"><h3 class="v-text" id="vText" data-text="LIQUID MOTION"></h3><button class="btn btn-ghost btn-sm" id="vTextBtn">↺ Replay</button></div></div>
+      <p class="vi-desc">Буквы выплывают из blur+clip снизу вверх волной. Заголовки экранов, титры, splash.</p>
+      <button class="btn-code" type="button">⟨/⟩ Код</button>
+      <script type="text/template" class="snippet">
+// сплит на span'ы, у каждого --i
+.char{display:inline-block;
+  animation:charIn .7s cubic-bezier(.16,1,.3,1) both;
+  animation-delay:calc(var(--i)*38ms)}
+@keyframes charIn{
+  from{opacity:0;filter:blur(14px);
+       transform:translateY(.55em) scaleY(1.35);
+       clip-path:inset(0 0 100% 0)}
+  60%{clip-path:inset(0 0 -20% 0)}
+  to{opacity:1;filter:blur(0);transform:none;clip-path:inset(0 0 -20% 0)}
+}
+/* секрет: blur + clip-path вместе дают «проявку стекла»;
+   scaleY 1.35→1 имитирует растяжение жидкости */
+      </script>
+    </article>
+
+    <article class="vault-item glass reveal">
+      <div class="vi-head"><span class="vi-rare">&lt;10%</span><h4>Aurora-фон: живое дыхание сцены</h4></div>
+      <div class="vi-demo" data-demo="v-aurora"><div class="vi-pad"><div class="v-aurora" id="vAurora"><i></i><i></i><i></i></div></div></div>
+      <p class="vi-desc">Три блюр-блоба на длинных несовпадающих циклах + зерно. Фон, который «дышит» — основа всего этого сайта.</p>
+      <button class="btn-code" type="button">⟨/⟩ Код</button>
+      <script type="text/template" class="snippet">
+.aurora i{position:absolute;border-radius:50%;
+  filter:blur(90px);opacity:.5;mix-blend-mode:screen;
+  animation:drift 24s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:42vw;height:42vw;background:#2dd4bf}
+.aurora i:nth-child(2){width:36vw;height:36vw;background:#8b5cf6;
+  animation-duration:31s;animation-delay:-7s}
+.aurora i:nth-child(3){width:30vw;height:30vw;background:#f472b6;
+  animation-duration:27s;animation-delay:-13s}
+@keyframes drift{to{transform:translate(18vw,-12vh) scale(1.25)}}
+/* секреты: несоизмеримые длительности (24/31/27с) убивают
+   ощущение цикла; зерно (feTurbulence, opacity .05) прячет бандинг;
+   mix-blend:screen даёт свечение на стыках */
+      </script>
+    </article>
+
+  </div>
+
+  <div class="practice glass reveal">
+    <h3>🏁 Финал курса</h3>
+    <p>Ты собрал полный стек motion-инженерии 2026: ДНК движения → juice-обратная связь → пространственный UI → award-winning переходы → инженерия восприятия + хранилище готовых элементов. Дальше — одно правило: <b>каждое действие пользователя должно получать ответ минимум в двух каналах</b> (визуал + движение/звук/хаптик). Применяй, комбинируй, ломай рамки. — Motion Designer Lv.99</p>
+  </div>
+</section>
+
+</main>
+
+<div class="page-fx" id="pageFx" aria-hidden="true"></div>
+
+<script src="js/app.js"></script>
+<script src="js/demos-a.js"></script>
+<script src="js/demos-b.js"></script>
+<script src="js/demos-c.js"></script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 928" role="img" aria-labelledby="title desc"><title id="title">Signal Arena skill icons — 32 px</title><desc id="desc">All forty hybrid white-fill skill icons, grouped across four card colors and shown at 32 px.</desc><rect width="100%" height="100%" fill="#07131c"/>
+  <g transform="translate(8 8)">
+    <rect width="160" height="100" rx="14" fill="#2e7f5c" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#2e7f5c" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" d="M5 40h9v-9h9v-9h9v-9h7v27H5z"/>
+<path d="M8 27 17 20l8 2 9-9 7 1" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c01 · Market Structure</text>
+  </g>
+  <g transform="translate(184 8)">
+    <rect width="160" height="100" rx="14" fill="#2e7f5c" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#2e7f5c" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="8" width="28" height="35" rx="3"/>
+<rect x="21" y="18" width="22" height="25" rx="2" fill="#ffffff" stroke="none"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c02 · Higher Timeframe</text>
+  </g>
+  <g transform="translate(360 8)">
+    <rect width="160" height="100" rx="14" fill="#2e7f5c" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#2e7f5c" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="29" width="9" height="13" rx="1" fill="#ffffff" stroke="none"/>
+<rect x="18" y="22" width="9" height="20" rx="1" fill="#ffffff" stroke="none"/>
+<rect x="30" y="13" width="9" height="29" rx="1" fill="#ffffff" stroke="none"/>
+<path d="m34 10 4 4 8-8" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c03 · Volume Confirmation</text>
+  </g>
+  <g transform="translate(536 8)">
+    <rect width="160" height="100" rx="14" fill="#2e7f5c" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#2e7f5c" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="8" width="31" height="5" rx="2" fill="#ffffff" stroke="none"/>
+<rect x="6" y="22" width="25" height="5" rx="2" fill="#ffffff" stroke="none"/>
+<rect x="6" y="36" width="35" height="5" rx="2" fill="#ffffff" stroke="none"/>
+<path d="M8 46c7-2 8-15 15-15 8 0 8-5 18-13M35 18h6v6" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c04 · Liquidity Map</text>
+  </g>
+  <g transform="translate(712 8)">
+    <rect width="160" height="100" rx="14" fill="#2e7f5c" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#2e7f5c" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" d="M5 27h8l5-15 7 27 6-19 5 8 7-2v17H5z"/>
+<path d="M6 27h7l5-15 7 27 6-19 5 8 7-2" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c05 · Volatility Context</text>
+  </g>
+  <g transform="translate(8 124)">
+    <rect width="160" height="100" rx="14" fill="#2e7f5c" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#2e7f5c" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" fill-rule="evenodd" d="M17 12a11 11 0 1 0 0 22 11 11 0 0 0 0-22zM17 17a6 6 0 1 0 0 12 6 6 0 0 0 0-12zM31 12a11 11 0 1 0 0 22 11 11 0 0 0 0-22zM31 17a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"/>
+<path d="M35 39 39 43 47 33" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c06 · Correlation Check</text>
+  </g>
+  <g transform="translate(184 124)">
+    <rect width="160" height="100" rx="14" fill="#2e7f5c" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#2e7f5c" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" fill-rule="evenodd" d="M5 33a19 19 0 0 1 38 0H5zM11 33a13 13 0 0 1 26 0H11z"/>
+<path fill="#ffffff" stroke="none" d="M21 33 32 19l4 4-9 13z"/>
+<path d="M6 40h36" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c07 · Derivatives Pulse</text>
+  </g>
+  <g transform="translate(360 124)">
+    <rect width="160" height="100" rx="14" fill="#2e7f5c" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#2e7f5c" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" fill-rule="evenodd" d="M6 7h32l5 5v30H6zM12 16h23v3H12zM12 23h17v3H12zM12 30h23v3H12z"/>
+<path d="M43 22 47 26 43 30M47 26h-7" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c08 · News Context</text>
+  </g>
+  <g transform="translate(536 124)">
+    <rect width="160" height="100" rx="14" fill="#2e7f5c" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#2e7f5c" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" d="M6 12a5 5 0 0 1 5-5h22a5 5 0 0 1 5 5v12a5 5 0 0 1-5 5H20L10 36v-7a5 5 0 0 1-4-5z"/>
+<path d="M31 34h5a5 5 0 0 1 5 5v5H28l-6 4" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c09 · Social Sentiment</text>
+  </g>
+  <g transform="translate(712 124)">
+    <rect width="160" height="100" rx="14" fill="#2e7f5c" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#2e7f5c" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" fill-rule="evenodd" d="M22 6a18 18 0 1 0 0 36 18 18 0 0 0 0-36zM5 24h34v3H5zM21 6h3v36h-3z"/>
+<path d="M34 8l10 2-5 8" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c10 · Macro Context</text>
+  </g>
+  <g transform="translate(8 240)">
+    <rect width="160" height="100" rx="14" fill="#2e7f5c" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#2e7f5c" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="20" width="11" height="11" rx="2" fill="#ffffff" stroke="none"/>
+<rect x="20" y="20" width="11" height="11" rx="2" fill="#ffffff" stroke="none"/>
+<rect x="35" y="20" width="11" height="11" rx="2" fill="#ffffff" stroke="none"/>
+<path d="M16 25h4M31 25h4M39 14l7 0-4-4" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c11 · On-chain Flow</text>
+  </g>
+  <g transform="translate(184 240)">
+    <rect width="160" height="100" rx="14" fill="#2e7f5c" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#2e7f5c" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" d="M24 5v19h19A19 19 0 0 0 24 5z"/>
+<path d="M20 10a19 19 0 1 0 19 19H20z"/>
+<path d="M24 5v19h19" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c12 · Tokenomics Review</text>
+  </g>
+  <g transform="translate(360 240)">
+    <rect width="160" height="100" rx="14" fill="#2e7f5c" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#2e7f5c" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" fill-rule="evenodd" d="M6 11h36v33H6zM6 20h36v3H6zM14 7h3v8h-3zM31 7h3v8h-3zM18 35v-4a6 6 0 0 1 12 0v4h-3v-4a3 3 0 0 0-6 0v4z"/>
+<rect x="16" y="35" width="16" height="9" rx="2" fill="#ffffff" stroke="none"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c13 · Unlock Calendar</text>
+  </g>
+  <g transform="translate(536 240)">
+    <rect width="160" height="100" rx="14" fill="#2e7f5c" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#2e7f5c" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" fill-rule="evenodd" d="M5 7h23v34H5zM10 12h13v4H10zM10 21h13v4H10zM10 30h13v4H10z"/>
+  <path d="M28 16h5M28 25h5M28 34h5" stroke-width="2.75"/>
+  <path d="M36 13v7M36 28v7M36 13h7M36 35h7" stroke-width="2.75"/>
+  <circle cx="42" cy="13" r="3" fill="#ffffff" stroke="none"/>
+  <circle cx="42" cy="35" r="3" fill="#ffffff" stroke="none"/>
+  <path fill="#ffffff" stroke="none" d="M35 20h7l4 7-4 7h-7l-4-7zM37 24h3v5h-3zM42 24h1v5h-1z"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c14 · Infrastructure Risk</text>
+  </g>
+  <g transform="translate(712 240)">
+    <rect width="160" height="100" rx="14" fill="#2e7f5c" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#2e7f5c" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" fill-rule="evenodd" d="M8 5h25l7 7v31H8zM33 5v9h7M14 20h18v2H14zM14 27h13v2H14zM14 34h8v2H14zM29 35l4 4 8-10 2 2-10 13-7-7z"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c15 · Source Quality</text>
+  </g>
+  <g transform="translate(8 356)">
+    <rect width="160" height="100" rx="14" fill="#d0b24a" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#d0b24a" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M31 6h12v36H31" stroke-width="2"/>
+<path fill="#ffffff" stroke="none" d="M5 24h28l-8-8h8l11 11-11 11h-8l8-8H5z"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c16 · Enter Now</text>
+  </g>
+  <g transform="translate(184 356)">
+    <rect width="160" height="100" rx="14" fill="#d0b24a" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#d0b24a" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="12" width="38" height="5" rx="2" fill="#ffffff" stroke="none"/>
+<path d="M8 17v19h13c8 0 8-13 16-13h6M36 23l7 0-4-4" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c17 · Wait for Retest</text>
+  </g>
+  <g transform="translate(360 356)">
+    <rect width="160" height="100" rx="14" fill="#d0b24a" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#d0b24a" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" fill-rule="evenodd" d="M13 9h29v30H13zM20 18h17v12H20z"/>
+<path d="M4 24h18M12 17l8 7-8 7" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c18 · Define Entry Zone</text>
+  </g>
+  <g transform="translate(536 356)">
+    <rect width="160" height="100" rx="14" fill="#d0b24a" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#d0b24a" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 37 15 27l8 6 8-11" stroke-width="2"/>
+<circle cx="31" cy="22" r="4" fill="#ffffff" stroke="none"/>
+<path fill="#ffffff" stroke="none" d="M36 29h6l4-4 2 2-4 4 4 4-2 2-4-4-4 4-2-2 4-4z"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c19 · Define Invalidation</text>
+  </g>
+  <g transform="translate(712 356)">
+    <rect width="160" height="100" rx="14" fill="#d0b24a" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#d0b24a" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="34" width="30" height="6" rx="2" fill="#ffffff" stroke="none"/>
+<path d="M9 34V25h8v9M21 34V18h8v16" stroke-width="2"/>
+<path fill="#ffffff" stroke="none" fill-rule="evenodd" d="M36 25h7l3 3v6l-3 3h-7l-3-3v-6zM36 31h7v2h-7z"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c20 · Set Structural Stop</text>
+  </g>
+  <g transform="translate(8 472)">
+    <rect width="160" height="100" rx="14" fill="#d0b24a" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#d0b24a" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" fill-rule="evenodd" d="M24 5a19 19 0 1 0 0 38 19 19 0 0 0 0-38zM24 17a7 7 0 1 1 0 14 7 7 0 0 1 0-14z"/>
+<path d="M6 43 20 29M6 29v14h14" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c21 · Target Liquidity</text>
+  </g>
+  <g transform="translate(184 472)">
+    <rect width="160" height="100" rx="14" fill="#d0b24a" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#d0b24a" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="27" width="10" height="15" rx="2" fill="#ffffff" stroke="none"/>
+<rect x="30" y="17" width="10" height="25" rx="2" fill="#ffffff" stroke="none"/>
+<path d="M5 44h38M5 12h38M13 12v7M35 12v7" stroke-width="2"/>
+<text x="21" y="38" fill="#ffffff" stroke="none" font-family="sans-serif" font-size="12" font-weight="700">R</text></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c22 · Minimum R Multiple</text>
+  </g>
+  <g transform="translate(360 472)">
+    <rect width="160" height="100" rx="14" fill="#d0b24a" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#d0b24a" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="30" width="9" height="12" rx="1" fill="#ffffff" stroke="none"/>
+<rect x="20" y="22" width="9" height="20" rx="1" fill="#ffffff" stroke="none"/>
+<rect x="33" y="14" width="9" height="28" rx="1" fill="#ffffff" stroke="none"/>
+<path d="M35 9h8l-3-3M43 9l-8 8" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c23 · Scale Out</text>
+  </g>
+  <g transform="translate(536 472)">
+    <rect width="160" height="100" rx="14" fill="#d0b24a" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#d0b24a" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" d="M15 42V22a4 4 0 0 1 8 0v8V13a4 4 0 0 1 8 0v17-13a4 4 0 0 1 8 0v14-9a4 4 0 0 1 8 0v13c0 6-5 9-11 9H24c-5 0-9-3-9-7z"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c24 · No Trade Is a Decision</text>
+  </g>
+  <g transform="translate(712 472)">
+    <rect width="160" height="100" rx="14" fill="#4c6180" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#4c6180" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" fill-rule="evenodd" d="M7 12h34v25H7zM13 19h22v7H13zM13 29h10v3H13z"/>
+<path d="M28 39 33 44 42 32" stroke-width="2.75"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c25 · Evidence Only</text>
+  </g>
+  <g transform="translate(8 588)">
+    <rect width="160" height="100" rx="14" fill="#4c6180" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#4c6180" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" d="M6 18h13l12-7v26l-12-7H6z"/>
+<path d="M38 12v24M44 12v24M36 8l10 32" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c26 · Noise Quarantine</text>
+  </g>
+  <g transform="translate(184 588)">
+    <rect width="160" height="100" rx="14" fill="#4c6180" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#4c6180" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" fill-rule="evenodd" d="M24 4 42 11v13c0 11-7 18-18 21C15 42 8 35 8 24V11zM24 14v13h-2l2 5 2-5h-2V14zM24 34v2h2v-2z"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c27 · Risk First Mode</text>
+  </g>
+  <g transform="translate(360 588)">
+    <rect width="160" height="100" rx="14" fill="#4c6180" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#4c6180" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" fill-rule="evenodd" d="M24 5a19 19 0 1 0 0 38 19 19 0 0 0 0-38zM18 17c0-5 10-6 10 0 0 4-5 5-5 9h3c0-2 5-4 5-9 0-9-15-9-15 0zM23 30v3h3v-3zM7 7l34 34-2 2L5 9z"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c28 · No Confirmation No Trade</text>
+  </g>
+  <g transform="translate(536 588)">
+    <rect width="160" height="100" rx="14" fill="#4c6180" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#4c6180" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="30" height="31" rx="2"/>
+  <path d="M10 13h20" stroke-width="2"/>
+  <rect x="10" y="28" width="5" height="6" rx="1" fill="#ffffff" stroke="none"/>
+  <rect x="18" y="23" width="5" height="11" rx="1" fill="#ffffff" stroke="none"/>
+  <rect x="26" y="17" width="5" height="17" rx="1" fill="#ffffff" stroke="none"/>
+  <path fill="#ffffff" stroke="none" d="M31 37h5l4-5 2 2-6 8-7-7z"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c29 · Higher Timeframe Check</text>
+  </g>
+  <g transform="translate(712 588)">
+    <rect width="160" height="100" rx="14" fill="#4c6180" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#4c6180" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 13 19 20 27 27 35" stroke-width="2.75"/>
+<circle cx="27" cy="35" r="4" fill="#ffffff" stroke="none"/>
+<path d="M27 35c6 0 7-13 15-18M36 17h7v7" stroke-width="2.75"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c30 · After a Loss</text>
+  </g>
+  <g transform="translate(8 704)">
+    <rect width="160" height="100" rx="14" fill="#4c6180" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#4c6180" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" d="M21 14h6v21h-6zM8 21h32v5H8zM5 42h38v4H5z"/>
+<path d="m10 26-6 12h12zM38 26l-6 12h12zM16 42a8 8 0 0 1 16 0" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c31 · Discipline over Profit</text>
+  </g>
+  <g transform="translate(184 704)">
+    <rect width="160" height="100" rx="14" fill="#4c6180" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#4c6180" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="7" width="23" height="35" rx="2" fill="#ffffff" stroke="none"/>
+<path d="M31 7a6 6 0 0 1 6 6v29M6 42h36M26 24h17M37 17l7 7-7 7" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c32 · Out of Market Is Normal</text>
+  </g>
+  <g transform="translate(360 704)">
+    <rect width="160" height="100" rx="14" fill="#4c6180" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#4c6180" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" fill-rule="evenodd" d="M8 5h34v38H8zM14 14h22v2H14zM14 21h22v2H14zM14 28h15v2H14zM6 6l36 36 2-2L8 4z"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c33 · News Is Not a Signal</text>
+  </g>
+  <g transform="translate(536 704)">
+    <rect width="160" height="100" rx="14" fill="#c56861" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#c56861" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" d="M5 28c6-12 12 12 18 0s12 5 18-3v12H5z"/>
+<rect x="35" y="25" width="9" height="12" rx="2" fill="#ffffff" stroke="none"/>
+<path d="M5 40h39" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c34 · Wait for Stabilization</text>
+  </g>
+  <g transform="translate(712 704)">
+    <rect width="160" height="100" rx="14" fill="#c56861" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#c56861" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" d="M6 38 19 25l7 7 12-18 4 3-15 23-8-7-10 10z"/>
+<path d="m35 14h9l-1 9M7 7l35 35" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c35 · Do Not Chase</text>
+  </g>
+  <g transform="translate(8 820)">
+    <rect width="160" height="100" rx="14" fill="#c56861" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#c56861" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" d="m39 12 8 0v8l-4-4a15 15 0 1 0 3 16l4 2a19 19 0 1 1-4-22z"/>
+<path d="M7 7l34 34" stroke-width="2.5"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c36 · Avoid Revenge Trading</text>
+  </g>
+  <g transform="translate(184 820)">
+    <rect width="160" height="100" rx="14" fill="#c56861" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#c56861" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" fill-rule="evenodd" d="M7 16h9v26H7zM20 23h9v19h-9zM33 30h9v12h-9zM6 7l36 36 2-2L8 5z"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c37 · No Averaging without a Plan</text>
+  </g>
+  <g transform="translate(360 820)">
+    <rect width="160" height="100" rx="14" fill="#c56861" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#c56861" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" d="M6 7h36v6H6zM8 13h3v4H8zM37 13h3v4h-3z"/>
+  <path d="M8 18h32" stroke-width="2"/>
+  <rect x="10" y="22" width="7" height="16" rx="1" fill="#ffffff" stroke="none"/>
+  <rect x="21" y="25" width="7" height="13" rx="1" fill="#ffffff" stroke="none"/>
+  <rect x="32" y="28" width="7" height="10" rx="1" fill="#ffffff" stroke="none"/>
+  <path d="M6 41h36" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c38 · Risk Cap</text>
+  </g>
+  <g transform="translate(536 820)">
+    <rect width="160" height="100" rx="14" fill="#c56861" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#c56861" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" fill-rule="evenodd" d="M24 5a19 19 0 1 0 0 38 19 19 0 0 0 0-38zM15 24l6 6 13-14 3 3-16 17-9-9z"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c39 · Confidence Check</text>
+  </g>
+  <g transform="translate(712 820)">
+    <rect width="160" height="100" rx="14" fill="#c56861" stroke="#ffffff" stroke-opacity=".32"/>
+    <circle cx="80" cy="37" r="20" fill="#c56861" stroke="#ffffff" stroke-width="2"/>
+    <g transform="translate(66.8 23.8) scale(0.55)" color="#ffffff" fill="none" stroke="#ffffff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path fill="#ffffff" stroke="none" d="M6 35h36v7H6zM11 25h7v10h-7zM21 20h7v15h-7zM31 25h7v10h-7zM9 18h30v5H9z"/>
+  <path d="M7 15a17 17 0 0 1 34 0M7 15h5M36 15h5" stroke-width="2.75"/>
+  <path d="M17 29h2M27 24h2M37 29h2" stroke="#ffffff" stroke-width="2"/></g>
+    <text x="80" y="91" fill="#ffffff" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">c40 · Preserve the System</text>
+  </g>
+</svg>
